@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APA Style Practice | PSY 355</title>
+<style>
+  :root {
+    --navy: #1F3B57;
+    --teal: #2A7F7F;
+    --teal-light: #eaf5f5;
+    --orange: #E8871E;
+    --orange-light: #fdf1e6;
+    --green: #1F6B4E;
+    --green-light: #e7f5ed;
+    --gray-border: #d9d9d9;
+    --gray-alt: #f7fafa;
+    --text: #222;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+    color: var(--text);
+    background: #fff;
+  }
+  header {
+    background-color: var(--navy);
+    color: #fff;
+    padding: 24px 28px;
+    border-radius: 0 0 8px 8px;
+    margin: 0 -16px 24px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 24px; }
+  header p { margin: 0; color: #d7e2ec; font-size: 15px; }
+
+  .intro {
+    background: var(--gray-alt);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .intro p { margin: 0 0 8px; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .category-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .category-card:hover { border-color: var(--teal); }
+  .category-card h2 { margin: 0 0 6px; font-size: 19px; color: var(--navy); }
+  .category-card p { margin: 0 0 14px; font-size: 14px; color: #555; line-height: 1.5; }
+  .category-card .cat-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .category-card .progress-track {
+    flex: 1;
+    height: 8px;
+    background: var(--gray-alt);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .category-card .progress-fill {
+    height: 100%;
+    background: var(--teal);
+  }
+  .category-card .cat-label { font-size: 13px; font-weight: bold; color: var(--navy); white-space: nowrap; }
+  .category-card .start-btn {
+    margin-top: 14px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 9px 20px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .back-row { margin-bottom: 16px; }
+  .back-btn {
+    background: none;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--navy);
+  }
+  .back-btn:hover { background: var(--gray-alt); }
+
+  .progress-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 10px;
+    background: var(--gray-alt);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--teal);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  #progress-label { font-size: 14px; font-weight: bold; color: var(--navy); white-space: nowrap; }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: #fff;
+    border: 1px solid var(--gray-border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--navy);
+  }
+  .filter-btn.active {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+  }
+
+  .card {
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .card-head {
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+  .card-head .badge {
+    background: rgba(255,255,255,0.15);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .card-body { padding: 18px 20px; }
+  .card.mastered { border-color: var(--green); }
+  .card.mastered .card-head { background: var(--green); }
+  .card.practice-more { border-color: var(--orange); }
+
+  .source-details {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .source-details strong { color: var(--navy); }
+
+  .given-ref {
+    background: var(--gray-alt);
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    font-size: 15px;
+    line-height: 1.7;
+    font-family: 'Courier New', monospace;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 70px;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 12px;
+  }
+  textarea:focus { outline: 2px solid var(--teal); border-color: var(--teal); }
+
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  button.action {
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 9px 18px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  button.action:hover { background: #226666; }
+
+  .answer-box {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--gray-border);
+  }
+  .answer-box.shown { display: block; }
+
+  .correct-ref {
+    background: var(--green-light);
+    border-left: 4px solid var(--green);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .correct-ref .hang { padding-left: 0.9in; text-indent: -0.4in; margin: 0; }
+
+  .error-list { margin: 0; padding-left: 20px; line-height: 1.7; }
+  .error-list li { margin-bottom: 6px; }
+
+  .explain-note {
+    background: var(--orange-light);
+    border-left: 4px solid var(--orange);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .mastery-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--gray-border);
+  }
+  .mastery-btn {
+    flex: 1;
+    border-radius: 4px;
+    border: 1px solid var(--gray-border);
+    background: #fff;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--navy);
+  }
+  .mastery-btn.got-it:hover { background: var(--green-light); border-color: var(--green); }
+  .mastery-btn.need-practice:hover { background: var(--orange-light); border-color: var(--orange); }
+  .mastery-status {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 8px 4px;
+    text-align: center;
+    flex: 1;
+    border-radius: 4px;
+  }
+  .mastery-status.got { background: var(--green-light); color: var(--green); }
+  .mastery-status.need { background: var(--orange-light); color: #a65a12; }
+
+  .reset-row { text-align: right; margin-top: 30px; }
+  .reset-row button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .passage-block {
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .passage-block.original {
+    background: var(--gray-alt);
+    border-left: 4px solid #888;
+  }
+  .passage-block.attempt {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+  }
+  .passage-label {
+    display: block;
+    font-weight: bold;
+    color: var(--navy);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .choice-row { display: flex; gap: 10px; margin-bottom: 4px; }
+  .choice-btn {
+    flex: 1;
+    border-radius: 4px;
+    border: 1px solid var(--gray-border);
+    background: #fff;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--navy);
+    font-weight: bold;
+  }
+  .choice-btn:hover { background: var(--gray-alt); }
+  .choice-btn.selected-correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+  .choice-btn.selected-wrong { background: var(--orange-light); border-color: var(--orange); color: #a65a12; }
+  .choice-btn:disabled { cursor: default; opacity: 0.7; }
+
+  .checklist { margin: 0; padding-left: 20px; line-height: 1.8; }
+
+  .interactive-ref {
+    background: var(--gray-alt);
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 2.1;
+    font-family: 'Courier New', monospace;
+  }
+  .ref-seg {
+    cursor: pointer;
+    padding: 1px 2px;
+    border-radius: 3px;
+    border-bottom: 1px dotted transparent;
+  }
+  .ref-seg:hover { background: rgba(0,0,0,0.06); }
+  .ref-seg.seg-found-error {
+    background: var(--orange-light);
+    border-bottom: 2px solid var(--orange);
+    color: #a65a12;
+    font-weight: bold;
+    cursor: default;
+  }
+  .ref-seg.seg-checked-ok {
+    background: #e9e9e9;
+    color: #777;
+    cursor: default;
+  }
+  .seg-note {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin: 4px 0 8px;
+  }
+  .seg-note.note-error { background: var(--orange-light); border-left: 4px solid var(--orange); color: #3a3a3a; }
+  .seg-note.note-ok { background: #e9e9e9; border-left: 4px solid #999; color: #555; }
+  .segfound-counter {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>APA Style Practice</h1>
+  <p>Practice formatting references, reporting statistics, and paraphrasing without plagiarizing.</p>
+</header>
+
+<div id="app"></div>
+
+<script>
+const CATEGORIES = {
+  references: {
+    label: "References",
+    description: "Write references from scratch, and find the errors in ones that are already written \u2014 journal articles, books, and book chapters.",
+    subfilters: [
+      { key: "all", label: "All" },
+      { key: "write", label: "Write It Yourself" },
+      { key: "errors", label: "Find the Errors" }
+    ]
+  },
+  stats: {
+    label: "Report the Statistics",
+    description: "Given raw analysis output (like what Jamovi gives you), write it up as a properly formatted APA sentence.",
+    subfilters: [
+      { key: "all", label: "All" }
+    ]
+  },
+  plagiarism: {
+    label: "Plagiarism & Paraphrasing",
+    description: "Decide whether an attempt counts as plagiarism, and practice writing your own paraphrases.",
+    subfilters: [
+      { key: "all", label: "All" },
+      { key: "identify", label: "Spot the Plagiarism" },
+      { key: "paraphrase", label: "Practice Paraphrasing" }
+    ]
+  }
+};
+
+const questions = [
+
+  { id: "r1", category: "references", type: "write", title: "Journal Article \u2014 Two Authors",
+    details: ["Authors: Jean M. Twenge and W. Keith Campbell", "Year: 2018",
+      "Article title: Associations between screen time and lower psychological well-being among children and adolescents: Evidence from a population-based study",
+      "Journal: Preventive Medicine Reports", "Volume: 12", "Pages: 271\u2013283", "DOI: 10.1016/j.pmedr.2018.10.003"],
+    correctHtml: "Twenge, J. M., &amp; Campbell, W. K. (2018). Associations between screen time and lower psychological well-being among children and adolescents: Evidence from a population-based study. <em>Preventive Medicine Reports</em>, <em>12</em>, 271&ndash;283. <a href=\"https://doi.org/10.1016/j.pmedr.2018.10.003\" target=\"_blank\">https://doi.org/10.1016/j.pmedr.2018.10.003</a>",
+    explain: "No issue number here \u2014 this journal paginates continuously across the whole volume, so only the volume number (italicized) is needed." },
+
+  { id: "r2", category: "references", type: "write", title: "Journal Article \u2014 Single Author, No DOI",
+    details: ["Author: Stanley Milgram", "Year: 1963", "Article title: Behavioral study of obedience",
+      "Journal: The Journal of Abnormal and Social Psychology", "Volume: 67", "Issue: 4", "Pages: 371\u2013378", "No DOI available"],
+    correctHtml: "Milgram, S. (1963). Behavioral study of obedience. <em>The Journal of Abnormal and Social Psychology</em>, <em>67</em>(4), 371&ndash;378.",
+    explain: "It's fine to omit the DOI entirely when a source doesn't have one \u2014 don't substitute a database URL." },
+
+  { id: "r3", category: "references", type: "write", title: "Book \u2014 Single Author",
+    details: ["Author: Jon Kabat-Zinn", "Year: 1994", "Title: Wherever you go, there you are: Mindfulness meditation in everyday life", "Publisher: Hyperion"],
+    correctHtml: "Kabat-Zinn, J. (1994). <em>Wherever you go, there you are: Mindfulness meditation in everyday life</em>. Hyperion.",
+    explain: "No publisher location is needed in APA 7th edition \u2014 just the publisher name." },
+
+  { id: "r4", category: "references", type: "write", title: "Book Chapter \u2014 Edited Book",
+    details: ["Chapter authors: Roy F. Baumeister and Brad J. Bushman", "Year: 2011", "Chapter title: Aggression",
+      "Book title: Social psychology and human nature", "Edition: 2nd", "Book editors: Roy F. Baumeister and Brad J. Bushman",
+      "Chapter page range: 428\u2013470", "Publisher: Wadsworth Cengage Learning"],
+    correctHtml: "Baumeister, R. F., &amp; Bushman, B. J. (2011). Aggression. In R. F. Baumeister &amp; B. J. Bushman (Eds.), <em>Social psychology and human nature</em> (2nd ed., pp. 428&ndash;470). Wadsworth Cengage Learning.",
+    explain: "It's common for chapter authors and book editors to be the same people \u2014 list them in both places anyway." },
+
+  { id: "r5", category: "references", type: "write", title: "Journal Article \u2014 Five Authors",
+    details: ["Authors: Barbara L. Fredrickson, Michael A. Cohn, Kimberly A. Coffey, Jolynn Pek, and Sandra M. Finkel", "Year: 2008",
+      "Article title: Open hearts build lives: Positive emotions, induced through loving-kindness meditation, build consequential personal resources",
+      "Journal: Journal of Personality and Social Psychology", "Volume: 95", "Issue: 5", "Pages: 1045\u20131062", "DOI: 10.1037/a0013262"],
+    correctHtml: "Fredrickson, B. L., Cohn, M. A., Coffey, K. A., Pek, J., &amp; Finkel, S. M. (2008). Open hearts build lives: Positive emotions, induced through loving-kindness meditation, build consequential personal resources. <em>Journal of Personality and Social Psychology</em>, <em>95</em>(5), 1045&ndash;1062. <a href=\"https://doi.org/10.1037/a0013262\" target=\"_blank\">https://doi.org/10.1037/a0013262</a>",
+    explain: "With multiple authors, separate each with a comma and use \u201c&\u201d (not \u201cand\u201d) only before the final author." },
+
+  { id: "r6", category: "references", type: "write", title: "Book \u2014 Two Authors",
+    details: ["Authors: Roy F. Baumeister and John Tierney", "Year: 2011", "Title: Willpower: Rediscovering the greatest human strength", "Publisher: Penguin Press"],
+    correctHtml: "Baumeister, R. F., &amp; Tierney, J. (2011). <em>Willpower: Rediscovering the greatest human strength</em>. Penguin Press.",
+    explain: "Same sentence-case rule as any book title: only the first word, first word after the colon, and proper nouns are capitalized." },
+
+  { id: "r7", category: "references", type: "write", title: "Book Chapter \u2014 Different Editors Than Author",
+    details: ["Chapter author: Shelley E. Taylor", "Year: 1991", "Chapter title: Health psychology: The science and the field",
+      "Book title: Foundations of health psychology", "Book editors: Howard S. Friedman and Roxane C. Silver", "Chapter pages: 3\u201319", "Publisher: Oxford University Press"],
+    correctHtml: "Taylor, S. E. (1991). Health psychology: The science and the field. In H. S. Friedman &amp; R. C. Silver (Eds.), <em>Foundations of health psychology</em> (pp. 3&ndash;19). Oxford University Press.",
+    explain: "The chapter author (Taylor) and book editors (Friedman & Silver) are different people here \u2014 make sure not to mix them up." },
+
+  { id: "r8", category: "references", type: "write", title: "Journal Article \u2014 Continuous Pagination",
+    details: ["Authors: Mihaly Csikszentmihalyi and Judith LeFevre", "Year: 1989", "Article title: Optimal experience in work and leisure",
+      "Journal: Journal of Personality and Social Psychology", "Volume: 56", "Pages: 815\u2013822"],
+    correctHtml: "Csikszentmihalyi, M., &amp; LeFevre, J. (1989). Optimal experience in work and leisure. <em>Journal of Personality and Social Psychology</em>, <em>56</em>, 815&ndash;822.",
+    explain: "No issue number is needed or given here \u2014 only include one if you have it." },
+
+  { id: "r9", category: "references", type: "write", title: "Book \u2014 Organization as Author, With Edition",
+    details: ["Author: American Psychiatric Association", "Year: 2013", "Title: Diagnostic and statistical manual of mental disorders", "Edition: 5th", "Publisher: American Psychiatric Publishing"],
+    correctHtml: "American Psychiatric Association. (2013). <em>Diagnostic and statistical manual of mental disorders</em> (5th ed.). American Psychiatric Publishing.",
+    explain: "When an organization is the author, spell out its full name \u2014 no initials to abbreviate." },
+
+  { id: "r10", category: "references", type: "write", title: "Journal Article \u2014 Single Author, With Issue & DOI",
+    details: ["Author: Shelly L. Gable", "Year: 2006", "Article title: Approach and avoidance social motives and goals",
+      "Journal: Journal of Personality", "Volume: 74", "Issue: 1", "Pages: 175\u2013222", "DOI: 10.1111/j.1467-6494.2005.00373.x"],
+    correctHtml: "Gable, S. L. (2006). Approach and avoidance social motives and goals. <em>Journal of Personality</em>, <em>74</em>(1), 175&ndash;222. <a href=\"https://doi.org/10.1111/j.1467-6494.2005.00373.x\" target=\"_blank\">https://doi.org/10.1111/j.1467-6494.2005.00373.x</a>",
+    explain: null },
+
+  { id: "r11", category: "references", type: "errors", title: "Journal Article \u2014 Spot the Errors",
+    segments: [
+      { t: "Baumeister, R. " }, { t: "F,", err: "Missing period after the initial \u201cF\u201d \u2014 should be \u201cF.,\u201d" },
+      { t: " &amp; Leary, M. " }, { t: "R ", err: "Missing period after the initial \u201cR\u201d \u2014 should be \u201cR.\u201d" },
+      { t: "(1995)", err: "Missing period after the year in parentheses \u2014 should be \u201c(1995).\u201d" }, { t: " " },
+      { t: "The Need To Belong: Desire For Interpersonal Attachments As A Fundamental Human Motivation.", err: "Title is in Title Case instead of sentence case \u2014 should be \u201cThe need to belong: Desire for interpersonal attachments as a fundamental human motivation.\u201d" },
+      { t: " " }, { t: "Psychological Bulletin, 117", err: "Journal name and volume number are not italicized, and the issue number is missing \u2014 should be <em>Psychological Bulletin</em>, <em>117</em>(3)." },
+      { t: ", " }, { t: "497-529", err: "Page range uses a hyphen instead of an en dash \u2014 should be \u201c497\u2013529.\u201d" }, { t: "." }
+    ],
+    errors: ["Missing periods after the initials \u201cF\u201d and \u201cR\u201d", "Missing period after the year in parentheses",
+      "Title is in Title Case instead of sentence case", "Journal name and volume number are not italicized",
+      "Missing issue number \u2014 needs \u201c117(3)\u201d", "Page range uses a hyphen instead of an en dash"],
+    correctHtml: "Baumeister, R. F., &amp; Leary, M. R. (1995). The need to belong: Desire for interpersonal attachments as a fundamental human motivation. <em>Psychological Bulletin</em>, <em>117</em>(3), 497&ndash;529.", explain: null },
+
+  { id: "r12", category: "references", type: "errors", title: "Book \u2014 Spot the Errors",
+    segments: [
+      { t: "Cialdini, R. " }, { t: "(2007)", err: "Missing period after the year in parentheses \u2014 should be \u201c(2007).\u201d" }, { t: " " },
+      { t: "Influence: The Psychology Of Persuasion.", err: "Title is in Title Case and not italicized \u2014 should be italicized sentence case: <em>Influence: The psychology of persuasion</em>." },
+      { t: " " }, { t: "HarperCollins", err: "Missing period at the very end of the reference \u2014 should be \u201cHarperCollins.\u201d" }
+    ],
+    errors: ["Missing period after the year in parentheses", "Title is in Title Case and not italicized \u2014 should be italicized sentence case",
+      "Missing period at the very end of the reference"],
+    correctHtml: "Cialdini, R. (2007). <em>Influence: The psychology of persuasion</em>. HarperCollins.", explain: null },
+
+  { id: "r13", category: "references", type: "errors", title: "Book Chapter \u2014 Spot the Errors",
+    segments: [
+      { t: "Baumeister, R.F. " }, { t: "and", err: "\u201cand\u201d is used between authors instead of \u201c&\u201d" }, { t: " Bushman, B.J. Aggression. " },
+      { t: "Social Psychology And Human Nature,", err: "Book title is in Title Case instead of italicized sentence case. It's also missing the required \u201cIn [Editors] (Eds.),\u201d construction that should come right before it." },
+      { t: " " }, { t: "R.F. Baumeister and B.J. Bushman (2011),", err: "The year is in the wrong spot here \u2014 it belongs right after the chapter authors at the very start of the reference. This should be restructured as \u201cIn R. F. Baumeister & B. J. Bushman (Eds.),\u201d placed before the book title." },
+      { t: " " }, { t: "pp 428-470.", err: "Page range is missing the period after \u201cpp\u201d and uses a hyphen instead of an en dash \u2014 should be \u201cpp. 428\u2013470.\u201d" },
+      { t: " Wadsworth." }
+    ],
+    errors: ["\u201cand\u201d is used between authors instead of \u201c&\u201d", "The year is missing from its correct spot right after the authors",
+      "The required \u201cIn [Editors] (Eds.),\u201d construction is missing entirely", "Book title is in Title Case instead of italicized sentence case",
+      "Page range is missing \u201cpp.\u201d with a period, and uses a hyphen instead of an en dash"],
+    correctHtml: "Baumeister, R. F., &amp; Bushman, B. J. (2011). Aggression. In R. F. Baumeister &amp; B. J. Bushman (Eds.), <em>Social psychology and human nature</em> (pp. 428&ndash;470). Wadsworth Cengage Learning.", explain: null },
+
+  { id: "r14", category: "references", type: "errors", title: "Journal Article \u2014 Spot the Errors",
+    segments: [
+      { t: "Milgram, " }, { t: "S", err: "Missing period after the initial \u201cS\u201d \u2014 should be \u201cS.\u201d" }, { t: " (1963). " },
+      { t: "Behavioral Study Of Obedience.", err: "Title is in Title Case instead of sentence case \u2014 should be \u201cBehavioral study of obedience.\u201d" },
+      { t: " " }, { t: "The Journal of Abnormal and Social Psychology, 67", err: "Missing issue number \u2014 should be <em>67</em>(4)." },
+      { t: ", " }, { t: "371-378", err: "Page range uses a hyphen instead of an en dash \u2014 should be \u201c371\u2013378.\u201d" }, { t: "." }
+    ],
+    errors: ["Missing period after the initial \u201cS\u201d", "Article title is in Title Case instead of sentence case",
+      "Missing issue number \u2014 should be \u201c67(4)\u201d", "Page range uses a hyphen instead of an en dash"],
+    correctHtml: "Milgram, S. (1963). Behavioral study of obedience. <em>The Journal of Abnormal and Social Psychology</em>, <em>67</em>(4), 371&ndash;378.", explain: null },
+
+  { id: "r15", category: "references", type: "errors", title: "Journal Article \u2014 Spot the Errors (Multiple Authors)",
+    segments: [
+      { t: "Fredrickson, " }, { t: "B.L.", err: "Missing periods after authors' initials throughout \u2014 should be \u201cB. L.,\u201d with a space between initials." },
+      { t: ", Cohn, M.A., Coffey, K.A., Pek, J. " }, { t: "and", err: "\u201cand\u201d used before the last author instead of \u201c&\u201d" },
+      { t: " Finkel, S.M. " }, { t: "(2008)", err: "Missing period after the year in parentheses" }, { t: " " },
+      { t: "Open Hearts Build Lives: Positive Emotions, Induced Through Loving-Kindness Meditation, Build Consequential Personal Resources.", err: "Title is in Title Case instead of sentence case" },
+      { t: " " }, { t: "Journal of Personality and Social Psychology, 95", err: "Journal name and volume not italicized, and missing issue number \u2014 should be <em>Journal of Personality and Social Psychology</em>, <em>95</em>(5)." },
+      { t: ", " }, { t: "1045-1062", err: "Page range uses a hyphen instead of an en dash" },
+      { t: ".", err: "Missing DOI at the end \u2014 should include https://doi.org/10.1037/a0013262" }
+    ],
+    errors: ["Missing periods after each author's initials", "\u201cand\u201d used before the last author instead of \u201c&\u201d",
+      "Missing period after the year in parentheses", "Title is in Title Case instead of sentence case",
+      "Missing issue number \u2014 should be \u201c95(5)\u201d", "Page range uses a hyphen instead of an en dash", "Missing DOI"],
+    correctHtml: "Fredrickson, B. L., Cohn, M. A., Coffey, K. A., Pek, J., &amp; Finkel, S. M. (2008). Open hearts build lives: Positive emotions, induced through loving-kindness meditation, build consequential personal resources. <em>Journal of Personality and Social Psychology</em>, <em>95</em>(5), 1045&ndash;1062. <a href=\"https://doi.org/10.1037/a0013262\" target=\"_blank\">https://doi.org/10.1037/a0013262</a>", explain: null },
+
+  { id: "r16", category: "references", type: "errors", title: "Book \u2014 Spot the Errors (Two Authors)",
+    segments: [
+      { t: "Baumeister, R. F. " }, { t: "and", err: "\u201cand\u201d used instead of \u201c&\u201d" }, { t: " Tierney, J. " },
+      { t: "(2011)", err: "Missing period after the year in parentheses" }, { t: " " },
+      { t: "Willpower: rediscovering the Greatest human Strength.", err: "Title has inconsistent, incorrect capitalization and is not italicized \u2014 should be italicized sentence case: <em>Willpower: Rediscovering the greatest human strength</em>." },
+      { t: " " }, { t: "Penguin press", err: "Publisher name is lowercase \u2014 should be \u201cPenguin Press.\u201d Also missing the period at the very end of the reference." }
+    ],
+    errors: ["\u201cand\u201d used instead of \u201c&\u201d", "Missing period after the year in parentheses",
+      "Title has inconsistent, incorrect capitalization \u2014 should be italicized sentence case throughout",
+      "Publisher name is lowercase (\u201cpress\u201d should be \u201cPress\u201d)", "Missing period at the very end"],
+    correctHtml: "Baumeister, R. F., &amp; Tierney, J. (2011). <em>Willpower: Rediscovering the greatest human strength</em>. Penguin Press.", explain: null },
+
+  { id: "r17", category: "references", type: "errors", title: "Book Chapter \u2014 Spot the Errors (Different Editors)",
+    segments: [
+      { t: "Taylor, S.E. " }, { t: "Health Psychology: The Science And The Field.", err: "Missing the year right after the author \u2014 should be \u201cTaylor, S. E. (1991).\u201d The chapter title is also in Title Case instead of sentence case." },
+      { t: " In " }, { t: "Friedman, H.S. &amp; Silver, R.C.", err: "Editors' names are in the wrong order \u2014 should be initials first: \u201cH. S. Friedman & R. C. Silver.\u201d" },
+      { t: " " }, { t: "(Eds.) (1991),", err: "The year is misplaced here \u2014 it belongs right after the chapter author at the start of the reference, not after the editors." },
+      { t: " " }, { t: "Foundations Of Health Psychology,", err: "Book title is in Title Case instead of sentence case, and is not italicized." },
+      { t: " pp. " }, { t: "3-19", err: "Page range uses a hyphen instead of an en dash \u2014 should be \u201c3\u201319.\u201d" },
+      { t: ". Oxford University Press." }
+    ],
+    errors: ["The year is missing from right after the chapter author \u2014 it's misplaced later in the reference",
+      "Editors' names are in the wrong order \u2014 should be initials first (H. S. Friedman, not Friedman, H.S.)",
+      "Chapter and book titles are both in Title Case instead of sentence case", "Book title is not italicized",
+      "Page range uses a hyphen instead of an en dash"],
+    correctHtml: "Taylor, S. E. (1991). Health psychology: The science and the field. In H. S. Friedman &amp; R. C. Silver (Eds.), <em>Foundations of health psychology</em> (pp. 3&ndash;19). Oxford University Press.", explain: null },
+
+  { id: "r18", category: "references", type: "errors", title: "Journal Article \u2014 Spot the Errors (Continuous Pagination)",
+    segments: [
+      { t: "Csikszentmihalyi, " }, { t: "M", err: "Missing period after the initial \u201cM\u201d" }, { t: ", &amp; LeFevre, " },
+      { t: "J", err: "Missing period after the initial \u201cJ\u201d" }, { t: " (1989). " },
+      { t: "Optimal Experience In Work And Leisure.", err: "Title is in Title Case instead of sentence case" },
+      { t: " " }, { t: "Journal of Personality and Social Psychology, 56", err: "Journal name and volume number are not italicized" },
+      { t: ", " }, { t: "815-822", err: "Page range uses a hyphen instead of an en dash" }, { t: "." }
+    ],
+    errors: ["Missing periods after the initials \u201cM\u201d and \u201cJ\u201d", "Title is in Title Case instead of sentence case",
+      "Journal name and volume are not italicized", "Page range uses a hyphen instead of an en dash"],
+    correctHtml: "Csikszentmihalyi, M., &amp; LeFevre, J. (1989). Optimal experience in work and leisure. <em>Journal of Personality and Social Psychology</em>, <em>56</em>, 815&ndash;822.", explain: null },
+
+  { id: "r19", category: "references", type: "errors", title: "Book \u2014 Spot the Errors (Organization Author)",
+    segments: [
+      { t: "American Psychiatric Association " }, { t: "(2013)", err: "Missing period after the year in parentheses" }, { t: ". " },
+      { t: "Diagnostic And Statistical Manual Of Mental Disorders.", err: "Title is in Title Case instead of sentence case, and is not italicized. It's also missing the edition information \u2014 should include \u201c(5th ed.)\u201d right after the title." },
+      { t: " American Psychiatric Publishing." }
+    ],
+    errors: ["Missing period after the year in parentheses", "Title is in Title Case instead of sentence case, and not italicized",
+      "Missing edition information \u2014 should include \u201c(5th ed.)\u201d after the title"],
+    correctHtml: "American Psychiatric Association. (2013). <em>Diagnostic and statistical manual of mental disorders</em> (5th ed.). American Psychiatric Publishing.", explain: null },
+
+  { id: "r20", category: "references", type: "errors", title: "Journal Article \u2014 Spot the Errors (Single Author)",
+    segments: [
+      { t: "Gable, " }, { t: "S.L", err: "Missing period after the initial \u201cL\u201d \u2014 should be \u201cS. L.\u201d" }, { t: " " },
+      { t: "(2006)", err: "Missing period after the year in parentheses" }, { t: " " },
+      { t: "Approach And Avoidance Social Motives And Goals.", err: "Title is in Title Case instead of sentence case" },
+      { t: " " }, { t: "Journal of Personality, 74", err: "Missing issue number \u2014 should be <em>74</em>(1)." },
+      { t: ", " }, { t: "175-222", err: "Page range uses a hyphen instead of an en dash" },
+      { t: ".", err: "Missing DOI at the end \u2014 should include https://doi.org/10.1111/j.1467-6494.2005.00373.x" }
+    ],
+    errors: ["Missing period after the initial \u201cL\u201d", "Missing period after the year in parentheses",
+      "Title is in Title Case instead of sentence case", "Missing issue number \u2014 should be \u201c74(1)\u201d",
+      "Page range uses a hyphen instead of an en dash", "Missing DOI"],
+    correctHtml: "Gable, S. L. (2006). Approach and avoidance social motives and goals. <em>Journal of Personality</em>, <em>74</em>(1), 175&ndash;222. <a href=\"https://doi.org/10.1111/j.1467-6494.2005.00373.x\" target=\"_blank\">https://doi.org/10.1111/j.1467-6494.2005.00373.x</a>", explain: null },
+
+  { id: "s1", category: "stats", type: "stats", title: "Report a Correlation",
+    details: ["Test: Pearson correlation", "Variables: hours of daily screen time and self-reported sleep quality", "r = -0.34", "N = 62", "p = .007"],
+    correctHtml: "There was a significant, weak-to-moderate, negative correlation between hours of screen time and sleep quality, <em>r</em>(60) = -.34, <em>p</em> = .007.",
+    explain: "df = N \u2212 2 = 60. Also: r and p are reported without a leading zero, since neither can exceed 1." },
+
+  { id: "s2", category: "stats", type: "stats", title: "Report an Independent-Samples t-test",
+    details: ["Test: Independent-samples t-test", "Control group: M = 15.20, SD = 3.10, n = 40", "Treatment group: M = 12.80, SD = 2.90, n = 42", "t = 3.45, df = 80, p = .001, d = 0.77"],
+    correctHtml: "Participants in the control group (<em>M</em> = 15.20, <em>SD</em> = 3.10) reported significantly higher anxiety scores than those in the treatment group (<em>M</em> = 12.80, <em>SD</em> = 2.90), <em>t</em>(80) = 3.45, <em>p</em> = .001, <em>d</em> = 0.77.",
+    explain: "Group means and SDs go in the sentence, not just the stats string. df = n1 + n2 \u2212 2 = 80." },
+
+  { id: "s3", category: "stats", type: "stats", title: "Report a One-Way ANOVA",
+    details: ["Test: One-way ANOVA", "IV: class year (freshman, sophomore, junior)", "DV: motivation score", "F = 6.12, df1 = 2, df2 = 87, p = .003, \u03B7\u00B2 = .12"],
+    correctHtml: "A one-way ANOVA revealed a significant effect of class year on motivation, <em>F</em>(2, 87) = 6.12, <em>p</em> = .003, \u03B7\u00B2 = .12.",
+    explain: "df1 = groups \u2212 1 = 2. df2 = N \u2212 groups = 87." },
+
+  { id: "s4", category: "stats", type: "stats", title: "Report a Factorial ANOVA (Two Main Effects + Interaction)",
+    details: ["Test: 2 (Condition: Control vs. Treatment) \u00D7 2 (Gender: Male vs. Female) factorial ANOVA", "DV: performance score",
+      "Main effect of Condition: F = 8.55, df1 = 1, df2 = 76, p = .004", "Main effect of Gender: F = 0.89, df1 = 1, df2 = 76, p = .35",
+      "Condition \u00D7 Gender interaction: F = 4.02, df1 = 1, df2 = 76, p = .048"],
+    correctHtml: "There was a significant main effect of condition on performance, <em>F</em>(1, 76) = 8.55, <em>p</em> = .004. The main effect of gender was not significant, <em>F</em>(1, 76) = 0.89, <em>p</em> = .35. However, these effects were qualified by a significant Condition &times; Gender interaction, <em>F</em>(1, 76) = 4.02, <em>p</em> = .048.",
+    explain: "All three effects share df2 (76) since they come from the same model. Report the non-significant effect too \u2014 don't only report significant ones." },
+
+  { id: "s5", category: "stats", type: "stats", title: "Report a Chi-Square Test",
+    details: ["Test: Chi-square test of independence", "Variables: academic major (3 categories) and study abroad participation (yes/no)", "\u03C7\u00B2 = 9.87, df = 2, N = 150, p = .007"],
+    correctHtml: "A chi-square test of independence revealed a significant association between academic major and study abroad participation, \u03C7\u00B2(2, <em>N</em> = 150) = 9.87, <em>p</em> = .007.",
+    explain: "df = (rows\u22121) \u00D7 (columns\u22121) = 2. N is reported inside the parentheses for chi-square, unlike most other tests." },
+
+  { id: "s6", category: "stats", type: "stats", title: "Report a Paired-Samples t-test",
+    details: ["Test: Paired-samples t-test", "Measure: self-esteem, pre- vs. post-intervention", "Pre: M = 2.85, SD = 0.62", "Post: M = 3.20, SD = 0.58", "n = 35 pairs", "t = 4.12, df = 34, p < .001, d = 0.70"],
+    correctHtml: "Self-esteem scores increased significantly from pre-intervention (<em>M</em> = 2.85, <em>SD</em> = 0.62) to post-intervention (<em>M</em> = 3.20, <em>SD</em> = 0.58), <em>t</em>(34) = 4.12, <em>p</em> &lt; .001, <em>d</em> = 0.70.",
+    explain: "df = pairs \u2212 1 = 34. When p rounds to below .001, report it as \u201cp < .001\u201d rather than an exact value." },
+
+  { id: "s7", category: "stats", type: "stats", title: "Report a One-Sample t-test",
+    details: ["Test: One-sample t-test", "Sample: life satisfaction ratings", "Sample M = 4.62, SD = 1.10, N = 50", "Test value (population mean) = 4.00", "t = 3.98, df = 49, p < .001"],
+    correctHtml: "Participants' life satisfaction scores (<em>M</em> = 4.62, <em>SD</em> = 1.10) were significantly higher than the population average of 4.00, <em>t</em>(49) = 3.98, <em>p</em> &lt; .001.",
+    explain: "df = N \u2212 1 = 49 for a one-sample t-test." },
+
+  { id: "s8", category: "stats", type: "stats", title: "Report a Non-Significant Correlation",
+    details: ["Test: Pearson correlation", "Variables: hours of exercise per week and GPA", "r = .09", "N = 45", "p = .55"],
+    correctHtml: "There was no significant relationship between hours of exercise per week and GPA, <em>r</em>(43) = .09, <em>p</em> = .55.",
+    explain: "For non-significant results, don't describe a direction or strength \u2014 just report that no significant relationship was found." },
+
+  { id: "s9", category: "stats", type: "stats", title: "Report a Non-Significant t-test",
+    details: ["Test: Independent-samples t-test", "Online section: M = 3.40, SD = 0.75, n = 30", "In-person section: M = 3.55, SD = 0.70, n = 32", "t = 0.82, df = 60, p = .42, d = 0.21"],
+    correctHtml: "There was no significant difference in course satisfaction between students in the online section (<em>M</em> = 3.40, <em>SD</em> = 0.75) and the in-person section (<em>M</em> = 3.55, <em>SD</em> = 0.70), <em>t</em>(60) = 0.82, <em>p</em> = .42, <em>d</em> = 0.21.",
+    explain: "Non-significant results are still reported with full precision, including the effect size." },
+
+  { id: "s10", category: "stats", type: "stats", title: "Report a One-Way ANOVA (Different Scenario)",
+    details: ["Test: One-way between-subjects ANOVA", "IV: political affiliation (Liberal, Moderate, Conservative)", "DV: attitude toward marijuana legalization", "F = 10.91, df1 = 2, df2 = 225, p < .001, \u03B7\u00B2 = .07"],
+    correctHtml: "A one-way between-subjects ANOVA indicated that attitudes toward marijuana legalization differed significantly by political affiliation, <em>F</em>(2, 225) = 10.91, <em>p</em> &lt; .001, \u03B7\u00B2 = .07.",
+    explain: null },
+
+  { id: "s11", category: "stats", type: "stats", title: "Report a Factorial ANOVA (Interaction Only)",
+    details: ["Test: 2 (Provocation: Provoked vs. Not) \u00D7 2 (Trait Hostility: High vs. Low) ANOVA", "DV: aggression",
+      "Main effect of Provocation: F = 1.15, df1 = 1, df2 = 76, p = .29", "Main effect of Trait Hostility: F = 2.02, df1 = 1, df2 = 76, p = .16",
+      "Provocation \u00D7 Trait Hostility interaction: F = 9.44, df1 = 1, df2 = 76, p = .003"],
+    correctHtml: "Neither the main effect of provocation condition, <em>F</em>(1, 76) = 1.15, <em>p</em> = .29, nor the main effect of trait hostility, <em>F</em>(1, 76) = 2.02, <em>p</em> = .16, was significant. However, these were qualified by a significant Provocation &times; Trait Hostility interaction, <em>F</em>(1, 76) = 9.44, <em>p</em> = .003.",
+    explain: "A significant interaction with non-significant main effects is a common and meaningful pattern \u2014 report all three regardless." },
+
+  { id: "s12", category: "stats", type: "stats", title: "Report a Chi-Square Test (Different Context)",
+    details: ["Test: Chi-square test of independence", "Variables: gender (male/female) and preferred study method (group vs. solo)", "\u03C7\u00B2 = 4.15, df = 1, N = 120, p = .042"],
+    correctHtml: "A chi-square test of independence revealed a significant association between gender and preferred study method, \u03C7\u00B2(1, <em>N</em> = 120) = 4.15, <em>p</em> = .042.", explain: null },
+
+  { id: "s13", category: "stats", type: "stats", title: "Report a Simple Regression",
+    details: ["Test: Simple linear regression", "Predictor: hours of sleep", "Outcome: next-day mood rating", "Overall model: R\u00B2 = .18, F = 9.65, df1 = 1, df2 = 44, p = .003", "Predictor: b = 0.42, SE = 0.14, p = .004"],
+    correctHtml: "Hours of sleep significantly predicted next-day mood, <em>R</em>\u00B2 = .18, <em>F</em>(1, 44) = 9.65, <em>p</em> = .003. More sleep was associated with higher mood ratings, <em>b</em> = 0.42, <em>SE</em> = 0.14, <em>p</em> = .004.",
+    explain: "Report the overall model fit first (R\u00B2, F, p), then the individual predictor's coefficient." },
+
+  { id: "s14", category: "stats", type: "stats", title: "Report a Multiple Regression",
+    details: ["Test: Multiple regression", "Predictors: stress and social support", "Outcome: burnout", "Overall model: R\u00B2 = .29, F = 9.82, df1 = 2, df2 = 48, p < .001",
+      "Stress: \u03B2 = .41, t = 3.55, p < .001", "Social support: \u03B2 = -.22, t = -1.95, p = .057"],
+    correctHtml: "Stress and social support together significantly predicted burnout, <em>R</em>\u00B2 = .29, <em>F</em>(2, 48) = 9.82, <em>p</em> &lt; .001. Stress was a significant positive predictor, \u03B2 = .41, <em>t</em> = 3.55, <em>p</em> &lt; .001, while social support was a marginal negative predictor, \u03B2 = -.22, <em>t</em> = -1.95, <em>p</em> = .057.",
+    explain: "Multiple regression predictors are typically reported with standardized \u03B2 rather than unstandardized b." },
+
+  { id: "s15", category: "stats", type: "stats", title: "Report a Spearman's Rho Correlation",
+    details: ["Test: Spearman rank-order correlation", "Variables: class rank and hours of extracurricular involvement", "rs = -0.28", "N = 55", "p = .037"],
+    correctHtml: "There was a significant, weak, negative correlation between class rank and hours of extracurricular involvement, <em>r</em><sub>s</sub>(53) = -.28, <em>p</em> = .037.",
+    explain: "df = N \u2212 2 = 53, same formula as Pearson's r." },
+
+  { id: "s16", category: "stats", type: "stats", title: "Report a Reliability Analysis (Cronbach's Alpha)",
+    details: ["Test: Reliability analysis", "Scale: 10-item self-esteem measure", "Cronbach's alpha = .87"],
+    correctHtml: "The self-esteem scale demonstrated good internal consistency in this sample, \u03B1 = .87.",
+    explain: "Alpha is reported alone \u2014 no df or p-value attached, since it's a reliability estimate, not a significance test." },
+
+  { id: "s17", category: "stats", type: "stats", title: "Report Simple Descriptive Statistics",
+    details: ["Report these descriptives in APA format:", "Sample completed a 20-item anxiety measure", "M = 42.60", "SD = 8.15"],
+    correctHtml: "Participants reported moderate levels of anxiety (<em>M</em> = 42.60, <em>SD</em> = 8.15).",
+    explain: "Even simple descriptives need M and SD reported together, with both symbols italicized." },
+
+  { id: "s18", category: "stats", type: "stats", title: "Report an Independent t-test (Unequal Group Sizes)",
+    details: ["Test: Independent-samples t-test", "First-generation students: M = 3.10, SD = 0.58, n = 28", "Continuing-generation students: M = 3.35, SD = 0.51, n = 64", "t = 2.05, df = 90, p = .043, d = 0.46"],
+    correctHtml: "First-generation students reported significantly lower GPA (<em>M</em> = 3.10, <em>SD</em> = 0.58) than continuing-generation students (<em>M</em> = 3.35, <em>SD</em> = 0.51), <em>t</em>(90) = 2.05, <em>p</em> = .043, <em>d</em> = 0.46.",
+    explain: "Unequal group sizes (n = 28 vs. 64) are fine for this test \u2014 df = n1 + n2 \u2212 2 = 90 either way." },
+
+  { id: "s19", category: "stats", type: "stats", title: "Report a One-Way ANOVA With Post Hoc Tests",
+    details: ["Test: One-way ANOVA with Tukey post hoc comparisons", "IV: time of day (Morning, Afternoon, Evening)", "DV: reaction time",
+      "F = 5.44, df1 = 2, df2 = 87, p = .006", "Post hoc: Morning significantly faster than Evening (p = .004); other comparisons not significant"],
+    correctHtml: "A one-way ANOVA revealed a significant effect of time of day on reaction time, <em>F</em>(2, 87) = 5.44, <em>p</em> = .006. Tukey post hoc comparisons indicated that reaction times were significantly faster in the morning than in the evening (<em>p</em> = .004); no other pairwise comparisons were significant.",
+    explain: "A significant omnibus ANOVA doesn't say which groups differ \u2014 that's what the post hoc test tells you." },
+
+  { id: "s20", category: "stats", type: "stats", title: "Report a Paired-Samples t-test (Different Scenario)",
+    details: ["Test: Paired-samples t-test", "Measure: number of aggressive responses, before vs. after de-escalation training", "Before: M = 6.40, SD = 2.10", "After: M = 4.15, SD = 1.85", "n = 40 pairs", "t = 5.60, df = 39, p < .001, d = 0.89"],
+    correctHtml: "The number of aggressive responses decreased significantly from before (<em>M</em> = 6.40, <em>SD</em> = 2.10) to after de-escalation training (<em>M</em> = 4.15, <em>SD</em> = 1.85), <em>t</em>(39) = 5.60, <em>p</em> &lt; .001, <em>d</em> = 0.89.", explain: null },
+
+  { id: "p1", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 1",
+    original: "Children who grow up in economically disadvantaged households often display lower levels of executive functioning, particularly in tasks requiring sustained attention and working memory.",
+    attempt: "Children who are raised in economically disadvantaged homes often show lower levels of executive function, especially in tasks that require sustained attention and working memory (Lee, 2019).",
+    correctAnswer: "plagiarism",
+    explain: "This is patchwriting. Nearly every word has been swapped for a close synonym while the sentence structure and word order stay identical. Adding a citation doesn't fix this \u2014 the sentence is still fundamentally the original author's construction." },
+
+  { id: "p2", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 2",
+    original: "Repeated exposure to violent media has been associated with small but reliable increases in aggressive thoughts and behaviors among adolescents, though the size of this effect remains a subject of ongoing debate.",
+    attempt: "Lee (2019) noted that while adolescents who frequently consume violent media tend to show modestly elevated aggressive thoughts and behaviors, researchers still disagree about how large this effect really is.",
+    correctAnswer: "ok",
+    explain: "This is a genuine paraphrase. The sentence is restructured, leads with the citation, and uses meaningfully different wording rather than synonym swaps, while still capturing the same meaning." },
+
+  { id: "p3", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 3",
+    original: "Sleep deprivation impairs the prefrontal cortex's ability to regulate emotional responses, leading to increased irritability and impulsive decision-making.",
+    attempt: "Sleep deprivation impairs the prefrontal cortex's ability to regulate emotional responses, leading to increased irritability and impulsive decision-making (Chen, 2018).",
+    correctAnswer: "plagiarism",
+    explain: "This is copied word-for-word from the source with only a citation added. Without quotation marks, a citation alone doesn't make copied text acceptable." },
+
+  { id: "p4", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 4",
+    original: "Children who form secure attachments with caregivers in infancy tend to develop stronger emotion regulation skills and more positive peer relationships later in childhood.",
+    attempt: "Chen (2018) found that a secure early attachment to caregivers was linked to two later benefits for children: better ability to manage their emotions and healthier friendships as they grew older.",
+    correctAnswer: "ok",
+    explain: "Restructured into a \u201ctwo benefits\u201d framing not present in the original, leads with the citation, and doesn't mirror the original's phrase order." },
+
+  { id: "p5", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 5",
+    original: "Individuals with higher levels of trait mindfulness report lower reactivity to daily stressors and faster emotional recovery following conflict.",
+    attempt: "People who have higher levels of trait mindfulness report lower reactivity to everyday stressors and quicker emotional recovery after conflict (Park, 2020).",
+    correctAnswer: "plagiarism",
+    explain: "Only a handful of words changed (\u201cindividuals\u201d \u2192 \u201cpeople,\u201d \u201cdaily\u201d \u2192 \u201ceveryday,\u201d \u201cfaster\u201d \u2192 \u201cquicker\u201d) while the sentence structure is identical \u2014 this is patchwriting." },
+
+  { id: "p6", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 6",
+    original: "Repeated practice of a motor skill under varying conditions produces better long-term retention than practicing the same skill under constant, unchanging conditions.",
+    attempt: "Park (2020) demonstrated that varying the conditions during motor skill practice led to stronger long-term retention compared to practicing under the same conditions every time.",
+    correctAnswer: "ok",
+    explain: "Reworded meaningfully and reorganized \u2014 leads with the researcher and restates the \u201cvarying conditions\u201d concept differently rather than swapping synonyms in place." },
+
+  { id: "p7", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 7",
+    original: "Adolescents who spend more time on social media report higher levels of social comparison, which in turn predicts lower self-esteem over time.",
+    attempt: "According to Morales (2021), higher levels of social comparison are reported by adolescents who spend more time on social media, and this predicts lower self-esteem over time.",
+    correctAnswer: "plagiarism",
+    explain: "This just rearranges clauses without changing the underlying wording or genuinely restating the idea. Reordering clauses alone isn't paraphrasing." },
+
+  { id: "p8", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 8",
+    original: "Employees who receive regular, specific feedback from supervisors report greater job satisfaction than those who receive infrequent or vague feedback.",
+    attempt: "Morales (2021) found that the frequency and specificity of supervisor feedback mattered for job satisfaction: workers who got regular, detailed feedback were more satisfied than those whose feedback was rare or vague.",
+    correctAnswer: "ok",
+    explain: "Adds an organizing frame (\u201cthe frequency and specificity... mattered\u201d) not present in the original, and restates each condition in different words." },
+
+  { id: "p9", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 9",
+    original: "Excessive caffeine consumption prior to sleep onset is associated with reduced total sleep time and more frequent nighttime awakenings.",
+    attempt: "Drinking too much caffeine before falling asleep is associated with reduced total sleep time and more frequent awakenings at night (Nguyen, 2019).",
+    correctAnswer: "plagiarism",
+    explain: "The middle and end of the sentence are nearly identical to the original, just slightly reordered. Only the opening clause was genuinely reworded." },
+
+  { id: "p10", category: "plagiarism", type: "identify", title: "Is This Paraphrase OK? \u2014 Example 10",
+    original: "Group brainstorming sessions often produce fewer original ideas than the same number of individuals brainstorming alone, a phenomenon known as production blocking.",
+    attempt: "Nguyen (2019) described production blocking: the finding that people working alone tend to generate more original ideas overall than the same number of people brainstorming together in a group.",
+    correctAnswer: "ok",
+    explain: "Leads with the technical term and citation, then explains it through a fully rebuilt sentence structure rather than following the original's order." },
+
+  { id: "p11", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 1",
+    original: "College students who maintain consistent sleep schedules tend to report higher levels of academic performance and lower levels of perceived stress compared to those with irregular sleep patterns.",
+    citation: "Havlik, 2021",
+    modelHtml: "Havlik (2021) found that students with steady, predictable sleep habits generally performed better academically and felt less stressed than peers whose sleep schedules varied from day to day.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p12", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 2",
+    original: "Individuals who engage in regular physical exercise report greater life satisfaction and fewer depressive symptoms than those who are largely sedentary, even after controlling for socioeconomic status.",
+    citation: "Ortiz, 2022",
+    modelHtml: "Even when socioeconomic status is taken into account, people who exercise regularly tend to report being more satisfied with life and experiencing fewer symptoms of depression than those who rarely engage in physical activity (Ortiz, 2022).",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p13", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 3",
+    original: "Students who study in short, distributed sessions across multiple days tend to retain material better than those who cram in a single long session.",
+    citation: "Kim, 2020",
+    modelHtml: "Kim (2020) found that spacing study sessions out over several days led to better retention than cramming all the studying into one extended session.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p14", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 4",
+    original: "People who express gratitude regularly, such as by keeping a gratitude journal, report higher overall well-being than those who do not engage in these practices.",
+    citation: "Alvarez, 2019",
+    modelHtml: "Alvarez (2019) reported that regularly practicing gratitude, such as through journaling, was linked to greater overall well-being compared to not engaging in such practices.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p15", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 5",
+    original: "Infants exposed to a greater variety of spoken words in their first three years tend to develop larger vocabularies by kindergarten than infants exposed to less linguistic variety.",
+    citation: "Ramirez, 2018",
+    modelHtml: "Ramirez (2018) found that hearing a wider range of spoken words during the first three years of life predicted a bigger kindergarten vocabulary than more limited early language exposure.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p16", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 6",
+    original: "Employees who have greater autonomy over how they complete their tasks report lower burnout than employees who are closely monitored and given little discretion.",
+    citation: "Whitfield, 2021",
+    modelHtml: "Whitfield (2021) found that giving employees more control over how they did their work was associated with less burnout than closely supervising them and limiting their decision-making.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p17", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 7",
+    original: "Older adults who maintain regular social contact with friends and family show slower cognitive decline than older adults who are socially isolated.",
+    citation: "Osei, 2017",
+    modelHtml: "Osei (2017) found that staying socially connected to friends and family in later life was linked to a slower rate of cognitive decline compared to social isolation.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p18", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 8",
+    original: "Athletes who use imagery techniques before competition report lower pre-performance anxiety and higher confidence than athletes who do not use these techniques.",
+    citation: "Delgado, 2022",
+    modelHtml: "Delgado (2022) found that athletes who mentally rehearsed their performance beforehand experienced less pre-competition anxiety and felt more confident than those who skipped this kind of mental preparation.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p19", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 9",
+    original: "Consumers are more likely to trust a product recommendation from a peer than from an advertisement, even when the content of the message is identical.",
+    citation: "Farrow, 2020",
+    modelHtml: "Farrow (2020) found that people trusted a product recommendation more when it came from a peer rather than an ad, even though the message itself was exactly the same.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] },
+
+  { id: "p20", category: "plagiarism", type: "paraphrase", title: "Practice Paraphrasing \u2014 Passage 10",
+    original: "Bilingual children often outperform monolingual children on tasks requiring cognitive flexibility, such as switching quickly between different rules or categories.",
+    citation: "Okafor, 2019",
+    modelHtml: "Okafor (2019) found that children who spoke two languages tended to do better than children who spoke only one on tasks that required quickly shifting between different rules or categories.",
+    checklist: ["Did you restructure the sentence, not just swap in synonyms?", "Did you include a citation for the source?",
+      "If you compare your version word-by-word with the original, are there more than a few consecutive words that match exactly?",
+      "Could someone tell your sentence apart from the original without seeing both side by side?"] }
+];
+
+const STORAGE_KEY = "apaPracticeProgress";
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { progress = {}; }
+
+let currentCategory = null;
+let currentSubfilter = "all";
+
+function saveProgress() { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }
+
+function questionsInCategory(cat) { return questions.filter(q => q.category === cat); }
+
+function masteredCount(cat) {
+  return questionsInCategory(cat).filter(q => progress[q.id] === "got").length;
+}
+
+function renderApp() {
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  if (!currentCategory) {
+    renderCategoryPicker(app);
+  } else {
+    renderCategoryView(app);
+  }
+}
+
+function renderCategoryPicker(app) {
+  const intro = document.createElement("div");
+  intro.className = "intro";
+  intro.innerHTML = "<p>Choose a practice set below. Each has its own mix of question types, and your progress is saved separately for each one.</p>";
+  app.appendChild(intro);
+
+  const grid = document.createElement("div");
+  grid.className = "category-grid";
+
+  Object.keys(CATEGORIES).forEach(key => {
+    const cat = CATEGORIES[key];
+    const total = questionsInCategory(key).length;
+    const mastered = masteredCount(key);
+    const pct = total === 0 ? 0 : Math.round((mastered / total) * 100);
+
+    const card = document.createElement("div");
+    card.className = "category-card";
+    card.innerHTML =
+      "<h2>" + cat.label + "</h2>" +
+      "<p>" + cat.description + "</p>" +
+      '<div class="cat-progress">' +
+      '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
+      '<span class="cat-label">' + mastered + " / " + total + " mastered</span>" +
+      "</div>" +
+      '<button class="start-btn">Start practicing</button>';
+    card.addEventListener("click", () => {
+      currentCategory = key;
+      currentSubfilter = "all";
+      renderApp();
+      window.scrollTo(0, 0);
+    });
+    grid.appendChild(card);
+  });
+
+  app.appendChild(grid);
+}
+
+function renderCategoryView(app) {
+  const cat = CATEGORIES[currentCategory];
+
+  const backRow = document.createElement("div");
+  backRow.className = "back-row";
+  const backBtn = document.createElement("button");
+  backBtn.className = "back-btn";
+  backBtn.textContent = "\u2190 Back to all practice sets";
+  backBtn.addEventListener("click", () => { currentCategory = null; renderApp(); window.scrollTo(0, 0); });
+  backRow.appendChild(backBtn);
+  app.appendChild(backRow);
+
+  const intro = document.createElement("div");
+  intro.className = "intro";
+  let introHtml = "<p><strong>" + cat.label + "</strong> \u2014 " + cat.description + "</p>";
+  introHtml += '<p>Mark each card "Got it" or "Need more practice" to track your progress \u2014 it\u2019s saved in this browser for next time.</p>';
+  intro.innerHTML = introHtml;
+  app.appendChild(intro);
+
+  const total = questionsInCategory(currentCategory).length;
+  const mastered = masteredCount(currentCategory);
+  const pct = total === 0 ? 0 : Math.round((mastered / total) * 100);
+  const progWrap = document.createElement("div");
+  progWrap.className = "progress-bar-wrap";
+  progWrap.innerHTML =
+    '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%;"></div></div>' +
+    '<span id="progress-label">' + mastered + " / " + total + " mastered</span>";
+  app.appendChild(progWrap);
+
+  if (cat.subfilters.length > 1) {
+    const filters = document.createElement("div");
+    filters.className = "filters";
+    cat.subfilters.forEach(sf => {
+      const btn = document.createElement("button");
+      btn.className = "filter-btn" + (currentSubfilter === sf.key ? " active" : "");
+      btn.textContent = sf.label;
+      btn.addEventListener("click", () => { currentSubfilter = sf.key; renderApp(); });
+      filters.appendChild(btn);
+    });
+    app.appendChild(filters);
+  }
+
+  const container = document.createElement("div");
+  container.id = "card-container";
+  app.appendChild(container);
+  renderCards(container);
+
+  const resetRow = document.createElement("div");
+  resetRow.className = "reset-row";
+  const resetBtn = document.createElement("button");
+  resetBtn.textContent = "Reset progress for this practice set";
+  resetBtn.addEventListener("click", () => {
+    if (confirm('Clear saved progress for "' + cat.label + '" on this device?')) {
+      questionsInCategory(currentCategory).forEach(q => { delete progress[q.id]; });
+      saveProgress();
+      renderApp();
+    }
+  });
+  resetRow.appendChild(resetBtn);
+  app.appendChild(resetRow);
+}
+
+function renderCards(container) {
+  container.innerHTML = "";
+  let filtered = questionsInCategory(currentCategory);
+  if (currentSubfilter !== "all") {
+    filtered = filtered.filter(q => q.type === currentSubfilter);
+  }
+
+  filtered.forEach(q => {
+    const status = progress[q.id];
+    const card = document.createElement("div");
+    card.className = "card" + (status === "got" ? " mastered" : status === "need" ? " practice-more" : "");
+
+    const badgeLabel = q.type === "write" ? "Write It Yourself"
+      : q.type === "errors" ? "Find the Errors"
+      : q.type === "stats" ? "Report the Statistics"
+      : q.type === "identify" ? "Spot the Plagiarism"
+      : "Practice Paraphrasing";
+
+    let bodyHtml = "";
+
+    if (q.type === "write" || q.type === "stats") {
+      bodyHtml += '<div class="source-details"><strong>Source details:</strong><ul style="margin:6px 0 0; padding-left:20px;">';
+      q.details.forEach(d => { bodyHtml += "<li>" + d + "</li>"; });
+      bodyHtml += "</ul></div>";
+      const placeholderText = q.type === "stats" ? "Type your APA-formatted sentence here..." : "Type your reference here...";
+      bodyHtml += '<textarea placeholder="' + placeholderText + '" id="input-' + q.id + '"></textarea>';
+      bodyHtml += '<div class="btn-row"><button class="action" data-reveal="' + q.id + '">Show correct answer</button></div>';
+      bodyHtml += '<div class="answer-box" id="answer-' + q.id + '">';
+      const answerLabel = q.type === "stats" ? "Model APA-formatted write-up:" : "Correctly formatted reference:";
+      bodyHtml += '<p style="margin:0 0 6px; font-weight:bold; color:var(--navy); font-size:14px;">' + answerLabel + '</p>';
+      const hangClass = q.type === "stats" ? "" : "hang";
+      bodyHtml += '<div class="correct-ref"><p class="' + hangClass + '">' + q.correctHtml + '</p></div>';
+      if (q.explain) {
+        bodyHtml += '<div class="explain-note">\uD83D\uDCCC ' + q.explain + '</div>';
+      }
+      bodyHtml += '</div>';
+    } else if (q.type === "errors") {
+      const totalErrors = q.segments.filter(s => s.err).length;
+      bodyHtml += '<p style="margin:0 0 8px; font-size:14px; color:#555;">Click on the part of the reference you think is wrong. Click around until you\u2019ve found them all, or reveal the full answer below.</p>';
+      bodyHtml += '<div class="segfound-counter" id="counter-' + q.id + '">Errors found: 0 / ' + totalErrors + '</div>';
+      bodyHtml += '<div class="interactive-ref" id="interactive-' + q.id + '">';
+      q.segments.forEach((seg, i) => {
+        if (seg.err) {
+          bodyHtml += '<span class="ref-seg" data-qid="' + q.id + '" data-idx="' + i + '">' + seg.t + '</span>';
+        } else {
+          bodyHtml += '<span class="ref-seg" data-qid="' + q.id + '" data-idx="' + i + '">' + seg.t + '</span>';
+        }
+      });
+      bodyHtml += '</div>';
+      bodyHtml += '<div class="btn-row"><button class="action" data-reveal="' + q.id + '">Reveal all errors &amp; correct version</button></div>';
+      bodyHtml += '<div class="answer-box" id="answer-' + q.id + '">';
+      bodyHtml += '<p style="margin:0 0 6px; font-weight:bold; color:var(--navy); font-size:14px;">Full list of errors in this reference:</p>';
+      bodyHtml += '<ul class="error-list">';
+      q.errors.forEach(e => { bodyHtml += "<li>" + e + "</li>"; });
+      bodyHtml += '</ul>';
+      bodyHtml += '<p style="margin:14px 0 6px; font-weight:bold; color:var(--navy); font-size:14px;">Corrected reference:</p>';
+      bodyHtml += '<div class="correct-ref"><p class="hang">' + q.correctHtml + '</p></div>';
+      bodyHtml += '</div>';
+    } else if (q.type === "identify") {
+      bodyHtml += '<div class="passage-block original"><span class="passage-label">Original source</span>' + q.original + '</div>';
+      bodyHtml += '<div class="passage-block attempt"><span class="passage-label">Student\u2019s attempt</span>' + q.attempt + '</div>';
+      bodyHtml += '<p style="margin:0 0 8px; font-size:14px; color:#555;">Is this a genuine paraphrase, or does it still count as plagiarism?</p>';
+      bodyHtml += '<div class="choice-row" id="choices-' + q.id + '">';
+      bodyHtml += '<button class="choice-btn" data-choice="' + q.id + '|ok">This is OK</button>';
+      bodyHtml += '<button class="choice-btn" data-choice="' + q.id + '|plagiarism">This is plagiarism</button>';
+      bodyHtml += '</div>';
+      bodyHtml += '<div class="answer-box" id="answer-' + q.id + '">';
+      bodyHtml += '<div class="explain-note">' + q.explain + '</div>';
+      bodyHtml += '</div>';
+    } else if (q.type === "paraphrase") {
+      bodyHtml += '<div class="passage-block original"><span class="passage-label">Original source (cite as: ' + q.citation + ')</span>' + q.original + '</div>';
+      bodyHtml += '<textarea placeholder="Write your paraphrase here..." id="input-' + q.id + '"></textarea>';
+      bodyHtml += '<div class="btn-row"><button class="action" data-reveal="' + q.id + '">Show a model paraphrase</button></div>';
+      bodyHtml += '<div class="answer-box" id="answer-' + q.id + '">';
+      bodyHtml += '<p style="margin:0 0 6px; font-weight:bold; color:var(--navy); font-size:14px;">Model paraphrase:</p>';
+      bodyHtml += '<div class="correct-ref">' + q.modelHtml + '</div>';
+      bodyHtml += '<p style="margin:14px 0 6px; font-weight:bold; color:var(--navy); font-size:14px;">Check your version against these:</p>';
+      bodyHtml += '<ul class="checklist">';
+      q.checklist.forEach(c => { bodyHtml += "<li>" + c + "</li>"; });
+      bodyHtml += '</ul>';
+      bodyHtml += '</div>';
+    }
+
+    bodyHtml += '<div class="mastery-row" id="mastery-' + q.id + '">';
+    if (status === "got") {
+      bodyHtml += '<div class="mastery-status got">\u2713 Marked as mastered</div>';
+      bodyHtml += '<button class="mastery-btn" data-unmark="' + q.id + '">Clear</button>';
+    } else if (status === "need") {
+      bodyHtml += '<div class="mastery-status need">Marked as needing practice</div>';
+      bodyHtml += '<button class="mastery-btn" data-unmark="' + q.id + '">Clear</button>';
+    } else {
+      bodyHtml += '<button class="mastery-btn got-it" data-mark="' + q.id + '|got">Got it</button>';
+      bodyHtml += '<button class="mastery-btn need-practice" data-mark="' + q.id + '|need">Need more practice</button>';
+    }
+    bodyHtml += '</div>';
+
+    card.innerHTML =
+      '<div class="card-head"><span>' + q.title + '</span><span class="badge">' + badgeLabel + '</span></div>' +
+      '<div class="card-body">' + bodyHtml + '</div>';
+
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll("[data-reveal]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-reveal");
+      document.getElementById("answer-" + id).classList.add("shown");
+      btn.disabled = true;
+      btn.textContent = "Answer revealed";
+      const q = questions.find(item => item.id === id);
+      if (q && q.type === "errors") {
+        revealAllSegments(id);
+      }
+    });
+  });
+
+  container.querySelectorAll(".ref-seg").forEach(span => {
+    span.addEventListener("click", () => {
+      const qid = span.getAttribute("data-qid");
+      const idx = parseInt(span.getAttribute("data-idx"), 10);
+      handleSegmentClick(qid, idx, span);
+    });
+  });
+
+  container.querySelectorAll("[data-choice]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const [id, choice] = btn.getAttribute("data-choice").split("|");
+      const q = questions.find(item => item.id === id);
+      const choiceBtns = document.querySelectorAll('#choices-' + id + ' [data-choice]');
+      choiceBtns.forEach(b => {
+        b.disabled = true;
+        const bChoice = b.getAttribute("data-choice").split("|")[1];
+        if (bChoice === q.correctAnswer) {
+          b.classList.add("selected-correct");
+        } else if (bChoice === choice) {
+          b.classList.add("selected-wrong");
+        }
+      });
+      document.getElementById("answer-" + id).classList.add("shown");
+    });
+  });
+
+  container.querySelectorAll("[data-mark]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const [id, val] = btn.getAttribute("data-mark").split("|");
+      progress[id] = val;
+      saveProgress();
+      renderApp();
+    });
+  });
+
+  container.querySelectorAll("[data-unmark]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-unmark");
+      delete progress[id];
+      saveProgress();
+      renderApp();
+    });
+  });
+}
+
+function updateSegCounter(qid) {
+  const q = questions.find(item => item.id === qid);
+  const total = q.segments.filter(s => s.err).length;
+  const found = document.querySelectorAll('#interactive-' + qid + ' .ref-seg.seg-found-error').length;
+  const counterEl = document.getElementById('counter-' + qid);
+  if (counterEl) counterEl.textContent = "Errors found: " + found + " / " + total;
+  if (found === total && total > 0) {
+    const btn = document.querySelector('[data-reveal="' + qid + '"]');
+    if (btn && !btn.disabled) {
+      document.getElementById("answer-" + qid).classList.add("shown");
+      btn.disabled = true;
+      btn.textContent = "All errors found \u2014 answer revealed";
+    }
+  }
+}
+
+function handleSegmentClick(qid, idx, span) {
+  if (span.classList.contains("seg-found-error") || span.classList.contains("seg-checked-ok")) return;
+  const q = questions.find(item => item.id === qid);
+  const seg = q.segments[idx];
+  const note = document.createElement("span");
+  note.className = "seg-note";
+  if (seg.err) {
+    span.classList.add("seg-found-error");
+    note.classList.add("note-error");
+    note.innerHTML = "\u26A0\uFE0F " + seg.err;
+  } else {
+    span.classList.add("seg-checked-ok");
+    note.classList.add("note-ok");
+    note.textContent = "\u2713 No error here \u2014 this part is correct.";
+  }
+  span.insertAdjacentElement("afterend", note);
+  updateSegCounter(qid);
+}
+
+function revealAllSegments(qid) {
+  const container = document.getElementById('interactive-' + qid);
+  if (!container) return;
+  container.querySelectorAll(".ref-seg").forEach(span => {
+    if (!span.classList.contains("seg-found-error") && !span.classList.contains("seg-checked-ok")) {
+      const idx = parseInt(span.getAttribute("data-idx"), 10);
+      handleSegmentClick(qid, idx, span);
+    }
+  });
+}
+
+renderApp();
+</script>
+
+</body>
+</html>
