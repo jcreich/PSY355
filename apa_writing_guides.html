@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APA Section Writing Guides | PSY 355</title>
+<style>
+  :root {
+    --navy: #1F3B57;
+    --teal: #2A7F7F;
+    --teal-light: #eaf5f5;
+    --orange: #E8871E;
+    --orange-light: #fdf1e6;
+    --green: #1F6B4E;
+    --green-light: #e7f5ed;
+    --gray-border: #d9d9d9;
+    --gray-alt: #f7fafa;
+    --text: #222;
+    --g1: #1d5fa8; --g1-bg: #dbeaf9;
+    --g2: #0f6e56; --g2-bg: #d9f0ea;
+    --g3: #a65a12; --g3-bg: #fdecd2;
+    --g4: #6b3fa0; --g4-bg: #ecdff7;
+    --flag: #a83232; --flag-bg: #fbeaea;
+    --comment: #555555; --comment-bg: #e9e9e9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+    color: var(--text);
+    background: #fff;
+  }
+  header {
+    background-color: var(--navy);
+    color: #fff;
+    padding: 24px 28px;
+    border-radius: 0 0 8px 8px;
+    margin: 0 -16px 24px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 24px; }
+  header p { margin: 0; color: #d7e2ec; font-size: 15px; }
+
+  .intro {
+    background: var(--gray-alt);
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .intro p { margin: 0 0 8px; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  .section-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; }
+  .section-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    cursor: pointer;
+  }
+  .section-card:hover { border-color: var(--teal); }
+  .section-card.disabled { cursor: default; opacity: 0.55; }
+  .section-card.disabled:hover { border-color: var(--gray-border); }
+  .section-card h2 { margin: 0 0 4px; font-size: 18px; color: var(--navy); }
+  .section-card p { margin: 0; font-size: 13px; color: #666; }
+  .soon-badge {
+    display: inline-block; margin-top: 8px; font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 0.5px; color: #999;
+    background: #eee; padding: 2px 8px; border-radius: 10px;
+  }
+
+  .back-row { margin-bottom: 16px; }
+  .back-btn {
+    background: none; border: 1px solid var(--gray-border); border-radius: 4px;
+    padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--navy);
+  }
+  .back-btn:hover { background: var(--gray-alt); }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 2px solid var(--gray-border); flex-wrap: wrap; }
+  .tab-btn {
+    background: none; border: none; padding: 10px 18px; font-size: 15px; cursor: pointer;
+    color: #666; border-bottom: 3px solid transparent; margin-bottom: -2px;
+  }
+  .tab-btn.active { color: var(--navy); font-weight: bold; border-bottom-color: var(--navy); }
+
+  h3.guide-h { color: var(--navy); border-bottom: 2px solid var(--teal); padding-bottom: 6px; font-size: 18px; margin-top: 24px; }
+  .guide-body p { line-height: 1.6; }
+  .guide-body ul { line-height: 1.6; }
+  .tip-box {
+    background: var(--teal-light); border-left: 5px solid var(--teal); border-radius: 4px;
+    padding: 14px 18px; margin-top: 12px; line-height: 1.5;
+  }
+  .warn-box {
+    background: var(--orange-light); border-left: 5px solid var(--orange); border-radius: 4px;
+    padding: 14px 18px; margin-top: 12px; line-height: 1.5;
+  }
+  .two-col { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  @media (min-width: 640px) { .two-col { grid-template-columns: 1fr 1fr; } }
+  .example-card { border-radius: 6px; padding: 12px 14px; font-size: 14px; line-height: 1.5; }
+  .example-card.good { background: var(--green-light); border: 1px solid var(--green); }
+  .example-card.weak { background: var(--flag-bg); border: 1px solid var(--flag); }
+  .example-card .ex-label { font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
+  .example-card.good .ex-label { color: var(--green); }
+  .example-card.weak .ex-label { color: var(--flag); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .legend-chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px;
+    font-size: 13px; border: 2px solid var(--gray-border); background: #fff; cursor: pointer; color: var(--text);
+  }
+  .legend-chip .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .legend-chip.active { border-color: currentColor; font-weight: bold; }
+  .legend-chip[data-pen="g1"].active { color: var(--g1); background: var(--g1-bg); }
+  .legend-chip[data-pen="g2"].active { color: var(--g2); background: var(--g2-bg); }
+  .legend-chip[data-pen="g3"].active { color: var(--g3); background: var(--g3-bg); }
+  .legend-chip[data-pen="g4"].active { color: var(--g4); background: var(--g4-bg); }
+  .legend-chip[data-pen="flag"].active { color: var(--flag); background: var(--flag-bg); }
+  .legend-chip[data-pen="eraser"].active { color: #555; background: #eee; }
+
+  .view-toggle { display: flex; gap: 8px; margin-bottom: 18px; }
+  .view-btn {
+    flex: 1; padding: 10px; border-radius: 6px; border: 1px solid var(--gray-border);
+    background: #fff; font-size: 14px; cursor: pointer; color: var(--navy); font-weight: bold;
+  }
+  .view-btn.active { background: var(--navy); color: #fff; }
+
+  .paper-wrap {
+    border: 1px solid var(--gray-border); border-radius: 8px; padding: 20px 24px; background: #fff;
+  }
+  .paper-title { font-weight: bold; text-align: center; margin-bottom: 16px; font-size: 16px; }
+  .paper-para { margin-bottom: 14px; line-height: 2; }
+  .paper-h2 { font-weight: bold; margin: 18px 0 6px; font-size: 15px; color: var(--navy); }
+  .paper-h3 { font-weight: bold; font-style: italic; margin: 14px 0 6px; font-size: 14px; color: var(--navy); }
+  .sent {
+    cursor: pointer; padding: 1px 2px; border-radius: 3px; border-bottom: 1px dotted transparent;
+  }
+  .sent:hover { background: rgba(0,0,0,0.05); }
+  .sent.pen-g1 { background: var(--g1-bg); color: var(--g1); border-bottom: 2px solid var(--g1); }
+  .sent.pen-g2 { background: var(--g2-bg); color: var(--g2); border-bottom: 2px solid var(--g2); }
+  .sent.pen-g3 { background: var(--g3-bg); color: var(--g3); border-bottom: 2px solid var(--g3); }
+  .sent.pen-g4 { background: var(--g4-bg); color: var(--g4); border-bottom: 2px solid var(--g4); }
+  .sent.pen-flag { background: var(--flag-bg); color: var(--flag); border-bottom: 2px dashed var(--flag); }
+  .sent.pen-comment { background: var(--comment-bg); color: var(--comment); border-bottom: 2px dotted var(--comment); }
+  .note-box {
+    display: block; font-size: 13px; line-height: 1.5; padding: 8px 12px; border-radius: 4px;
+    margin: 4px 0 10px; background: #fafafa; border-left: 4px solid #999;
+  }
+  .note-box.n-g1 { border-left-color: var(--g1); background: var(--g1-bg); color: #123; }
+  .note-box.n-g2 { border-left-color: var(--g2); background: var(--g2-bg); color: #123; }
+  .note-box.n-g3 { border-left-color: var(--g3); background: var(--g3-bg); color: #322; }
+  .note-box.n-g4 { border-left-color: var(--g4); background: var(--g4-bg); color: #213; }
+  .note-box.n-flag { border-left-color: var(--flag); background: var(--flag-bg); color: #311; }
+  .note-box.n-comment { border-left-color: var(--comment); background: var(--comment-bg); color: #222; }
+  .note-input {
+    width: 100%; min-height: 44px; border: 1px solid var(--gray-border); border-radius: 4px;
+    padding: 8px 10px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; margin-top: 4px;
+  }
+  .note-save-btn {
+    margin-top: 6px; background: var(--flag); color: #fff; border: none; border-radius: 4px;
+    padding: 5px 12px; font-size: 12px; cursor: pointer;
+  }
+  .reset-row { text-align: right; margin-top: 24px; }
+  .reset-row button {
+    background: none; border: none; color: #888; font-size: 13px; text-decoration: underline; cursor: pointer;
+  }
+
+  .assign-field { margin-bottom: 22px; }
+  .assign-field label { display: block; font-weight: bold; color: var(--navy); margin-bottom: 6px; font-size: 15px; }
+  .assign-field .hint { font-size: 13px; color: #666; margin-bottom: 8px; }
+  .assign-field textarea {
+    width: 100%; min-height: 70px; border: 1px solid var(--gray-border); border-radius: 4px;
+    padding: 10px 12px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; resize: vertical;
+  }
+  .assign-field input[type="text"] {
+    width: 100%; border: 1px solid var(--gray-border); border-radius: 4px; padding: 9px 12px; font-size: 14px;
+  }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px;
+    background: var(--navy); color: #fff; border-radius: 50%; font-size: 12px; font-weight: bold; margin-right: 8px;
+  }
+  .progress-summary {
+    background: var(--teal-light); border-left: 5px solid var(--teal); border-radius: 4px;
+    padding: 14px 18px; margin: 16px 0; font-size: 14px; line-height: 1.6;
+  }
+  .export-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .export-btn {
+    background: var(--navy); color: #fff; border: none; border-radius: 4px;
+    padding: 11px 22px; font-size: 14px; cursor: pointer;
+  }
+  .export-btn.secondary { background: #fff; color: var(--navy); border: 1px solid var(--gray-border); }
+  .export-confirm { font-size: 13px; color: var(--green); margin-top: 8px; display: none; }
+
+  .guide-body table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+  .guide-body th { text-align: left; padding: 8px 12px; color: var(--navy); font-size: 13px; border-bottom: 2px solid var(--teal); background: var(--teal-light); }
+  .guide-body td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--gray-border); vertical-align: top; }
+  .guide-body tr:nth-child(even) td { background: var(--gray-alt); }
+  .callout-box {
+    background: var(--gray-alt); border: 1px solid var(--gray-border); border-radius: 4px;
+    padding: 14px 18px; margin-top: 12px; line-height: 1.5; font-size: 14px;
+  }
+  .req-table th, .req-table td { font-size: 13px; }
+  .annotated-example { background: #fff; border: 1px solid var(--gray-border); border-radius: 6px; padding: 16px 18px; margin-top: 12px; }
+  .annotated-example p { line-height: 1.8; font-size: 14px; }
+  .callout-num {
+    display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px;
+    background: var(--orange); color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold;
+    vertical-align: super; margin: 0 1px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>APA Section Writing Guides</h1>
+  <p>Content-focused guidance for writing each section, plus hands-on practice reading a real student paper.</p>
+</header>
+
+<div id="app"></div>
+
+<script>
+const SECTIONS = {
+  introduction: { label: "Introduction", ready: true, blurb: "How to introduce your topic, review the literature, and land on your hypotheses.", assignmentTitle: "APA Style: The Introduction Section" },
+  method: { label: "Method", ready: true, blurb: "How to describe your participants, measures, and procedure so another researcher could replicate your study.", assignmentTitle: "APA Style: The Method Section" },
+  results: { label: "Results", ready: true, blurb: "How to report what your analyses found \u2014 clearly, accurately, and without interpretation.", assignmentTitle: "APA Style: The Results Section" },
+  discussion: { label: "Discussion", ready: true, blurb: "How to interpret your findings, evaluate your study honestly, and land on a take-home message.", assignmentTitle: "APA Style: The Discussion Section" },
+  titleabstract: { label: "Title & Abstract", ready: true, blurb: "How to write a strong title and a complete, statistics-free abstract.", assignmentTitle: null }
+};
+
+const GOALS = {
+  introduction: [
+    { key: "g1", label: "States the Topic & Why It Matters" },
+    { key: "g2", label: "Paraphrases Research with Proper Citation" },
+    { key: "g3", label: "Moves Broad \u2192 Specific with Clear Transitions" },
+    { key: "g4", label: "Previews Methodology & States Hypotheses" }
+  ],
+  method: [
+    { key: "g1", label: "Reports Sample Size & Demographics" },
+    { key: "g2", label: "Explains Selection, Recruitment & Compensation" },
+    { key: "g3", label: "Fully Describes a Measure" },
+    { key: "g4", label: "Walks Through the Procedure in Order" }
+  ],
+  results: [
+    { key: "g1", label: "States the Analysis & What It Tests" },
+    { key: "g2", label: "Reports a Statistic in Correct APA Format" },
+    { key: "g3", label: "Explicitly References a Table or Figure" },
+    { key: "g4", label: "Reports Findings Without Interpretation" }
+  ],
+  discussion: [
+    { key: "g1", label: "Summarizes a Finding in Real-People Words" },
+    { key: "g2", label: "States Whether a Hypothesis Was Supported" },
+    { key: "g3", label: "Connects to a Specific Cited Study" },
+    { key: "g4", label: "Discusses a Limitation Tied to a Validity" }
+  ],
+  titleabstract: [
+    { key: "g1", label: "Objective \u2014 States Purpose & Prediction" },
+    { key: "g2", label: "Method \u2014 Briefly Describes Participants & Procedure" },
+    { key: "g3", label: "Results \u2014 Reports the Finding Without Statistics" },
+    { key: "g4", label: "Conclusion \u2014 States Implications & Future Direction" }
+  ]
+};
+
+const PAPER = {
+  hawkRR1: {
+    label: "Hawk RR1 (Correlational Study)",
+    title: "The Impact of Gender Bias on Perceptions of Academic Performance",
+    introduction: [
+      { type: "para", sentences: [
+       "Gender bias is a prevalent topic in everyday society that can influence how people perceive themselves and others.",
+       "Whether implicit or intentional, gender bias can affect all populations, which is why it is critical to address it and seek solutions to combat it.",
+       "Gender bias can be considered as any stereotypical beliefs towards a person solely based on their gender identity, as per the American Psychological Association.",
+       "One area where this topic manifests is in education settings.",
+       "Gender bias can arise in various academic scenarios, including gender advantages in certain subjects and teachers' perceptions of students, that cause students to underperform.",
+       "Not only does this affect how students perceive their academic abilities, but it also discourages them from exceeding those stereotypes.",
+       "Internalization of biased values has adverse implications for students' decision-making and self-concept in education and idealized careers.",
+       "If the next generation of learners is confined into preconceived identities, how will society grow and encourage all that makes it unique?",
+       "To expand on this topic, this study assessed the impact gender bias has on student's academic performance.",
+       "In addition, it examined if there was a disproportionate level of gender bias towards academic performance between genders."] },
+      { type: "para", sentences: [
+       "Substantial research has been done regarding gender bias and its impact on academic performance.",
+       "A study by Bonnot and Krauth-Gruber (2016) examining system-dependency (i.e., rationalizing gender norms) found that prompting people to conform to traditional gender roles increases the prevalence of gender bias.",
+       "In scenarios with high system-dependency, women performed worse than men in math domains, whereas performance was equal in low system-dependent scenarios.",
+       "These implications raise the importance around eliminating gender bias, as even the notion of its presence can alter academic performance.",
+       "For instance, if female students are posited to believe in gender norms that are integral to their self-concept (e.g., girls cannot be proficient in math), then their academic performance will decrease (Bonnot & Krauth-Gruber, 2016)."] },
+      { type: "para", sentences: [
+       "Furthermore, S\u00e1inz et al. (2020) researched gender bias through parent and teacher assessments in Spain.",
+       "Focusing on their individual evaluations of gender bias in education, results showed these parents and teachers were not aware of its extent in school, nor could they provide solutions.",
+       "If student's caretakers are not cognizant of gender bias's presence and impact, there is limited opportunity to address it and seek ways to discourage it.",
+       "When expanding on an ongoing study, these researchers stated that girls scored higher than boys on math and science averages.",
+       "Subsequently, parent and teachers attributed this performance to the girls' maturity, rather than their ability in math domains.",
+       "While maturity might be instrumental, attributing their performance somewhere other than their academic ability aligns with traditional gender stereotypes.",
+       "This attribution opens discussion for how students' superiors reinforce traditional gender stereotypes, even if it is implicit (S\u00e1inz et al., 2020)."] },
+      { type: "para", sentences: [
+       "One way gender bias can infiltrate academic ability is by placing emphasis on certain subjects that align with traditional gender characteristics.",
+       "A prime example includes favoring men in Science, Technology, Engineering, and Math (STEM) fields over women.",
+       "This relationship is exemplified in a study by Rogers et al. (2021), which found that girls yielded lower test averages in math than boys.",
+       "By reinforcing gender stereotypes, many school age girls may engage in these classes less and perform poorly.",
+       "In addition to impacting STEM academic ability, gender bias also decreased levels of school connectedness in female students.",
+       "Weakening a student's connection with their school negatively influences academic development, leading to decreased motivation and engagement in all education areas.",
+       "This sequence of overall school detachment further details how severe gender bias can be for students (Rogers et al., 2021)."] },
+      { type: "para", sentences: [
+       "Adding to this claim of gender division in STEM domains, Lee et al. (2021) focused on increasing academic ability by decreasing gender stereotypes and promoting a growth mindset.",
+       "Results indicated that the participants in the experimental group \u2014 which discouraged traditional gender stereotypes in math domains \u2014 yielded higher scores on math tests than the control group across genders.",
+       "This finding strengthens the credibility of gender bias leads to students being outperformed in total subject areas.",
+       "While results showed adopting a growth mindset has a greater effect on increasing academic ability, it is worth noting that decreased gender bias still warranted a positive change (Lee et al., 2021)."] },
+      { type: "para", sentences: [
+       "The key message from these findings is that gender bias impact academic performance, and more so in STEM-related domains.",
+       "While gender stereotypes' influence on academics varies from each study, any presence of it is causes concern as they decrease confidence and achievement in certain subjects.",
+       "For instance, girls might underperform in math domains compared to boys because the stereotype reinforces it.",
+       "One link between the studies was that gender bias's effect was less significant than researchers theorized.",
+       "This pattern raises questions about possible confounds that alleviated these stereotypes, such as shifting social norms or individual differences.",
+       "Ultimately, these observations that offer insight and nuance guide this current study."] },
+      { type: "para", sentences: [
+       "This study explored the relationship between gender bias and academic performance to expand on the reports above.",
+       "To examine gender bias's prevalence, we reviewed participants' reports of academic ability after evaluating a male or female student profile with the same qualifications.",
+       "With a deeper understanding of how gender bias manifests and how it can alter academic performance, I predicted that individuals with traditional gender stereotypes believe men have higher academic abilities than women (Bonnot & Krauth-Gruber, 2016; S\u00e1inz et al., 2020; Rogers et al., 2021).",
+       "I also predicted individuals associate high STEM efficiency with men and low STEM efficiency with women (Lee et al., 2021; Rogers et al., 2021).",
+       "Furthermore, I predicted there will be a moderate to weak negative correlation between gender bias and academic performance (Lee et al., 2021; Rogers et al., 2021)."] }
+    ],
+    method: [
+      { type: "heading", level: 2, text: "Participants" },
+      { type: "para", sentences: [
+        "A total of 83 participants completed the survey.",
+        "Participants ranged from ages 18 to 38 years old (M = 20.77, SD = 4.04).",
+        "In the sample, 83.13% of the participants identified as women, 14.46% identified as men, 1.21% identified as agender, and 1.21% identified as nonbinary.",
+        "Most participants did not identify as transgender (96.39%), with two participants not including any information (2.41%), and one participant preferring not to answer (1.21%).",
+        "Most participants were White (81.93%), followed by mixed race (9.64%), Asian (3.61%), Black (1.21%), and Latino/Hispanic (1.21%).",
+        "Two participants did not include racial information (2.41%).",
+        "The participants consisted of college students in the Southeastern region of the United States who were recruited via email.",
+        "Participants received extra credit for participation."] },
+      { type: "heading", level: 2, text: "Measures" },
+      { type: "heading", level: 3, text: "Demographics" },
+      { type: "para", sentences: [
+        "Participants then answered demographic questions that assessed age, gender, and race.",
+        "Participants were also asked if they identified as transgender."] },
+      { type: "heading", level: 3, text: "Gender Bias" },
+      { type: "para", sentences: [
+        "Participant's evaluation of a male or female academic profile assessed levels of gender bias were assessed.",
+        "Participants responded to three items assessing gender bias levels self-created by the researcher.",
+        "The three questions stated, \u201cMen receive higher test scores than women in math and science courses,\u201d \u201cI prefer a male professor than a female professor in a statistics course,\u201d and \u201cSTEM majors should be comprised mostly of men.\u201d",
+        "Items were rated with Likert-type scales (1 = strongly disagree to 5 = strongly agree), and none were reverse scored.",
+        "Items were averaged, with higher scores indicating a greater presence of gender bias.",
+        "The measure demonstrated less than ideal internal reliability (M = 2.11, SD = 0.67, \u03b1 = 0.57)."] },
+      { type: "heading", level: 3, text: "Academic Profiles" },
+      { type: "para", sentences: [
+        "To measure if there was a difference between ratings of academic ability in men and women, participants received either a male or female student profile and answered questions.",
+        "Random assignment was conducted automatically via Qualtrics, ensuring an equal distribution of participants across conditions.",
+        "Both profiles included the same information, with the name on the profile being the only difference.",
+        "Participants rated their respective student profiles on various characteristics, like academic ability (M = 4.35, SD = 0.53)."] },
+      { type: "heading", level: 2, text: "Procedure" },
+      { type: "para", sentences: [
+        "The study was conducted online via Qualtrics (https://www.qualtrics.com/).",
+        "Before beginning the study, participants read an informed consent statement outlining the research's purpose, their right as participants, and the voluntary nature of participation.",
+        "Participants then provided demographic information, evaluated an academic profile, and answered three items measuring gender bias, as mentioned above.",
+        "Participants were randomly assigned to receive a male or female profile before answering questions regarding their academic ability.",
+        "Participation consisted of 20 to 30 minutes on average.",
+        "Participants were thanked for their participation upon completing the survey."] }
+    ],
+    results: [
+      { type: "heading", level: 3, text: "Gender Bias" },
+      { type: "para", sentences: [
+        "A Pearson's correlation was conducted to examine if an individual's level of gender bias impacts their perceptions of a male student's academic ability.",
+        "This test did not find a significant correlation between gender bias and ratings of the male student's academic ability, r(40) = -0.14, p = 0.39.",
+        "Another Pearson's correlation was conducted to examine if gender bias impacted perceptions of the female student's academic ability.",
+        "Similarly, this test also did not find a significant correlation between gender bias and ratings of the female student's academic ability, r(38) = -0.19, p = 0.24."] },
+      { type: "heading", level: 3, text: "Academic Profiles" },
+      { type: "para", sentences: [
+        "An Independent Samples t-test was conducted to examine if participants rated the academic profiles differently based on gender.",
+        "The results indicated that there was no significant difference between the male profile's academic ability ratings (M = 4.30, SD = 0.56) and the female profile's academic ability ratings (M = 4.40, SD = 0.50), t(81) = -0.84, p = 0.40, d = -0.19 (see Figure 1).",
+        "This test violated normality (p < .001), but did not violate the homogeneity of variance (p = 0.88)."] }
+    ],
+    discussion: [
+      { type: "para", sentences: [
+        "The results mostly contrast with the aforementioned hypotheses.",
+        "Contrary to the first prediction that individuals with more gender bias rate the male student profile higher, results showed that gender bias did not significantly impact either of the academic ratings.",
+        "There was no significant difference regarding whether individuals with gender stereotypes favor male or female academic ability, meaning gender bias was not a factor.",
+        "Contrasting with the second prediction that individuals associate higher STEM ability with men, there was no significant difference in perceptions of the male and female profiles.",
+        "Despite its non-significance, results showed an almost equal rating of academic ability in both the male and female student profiles, furthering itself more from the hypothesis.",
+        "However, the results supported the hypothesis about gender bias's effect size as there was a weak negative correlation between gender bias and ratings of academic ability in both student profiles."] },
+      { type: "para", sentences: [
+        "The results did not support the overall theory that gender bias is present in academic settings.",
+        "Contrasting with Bonnot and Krauth-Gruber's (2016) work that system dependency increases gender bias, the data showed there was almost equal academic ability despite there being a gender system.",
+        "While our study did not examine if the participants were dependent on the systems (i.e., rationalized their respective gender norms), the absence of gender bias indicated another factor influenced their academic perceptions.",
+        "Adding to the overall theory, S\u00e1inz et al. (2020) implications on gender bias impacting academic performance was not supported in our study.",
+        "They found that girls yielded higher scores than boys in math domains, whereas this study's data found no difference between male and female academic performance.",
+        "The results' disparities could be due to cultural differences, being their study was conducted in a country that shares different norms than the U.S."] },
+      { type: "para", sentences: [
+        "The data also did not support the idea that gender bias interferes with academic performance, specifically in STEM fields.",
+        "While Rogers et al. (2021) found that gender discrimination resulted in lower averages in some STEM domains, our data did not support a difference in the way perceive academic ability based on gender.",
+        "This could be attributed to utilization of different measures and scales, as our study did not test participants on their STEM abilities based on gender.",
+        "Furthermore, the observation from Lee et al. (2021) that gender bias negatively impacts math academic ability did not compare with our data.",
+        "The nonsignificant findings between gender bias and STEM academic ability mentioned above do not support.",
+        "The effect sizes in these findings do align with gender bias's effect size in this current study.",
+        "Consistent with our data, Roger et al. (2021) and Lee et al. (2021) both reported that gender bias was less significant than what they hypothesized."] },
+      { type: "para", sentences: [
+        "The primary limitation of this study is its lack of generalizability, as the sample was predominantly White, female college students.",
+        "Utilizing convenience sampling impacted the external validity of this study.",
+        "Including a sample that is more representative of the population, such as more men, ages, and races, would be a more accurate descriptor of how prevalent gender bias is in academic settings.",
+        "Furthermore, including participants from different regions outside of the Southeastern U.S. could impact the results.",
+        "This is a crucial flaw to address, as other populations that hold different beliefs could influence how gender bias is accurately present in academic settings."] },
+      { type: "para", sentences: [
+        "Another limitation of this study was its low sample size.",
+        "This interferes with the study's statistical validity and impacts the potential results.",
+        "To elaborate, having a larger sample could be the difference between a significant and nonsignificant result.",
+        "Furthermore, most of the cited studies had greater sample sizes than this current study, which could explain the strength of their statistics and results.",
+        "The issue of sample size could be resolved in future replication, especially to see if this study's low statistical validity was responsible for the nonsignificant results."] },
+      { type: "para", sentences: [
+        "The current study indicates gender bias is not a present factor when determining one's academic performance.",
+        "There was not a relationship between gender bias and academic performance, nor was there a difference in how men and women were perceived academically.",
+        "Despite its limitations of low generalizability and small sample size, there is promise for deeper exploration of these topics in future research.",
+        "Gender bias is still a concerning issue in society that causes disparity and friction for every population.",
+        "Regardless of gender, every person observes some variation of gender bias in some area of life, like one's education or career.",
+        "This magnitude details the importance of addressing gender bias and introducing ways to mitigate it.",
+        "Delving deeper, gender bias plays a key role in the classroom, as it creates unnecessary obstacles for students to overcome.",
+        "This bias can affect students' self-concept and interfere with their academic and professional plans.",
+        "If the next generation will lead society in the following decades, there must be an emphasis on deterring gender bias during their formative years."] }
+    ],
+    titleabstract: [
+      { type: "heading", level: 2, text: "Title" },
+      { type: "para", sentences: [
+        "The Impact of Gender Bias on Perceptions of Academic Achievement"] },
+      { type: "heading", level: 2, text: "Abstract" },
+      { type: "para", sentences: [
+        "The prevalence of gender bias in society, and specifically in academic settings, causes concern over how it affects the population of students.",
+        "Previous studies found that gender influence academic performance, especially in women (Bonnot & Krauth-Gruber, 2016).",
+        "Further research reported different perceptions of academic ability between males and females (Lee et al., 2021; Rogers et al., 2021).",
+        "This current study aimed to identify if gender bias is prevalent when rating academic ability, as well as differences between male and female academic performance.",
+        "The sample consisted of 83 participants recruited from the University of North Carolina Wilmington (M = 20.77 years, SD = 4.04).",
+        "Gender bias was examined by participants' evaluations of student profiles.",
+        "A correlational analysis was conducted to determine if there was a significant relationship between gender bias and academic performance.",
+        "These results found no significant correlation (r = -0.84) between gender bias and participant's perception of academic performance, p = 0.40.",
+        "While gender bias has a small effect in this study, the lack of generalizability and statistical significance deters drawing firm conclusions.",
+        "Additional research is needed to better assess the relationship.",
+        "These implications offer insight on gender bias in education and offer and provide a basis for future research."] }
+    ]
+  }
+};
+
+const INSTRUCTOR_ANNOTATIONS = {
+  hawkRR1_introduction: {
+    "0-0": [{ pen: "g1", note: "Strong opening \u2014 states the topic in plain language before any technical framing." }],
+    "0-1": [{ pen: "flag", note: "The student may want to use a different term than \u201cimplicit\u201d or define what implicit gender bias is." }],
+    "0-2": [{ pen: "flag", note: "This definition needs a formal in-text citation." }],
+    "0-3": [{ pen: "flag", note: "These sentences could be combined into one: \u201cIn academic or educational settings, gender bias may result in advantages in certain subjects and altered perceptions of students by teachers, leading to differences in student performance.\u201d" }],
+    "0-4": [{ pen: "flag", note: "These sentences could be combined into one: \u201cIn academic or educational settings, gender bias may result in advantages in certain subjects and altered perceptions of students by teachers, leading to differences in student performance.\u201d" }],
+    "0-6": [
+      { pen: "g1", note: "Detailing why gender bias matters \u2014 impacts what subjects and ultimately career paths students pursue." },
+      { pen: "flag", note: "I would like to see some citations here showing evidence of this claim." }
+    ],
+    "0-8": [
+      { pen: "g4", note: "This sentence previews the study, but it's doing that job very early \u2014 usually this belongs in the closing paragraph, after the literature review. Worth discussing with the student: was this intentional pacing, or should it move?" },
+      { pen: "flag", note: "The student should be cautious with their language. This was a correlational study, so the hypotheses should be framed accordingly (e.g., \u201c...assessed the association between gender bias and student academic performance\u201d)." }
+    ],
+    "1-1": [{ pen: "g2", note: "Clean paraphrase with a narrative citation \u2014 tells us what the study did and found without quoting it. Defines unfamiliar terms (system-dependency)." }],
+    "1-3": [{ pen: "flag", note: "Wording could be improved (remove fluffiness, be concise, be clear): \u201cThis finding underscores the importance of eliminating gender bias, as even its presence may alter academic performance.\u201d" }],
+    "1-4": [
+      { pen: "g2", note: "Good use of a concrete example to make the abstract finding tangible, closed with a parenthetical citation." },
+      { pen: "flag", note: "Use more conservative language \u2014 \u201cmay\u201d decrease, instead of \u201cwill\u201d decrease." }
+    ],
+    "2-0": [{ pen: "flag", note: "May want to think about the implications of using a Spanish sample." }],
+    "2-2": [{ pen: "g1", note: "Another mention of the importance of this topic \u2014 limited awareness may inhibit efforts to reduce it." }],
+    "2-3": [{ pen: "flag", note: "The wording here is a little unclear \u2014 what does the student mean by \u201cexpanding on an ongoing study?\u201d This citation also reports girls scoring HIGHER than boys \u2014 which runs counter to the paper's overall argument that bias favors men. The student did include information about how this is due to attributions of maturity, which is perhaps itself a form of gender stereotyping. However, the finding that female students outperformed male students is counter to the idea that gender stereotypes should hinder girls' math performance. This may be a result of the sample being from Spain?" }],
+    "2-4": [{ pen: "flag", note: "The wording here is a little unclear \u2014 what does the student mean by \u201cexpanding on an ongoing study?\u201d This citation also reports girls scoring HIGHER than boys \u2014 which runs counter to the paper's overall argument that bias favors men. The student did include information about how this is due to attributions of maturity, which is perhaps itself a form of gender stereotyping. However, the finding that female students outperformed male students is counter to the idea that gender stereotypes should hinder girls' math performance. This may be a result of the sample being from Spain?" }],
+    "2-5": [{ pen: "flag", note: "The wording here is a little unclear \u2014 what does the student mean by \u201cexpanding on an ongoing study?\u201d This citation also reports girls scoring HIGHER than boys \u2014 which runs counter to the paper's overall argument that bias favors men. The student did include information about how this is due to attributions of maturity, which is perhaps itself a form of gender stereotyping. However, the finding that female students outperformed male students is counter to the idea that gender stereotypes should hinder girls' math performance. This may be a result of the sample being from Spain?" }],
+    "3-0": [{ pen: "g3", note: "Nice transition \u2014 moves from the general pattern (gender bias affects academics) to a specific mechanism (subject-area emphasis) without feeling abrupt." }],
+    "3-1": [{ pen: "comment", note: "Nice job writing out the acronym the first time it is used." }],
+    "3-2": [
+      { pen: "flag", note: "\u201cRelationship\u201d may not be an accurate term here, given how the topic of discussion was introduced. I suggest rewording: \u201cAn example of this differential emphasis is Rogers et al.'s (2021) study...\u201d This paragraph could also use some reorganization to make the point clearer." },
+      { pen: "g1", note: "The ending sentence does a nice job of communicating the importance of detachment as a consequence of gender bias." }
+    ],
+    "3-3": [
+      { pen: "flag", note: "\u201cRelationship\u201d may not be an accurate term here, given how the topic of discussion was introduced. I suggest rewording: \u201cAn example of this differential emphasis is Rogers et al.'s (2021) study...\u201d This paragraph could also use some reorganization to make the point clearer." },
+      { pen: "g1", note: "The ending sentence does a nice job of communicating the importance of detachment as a consequence of gender bias." }
+    ],
+    "3-4": [
+      { pen: "flag", note: "\u201cRelationship\u201d may not be an accurate term here, given how the topic of discussion was introduced. I suggest rewording: \u201cAn example of this differential emphasis is Rogers et al.'s (2021) study...\u201d This paragraph could also use some reorganization to make the point clearer." },
+      { pen: "g1", note: "The ending sentence does a nice job of communicating the importance of detachment as a consequence of gender bias." }
+    ],
+    "3-5": [
+      { pen: "flag", note: "\u201cRelationship\u201d may not be an accurate term here, given how the topic of discussion was introduced. I suggest rewording: \u201cAn example of this differential emphasis is Rogers et al.'s (2021) study...\u201d This paragraph could also use some reorganization to make the point clearer." },
+      { pen: "g1", note: "The ending sentence does a nice job of communicating the importance of detachment as a consequence of gender bias." }
+    ],
+    "3-6": [
+      { pen: "flag", note: "\u201cRelationship\u201d may not be an accurate term here, given how the topic of discussion was introduced. I suggest rewording: \u201cAn example of this differential emphasis is Rogers et al.'s (2021) study...\u201d This paragraph could also use some reorganization to make the point clearer." },
+      { pen: "g1", note: "The ending sentence does a nice job of communicating the importance of detachment as a consequence of gender bias." }
+    ],
+    "4-1": [{ pen: "flag", note: "Bias-free language should be used when referring to \u201cgenders.\u201d" }],
+    "4-2": [{ pen: "flag", note: "This sentence is grammatically garbled (\u201cthe credibility of gender bias leads to...\u201d) and hard to follow. Revise for clarity \u2014 what is it actually trying to claim?" }],
+    "5-0": [{ pen: "g3", note: "This is the synthesis move \u2014 pulling five separate studies into one shared takeaway. Good structural instinct, though there's a subject-verb agreement error (\u201cimpact\u201d \u2192 \u201cimpacts\u201d)." }],
+    "5-1": [{ pen: "flag", note: "Grammar error: \u201cis causes concern\u201d should just be \u201ccauses concern.\u201d This sentence is also trying to do a lot at once \u2014 consider splitting it." }],
+    "5-2": [{ pen: "flag", note: "Ideally, the student would cite the studies that evidence this." }],
+    "5-3": [{ pen: "flag", note: "This is a brand-new point being made for the first time at the end of the introduction. This idea should have been included earlier in reference to the specific study or studies it is referring to." }],
+    "5-4": [{ pen: "comment", note: "This is a good point, and should be integrated into the explanation of why the current study was conducted." }],
+    "6-0": [
+      { pen: "g4", note: "Clear restatement of the study's purpose to open the final paragraph." },
+      { pen: "flag", note: "Reword: \u201c...expand on previous research.\u201d" }
+    ],
+    "6-1": [{ pen: "g4", note: "Brief, non-technical methodology preview \u2014 exactly the right level of detail for this spot." }],
+    "6-2": [
+      { pen: "g4", note: "Well-formed hypothesis: specific, tied to the cited literature, and testable." },
+      { pen: "flag", note: "Reword for clarity and accuracy: \u201c...individuals endorsing traditional gender stereotypes to a greater degree would rate men as having greater academic abilities than women, even if they are equally qualified.\u201d" }
+    ],
+    "6-3": [
+      { pen: "g4", note: "Second hypothesis, also cited and specific." },
+      { pen: "flag", note: "Reword/edit for clarity and accuracy: \u201c...as indicated by higher ratings of men compared to women in STEM fields.\u201d" }
+    ],
+    "6-4": [
+      { pen: "g4", note: "Third hypothesis states a clear predicted direction and strength \u2014 this is exactly what a hypothesis should do." },
+      { pen: "flag", note: "Though this is a good hypothesis, the study was not designed to be able to test this." }
+    ]
+  },
+  hawkRR1_method: {
+    "1-0": [{ pen: "g1", note: "Opens the Participants subsection with total N first, exactly as it should. Uses numerals instead of writing out the number (a number over 10 is written as a numeral unless it starts a sentence)." }],
+    "1-1": [{ pen: "flag", note: "Statistical symbols, such as M and SD, should be italicized per APA format." }],
+    "1-2": [{ pen: "g1", note: "Full gender breakdown by percentage, and it separately reports transgender identification \u2014 both required elements are here. Student does this for racial identity too." }],
+    "1-6": [{ pen: "g2", note: "States both the population sampled and the recruitment method (email) in one sentence." }],
+    "1-7": [{ pen: "g2", note: "Compensation is stated clearly and simply." }],
+    "6-0": [{ pen: "flag", note: "This sentence is grammatically garbled \u2014 \u201cassessed... were assessed\u201d is repeated and the sentence doesn't parse cleanly. Revise for clarity: something like \u201cGender bias was assessed through participants' evaluations of a male or female academic profile.\u201d" }],
+    "6-2": [
+      { pen: "g3", note: "Example items are included." },
+      { pen: "flag", note: "Student should refer to these as items, not questions." }
+    ],
+    "6-3": [
+      { pen: "g3", note: "Response scale is fully specified (1\u20135 Likert, no reverse-scored items) \u2014 a reader would know exactly how this measure worked." },
+      { pen: "flag", note: "Scale endpoint labels should be italicized per APA format." }
+    ],
+    "6-5": [
+      { pen: "g3", note: "Reliability is reported with the actual alpha value, and the author is transparent that it's below the ideal threshold rather than hiding it." },
+      { pen: "flag", note: "Statistical symbols, including M and SD, should be italicized." }
+    ],
+    "8-2": [{ pen: "flag", note: "To aid in replicability, the student should have included the names on the profiles and at least some of the information included on the profile." }],
+    "8-3": [{ pen: "flag", note: "This is the entire description of the DV measure, and it's too vague to replicate: it doesn't say how many items made up the \u201cacademic ability\u201d rating, what the response scale was, or how the composite score was calculated. Compare this to the Gender Bias measure above, which specifies all of that. Also, statistical symbols should be italicized per APA format." }],
+    "10-0": [{ pen: "g4", note: "Opens the Procedure by naming the platform and format \u2014 a reader immediately knows how the study was run. Correctly cites Qualtrics by including the weblink." }],
+    "10-1": [{ pen: "g4", note: "Describes the consent process, including what participants were told." }],
+    "10-3": [
+      { pen: "g4", note: "Includes information about assignment to conditions (also included this information earlier in the Method \u2014 doesn't need to appear twice)." },
+      { pen: "flag", note: "Includes information about assignment to conditions (also included this information earlier in the Method \u2014 doesn't need to appear twice)." }
+    ],
+    "10-4": [{ pen: "g4", note: "States the approximate duration, which helps future researchers plan a replication." }]
+  },
+  hawkRR1_results: {
+    "1-0": [
+      { pen: "g1", note: "States which analysis was run and exactly what relationship it examines, before any numbers appear." },
+      { pen: "flag", note: "Student should soften the language to be appropriate for the analysis and research design (\u201cis associated with\u201d instead of \u201cimpacts\u201d)." }
+    ],
+    "1-1": [
+      { pen: "flag", note: "Statistical symbols should be italicized, there are spaces around the equals signs, and df appears in parentheses \u2014 the core formatting is right. (One thing to flag: APA style drops the leading zero on r and p values here \u2014 see the flagged sentence below.)" },
+      { pen: "g2", note: "Statistical symbols should be italicized, there are spaces around the equals signs, and df appears in parentheses \u2014 the core formatting is right. (One thing to flag: APA style drops the leading zero on r and p values here \u2014 see the flagged sentence below.)" }
+    ],
+    "1-2": [{ pen: "flag", note: "Student should soften their language (\u201cis associated with\u201d instead of \u201cimpacted\u201d)." }],
+    "1-3": [
+      { pen: "flag", note: "Make sure statistical symbols are italicized." },
+      { pen: "g4", note: "Purely factual \u2014 reports the statistical outcome with no speculation about why, or what it might mean. That interpretation is saved for the Discussion." }
+    ],
+    "3-0": [{ pen: "g1", note: "Second example of stating the analysis and what it tests, this time for the t-test." }],
+    "3-1": [
+      { pen: "flag", note: "Italicize statistical symbols." },
+      { pen: "g3", note: "Explicitly directs the reader to Figure 1 rather than just describing the result in words alone." }
+    ],
+    "3-2": [
+      { pen: "comment", note: "Very nicely done \u2014 including tests of major assumptions is not required but recommended for thoroughness." },
+      { pen: "flag", note: "This sentence shows the formatting inconsistency directly: \u201cp < .001\u201d correctly drops the leading zero, but \u201cp = 0.88\u201d does not. This same leading-zero issue appears in every r and p value throughout this Results section (e.g., r(40) = -0.14 should be r(40) = -.14) \u2014 worth a global find-and-replace pass during revision." }
+    ]
+  },
+  hawkRR1_discussion: {
+    "0-0": [
+      { pen: "flag", note: "Discussion sections benefit from starting with a reminder of the study's overall goal." },
+      { pen: "g2", note: "Clearly signaling the overall pattern: the hypotheses were largely not supported. Sets expectations before the details follow." }
+    ],
+    "0-1": [{ pen: "g2", note: "Restates the hypothesis and whether it was supported." }],
+    "0-2": [
+      { pen: "g1", note: "Real-people words \u2014 no statistics, no jargon. A reader who never saw the Results section can still follow what happened." },
+      { pen: "flag", note: "This could be written a little clearer \u2014 \u201cParticipants endorsing more gender stereotypes did not favor the male profile over the female one, indicating that gender bias may not be associated with perceptions of academic ability.\u201d" }
+    ],
+    "0-3": [{ pen: "g2", note: "Restates the hypothesis and whether it was supported." }],
+    "0-4": [{ pen: "flag", note: "\u201c...furthering itself more from the hypothesis\u201d is awkward and unclear. What is this sentence trying to say \u2014 that the near-equal ratings move even further from what was predicted? Revise for clarity." }],
+    "0-5": [{ pen: "flag", note: "This sentence is unclear and potentially inaccurate. The effect size was weak, but how this supports the hypothesis is unclear. Revise for clarity and accuracy." }],
+    "1-1": [{ pen: "g3", note: "Names the specific cited study (Bonnot & Krauth-Gruber, 2016) and explains how this study's findings contrast with it \u2014 not just \u201cprior research disagrees,\u201d but which research and how." }],
+    "1-2": [{ pen: "flag", note: "Student may want to include an example of another factor that might have influenced their academic perceptions to strengthen this sentence." }],
+    "1-4": [
+      { pen: "g3", note: "Another specific, named comparison \u2014 states exactly what S\u00e1inz et al. (2020) found and how it differs from this study's results." },
+      { pen: "flag", note: "Student may wish to revisit this study to ensure they are accurate \u2014 did S\u00e1inz et al. (2020) measure perceptions of academic performance, or actual performance? If the latter, this sentence is weak." }
+    ],
+    "1-5": [{ pen: "comment", note: "Student nicely points out a major difference between their study and past research that may explain why the results differ." }],
+    "2-1": [
+      { pen: "g3", note: "Student should flesh out this sentence. What point are they trying to make here? That even though gender discrimination may lower performance in some domains, others' perceptions remain unchanged? It is unclear. Also, \u201cin the way perceive academic ability based on gender\u201d is an incomplete phrase." },
+      { pen: "flag", note: "Student should flesh out this sentence. What point are they trying to make here? That even though gender discrimination may lower performance in some domains, others' perceptions remain unchanged? It is unclear. Also, \u201cin the way perceive academic ability based on gender\u201d is an incomplete phrase." }
+    ],
+    "2-2": [{ pen: "comment", note: "Student nicely points out a major difference between their study and past research that may explain why the results differ." }],
+    "2-3": [
+      { pen: "g3", note: "Student needs to explicitly make the connection between performance and perceptions. The research presented mostly pertains to the impact of gender bias on actual performance, not how we perceive performance. Student should connect these things \u2014 if gender bias leads to lower performance in women/girls, then we might also start perceiving that they don't do well in these areas." },
+      { pen: "flag", note: "Student needs to explicitly make the connection between performance and perceptions. The research presented mostly pertains to the impact of gender bias on actual performance, not how we perceive performance. Student should connect these things \u2014 if gender bias leads to lower performance in women/girls, then we might also start perceiving that they don't do well in these areas." }
+    ],
+    "2-4": [{ pen: "flag", note: "This sentence is incomplete/garbled \u2014 \u201cdo not support\u201d has no object. Do not support what, exactly? This needs to be rewritten as a complete thought." }],
+    "3-1": [{ pen: "g4", note: "Names the specific validity (external) rather than just describing a problem generically \u2014 this is exactly the kind of validity-linked limitation the assignment is asking for." }],
+    "4-1": [{ pen: "g4", note: "Ties the small sample directly to statistical validity by name, and explains the mechanism (reduced power to detect an effect) rather than just asserting \u201csmall sample = bad.\u201d" }],
+    "5-0": [
+      { pen: "g1", note: "Clean, plain-language restatement of the overall take-home finding \u2014 exactly the kind of real-people-words summary a conclusion needs." },
+      { pen: "flag", note: "Student should ensure that their take-home finding is accurate. Their study did not examine performance, but rather perceptions of performance!" }
+    ],
+    "5-1": [{ pen: "flag", note: "Student should ensure they are accurate. Their study did not examine performance, but rather perceptions of performance!" }],
+    "5-2": [{ pen: "flag", note: "How so? Student should flesh this point out and provide concrete examples." }],
+    "5-3": [{ pen: "flag", note: "From here through the rest of the paragraph, the writing drifts into broad, generic claims about gender bias in society rather than staying anchored to this study's specific (null) findings. A stronger conclusion would tie the real-world importance back to what this study actually found \u2014 or didn't find \u2014 rather than making general claims the data didn't test." }]
+  },
+  hawkRR1_titleabstract: {
+    "1-0": [{ pen: "flag", note: "Compare this title to the one that appears at the start of the Introduction section (\u201c...Perceptions of Academic Performance\u201d). The two don't match \u2014 \u201cAchievement\u201d here vs. \u201cPerformance\u201d there. A paper's title needs to be identical everywhere it appears." }],
+    "3-1": [{ pen: "flag", note: "Subject-verb agreement error: \u201cgender influence\u201d should be \u201cgender influences.\u201d Small, but worth a careful proofread pass on the abstract since it's often the only part of the paper some readers see." }],
+    "3-3": [{ pen: "g1", note: "Clearly states the study's purpose and what relationship was examined \u2014 exactly what the Objective component needs." }],
+    "3-4": [{ pen: "g2", note: "Briefly describes the sample (N, institution, age) without going into full Method-section detail \u2014 the right level of brevity for an abstract." }],
+    "3-6": [{ pen: "g2", note: "States the type of analysis used, rounding out the Method component." }],
+    "3-7": [{ pen: "flag", note: "This sentence includes actual statistics (r = -0.84, p = 0.40), which abstracts should NOT contain \u2014 report the finding in plain language instead (e.g., \u201cgender bias was not significantly related to perceptions of academic performance\u201d). Also worth a closer look: these values don't match the r and p values reported in the Results section for either correlation \u2014 compare them yourself when you read that section." }],
+    "3-8": [{ pen: "g4", note: "Appropriately acknowledges a limitation as part of the conclusion, rather than overstating what the (null) findings mean." }],
+    "3-10": [{ pen: "flag", note: "Redundant phrasing \u2014 \u201coffer insight... and offer and provide a basis\u201d repeats \u201coffer\u201d awkwardly. Tighten this closing sentence." }]
+  }
+};
+
+// EDIT THIS DATE to control when "Dr. Reich's Highlights" automatically unlocks for everyone
+// (e.g., the day of your in-class discussion). Format: "YYYY-MM-DDTHH:MM:SS"
+const UNLOCK_DATE = new Date("2026-09-10T23:59:00");
+
+let currentSection = null;
+let currentTab = "guide";
+let currentPen = "g1";
+let currentView = "mine";
+const STORAGE_KEY = "apaGuidesAnnotations";
+let myAnnotations = {};
+try { myAnnotations = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { myAnnotations = {}; }
+function saveMine() { localStorage.setItem(STORAGE_KEY, JSON.stringify(myAnnotations)); }
+
+function renderApp() {
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  if (!currentSection) {
+    renderSectionPicker(app);
+  } else {
+    renderSectionView(app);
+  }
+}
+
+function renderSectionPicker(app) {
+  const intro = document.createElement("div");
+  intro.className = "intro";
+  intro.innerHTML = "<p>Pick a section below to open its writing guide and practice reading a real student paper for that section.</p>";
+  app.appendChild(intro);
+
+  const grid = document.createElement("div");
+  grid.className = "section-grid";
+  Object.keys(SECTIONS).forEach(key => {
+    const s = SECTIONS[key];
+    const card = document.createElement("div");
+    card.className = "section-card" + (s.ready ? "" : " disabled");
+    card.innerHTML = "<h2>" + s.label + "</h2><p>" + s.blurb + "</p>" + (s.ready ? "" : '<span class="soon-badge">Coming soon</span>');
+    if (s.ready) {
+      card.addEventListener("click", () => { currentSection = key; currentTab = "guide"; renderApp(); window.scrollTo(0,0); });
+    }
+    grid.appendChild(card);
+  });
+  app.appendChild(grid);
+}
+
+function renderSectionView(app) {
+  const backRow = document.createElement("div");
+  backRow.className = "back-row";
+  const backBtn = document.createElement("button");
+  backBtn.className = "back-btn";
+  backBtn.textContent = "\u2190 Back to all sections";
+  backBtn.addEventListener("click", () => { currentSection = null; renderApp(); window.scrollTo(0,0); });
+  backRow.appendChild(backBtn);
+  app.appendChild(backRow);
+
+  const hasAssignment = !!SECTIONS[currentSection].assignmentTitle;
+  if (currentTab === "assignment" && !hasAssignment) { currentTab = "guide"; }
+
+  const tabs = document.createElement("div");
+  tabs.className = "tabs";
+  const tabList = [["guide", "Writing Guide"], ["practice", "Annotation Practice"]];
+  if (hasAssignment) { tabList.push(["assignment", "Assignment"]); }
+  tabList.forEach(pair => {
+    const key = pair[0], label = pair[1];
+    const btn = document.createElement("button");
+    btn.className = "tab-btn" + (currentTab === key ? " active" : "");
+    btn.textContent = label;
+    btn.addEventListener("click", () => { currentTab = key; renderApp(); });
+    tabs.appendChild(btn);
+  });
+  app.appendChild(tabs);
+
+  const content = document.createElement("div");
+  app.appendChild(content);
+
+  if (currentTab === "guide") {
+    if (currentSection === "introduction") renderGuideIntroduction(content);
+    else if (currentSection === "method") renderGuideMethod(content);
+    else if (currentSection === "results") renderGuideResults(content);
+    else if (currentSection === "discussion") renderGuideDiscussion(content);
+    else if (currentSection === "titleabstract") renderGuideTitleAbstract(content);
+  } else if (currentTab === "practice") {
+    renderPractice(content);
+  } else if (hasAssignment) {
+    renderAssignment(content);
+  }
+}
+
+function renderGuideIntroduction(container) {
+  container.innerHTML = "" +
+    '<p style="line-height:1.6;">A scientific introduction is not an essay, a report, or a summary. It is an argument \u2014 and its job is to bring the reader to your hypotheses by a logical path. Building one from scratch takes practice, and it\u2019s normal for it to be the hardest section to write well.</p>' +
+
+    '<div class="callout-box req-table"><strong>Quick reference \u2014 RR1 Introduction Draft (Assignment 4):</strong>' +
+    '<table><tbody>' +
+    '<tr><td><strong>Length</strong></td><td>600&ndash;900 words (introduction text only, not counting references)</td></tr>' +
+    '<tr><td><strong>Format</strong></td><td>Double-spaced, 12pt Times New Roman, 1-inch margins, APA 7th edition</td></tr>' +
+    '<tr><td><strong>Sources</strong></td><td>At least 4 peer-reviewed journal articles cited in-text</td></tr>' +
+    '<tr><td><strong>Hypotheses</strong></td><td>At least one directional, labeled hypothesis (H1, H2&hellip;) at the end</td></tr>' +
+    '</tbody></table></div>' +
+
+    '<h3 class="guide-h">What an Introduction Does</h3>' +
+    '<div class="guide-body">' +
+    '<p>By the end of your introduction, a reader who knows nothing about your topic should understand:</p>' +
+    '<ul>' +
+    '<li>Why your topic matters as a research area</li>' +
+    '<li>What your chosen variables are and why researchers study them</li>' +
+    '<li>What the literature says about the relationship between your variables</li>' +
+    '<li>Why your study is worth doing</li>' +
+    '<li>What you specifically predict</li>' +
+    '</ul>' +
+    '<p>Everything in your introduction should serve one of those five purposes. If a sentence doesn\u2019t move the reader toward your hypotheses, it probably doesn\u2019t belong.</p>' +
+    '</div>' +
+    '<div class="warn-box">\u26A0\uFE0F <strong>The most common issue \u2014 summaries vs. arguments:</strong> Most first introductions read like a list of article summaries rather than an argument. Each paragraph describes one study, then the next paragraph describes another, with no thread connecting them. The fix: decide what point you\u2019re making, then use the studies as evidence for that point, not as the point itself.</div>' +
+
+    '<h3 class="guide-h">Suggested Structure</h3>' +
+    '<div class="guide-body">' +
+    '<p>There\u2019s no single correct template, but most strong introductions move from broad to specific:</p>' +
+    '<table><thead><tr><th>Movement</th><th>What It Accomplishes</th></tr></thead><tbody>' +
+    '<tr><td><strong>Open with context</strong></td><td>Establish why the topic matters. This might be one paragraph or a few sentences \u2014 do what the topic warrants.</td></tr>' +
+    '<tr><td><strong>Introduce your constructs</strong></td><td>Define and contextualize your key variables. What is each one? How has it been studied?</td></tr>' +
+    '<tr><td><strong>Connect the variables</strong></td><td>Bring your variables together. What does the literature say about their relationship? Where are the gaps or contradictions?</td></tr>' +
+    '<tr><td><strong>State your hypotheses</strong></td><td>End with specific, directional predictions \u2014 each should feel like the logical conclusion of everything you just argued.</td></tr>' +
+    '</tbody></table>' +
+    '<p style="font-size:13px; color:#666; margin-top:8px;">These are movements, not mandatory paragraphs. "Introduce your constructs" might take one paragraph or three depending on your topic \u2014 let your argument drive the structure.</p>' +
+    '</div>' +
+
+    '<h3 class="guide-h">The Closing Move: Justifying Your Study</h3>' +
+    '<div class="guide-body">' +
+    '<p>The transition from "here is what we know" to "here is what we predict" needs to give the reader a reason to care about your specific study. Not every study needs a literature "gap" \u2014 examining a well-established relationship in a new sample is a legitimate purpose too. Choose the framing that honestly reflects what your study is doing:</p>' +
+    '<table><thead><tr><th>Type of Closing Move</th><th>Example Language</th></tr></thead><tbody>' +
+    '<tr><td><strong>Replication in a new sample</strong><br>Prior work exists mostly in specific populations; you\u2019re testing it in a new one.</td><td><em>"Although this relationship has been documented in [population], less is known about whether it holds among college students. The present study examined&hellip;"</em></td></tr>' +
+    '<tr><td><strong>Replication with a different measure</strong><br>Prior studies used varied operationalizations; yours enables direct comparison.</td><td><em>"Prior studies have used varied measures of aggression, making comparisons difficult. The present study used the Buss-Perry Aggression Questionnaire to allow direct comparison with&hellip;"</em></td></tr>' +
+    '<tr><td><strong>Extension to a related construct</strong><br>The literature examined one construct; yours examines a broader or related one.</td><td><em>"While prior research has focused primarily on physical aggression, the present study examined trait aggression more broadly&hellip;"</em></td></tr>' +
+    '<tr><td><strong>Addressing mixed findings</strong><br>The literature is inconsistent; your study adds another data point.</td><td><em>"Given the inconsistency in prior findings, the present study sought to further examine the relationship between [X] and trait aggression&hellip;"</em></td></tr>' +
+    '<tr><td><strong>Identifying a genuine gap</strong><br>Only if the literature truly leaves something unexamined &mdash; <u>don\u2019t force a gap that isn\u2019t there</u>.</td><td><em>"To date, no study has examined the relationship between [X] and trait aggression in [specific context]. The present study addressed this gap by&hellip;"</em></td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+    '<div class="tip-box">\uD83D\uDCCC <strong>Honesty over creativity here:</strong> A straightforward replication stated clearly is stronger than a forced "gap" that doesn\u2019t really exist. Instructors (and reviewers) can tell the difference.</div>' +
+
+    '<h3 class="guide-h">Building the Body: Broad to Narrow</h3>' +
+    '<div class="guide-body">' +
+    '<p>Use transition sentences to create cohesion between studies rather than jumping abruptly from one to the next. Two ways to organize your review:</p>' +
+    '<ul>' +
+    '<li><strong>One paragraph per source</strong>, when each study covers a different but connected concept, linked with transitions.</li>' +
+    '<li><strong>Topical paragraphs</strong>, combining multiple sources that address the same concept.</li>' +
+    '</ul>' +
+    '<p>As you write, ask yourself: <em>What point am I making in this paragraph? Why does this source belong here? How does this paragraph connect to the next one? Am I leading with the point or leading with the citation?</em></p>' +
+    '</div>' +
+    '<div class="two-col">' +
+    '<div class="example-card weak"><span class="ex-label">Fragmented (avoid this)</span>Bandura et al. (1996) found that moral disengagement was related to aggression in adolescents. Moore et al. (2012) examined moral disengagement in workplace settings and found it predicted unethical behavior. Thornberg and Jungert (2014) also found a link between moral disengagement and bullying.</div>' +
+    '<div class="example-card good"><span class="ex-label">Cohesive (aim for this)</span>A consistent pattern in the literature links higher levels of moral disengagement to greater engagement in harmful and antisocial behavior across a range of contexts, including physical aggression (Bandura et al., 1996), workplace misconduct (Moore et al., 2012), and peer bullying (Thornberg &amp; Jungert, 2014).</div>' +
+    '</div>' +
+    '<p style="font-size:13px; color:#666; margin-top:8px;">The fragmented version is three separate summaries with no argument connecting them. The cohesive version states one clear claim first, then groups the citations together as evidence for it.</p>' +
+
+    '<h3 class="guide-h">Using Sources Well</h3>' +
+    '<div class="guide-body">' +
+    '<ul>' +
+    '<li>Paraphrase, don\u2019t quote. Avoid direct quotes almost entirely; if unavoidable, cite with a page number.</li>' +
+    '<li>Every claim that isn\u2019t your own original idea needs a citation.</li>' +
+    '</ul>' +
+    '<table><thead><tr><th>Situation</th><th>Format</th><th>Example</th></tr></thead><tbody>' +
+    '<tr><td>One author</td><td>(Author, Year) or Author (Year)</td><td><em>(Smith, 2020) or Smith (2020) found that&hellip;</em></td></tr>' +
+    '<tr><td>Two authors</td><td>(Author &amp; Author, Year)</td><td><em>(Jones &amp; Lee, 2019)</em></td></tr>' +
+    '<tr><td>Three or more authors</td><td>(First Author et al., Year)</td><td><em>(Brown et al., 2021)</em></td></tr>' +
+    '<tr><td>Two sources, same point</td><td>Alphabetical order, separated by semicolon</td><td><em>(Brown et al., 2021; Jones &amp; Lee, 2019)</em></td></tr>' +
+    '<tr><td>Author\u2019s name in the sentence</td><td>Author (Year) verb&hellip;</td><td><em>Smith (2020) found that&hellip;</em></td></tr>' +
+    '<tr><td>Citing a specific finding</td><td>(Author, Year) at the end, before the period</td><td><em>&hellip;higher aggression scores (Smith, 2020).</em></td></tr>' +
+    '</tbody></table>' +
+    '<p style="margin-top:10px;"><strong>Common citation errors to avoid:</strong> writing out all authors every time instead of "et al."; using "&amp;" inside a sentence instead of "and"; missing the year; citing at the start of every single sentence; citing sources you didn\u2019t actually read.</p>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Worked Example (Annotated)</h3>' +
+    '<div class="guide-body"><p>This paragraph is about moral disengagement and aggression &mdash; a topic outside your variable set, so you can\u2019t use it directly. Read it as an illustration of the techniques above in action.</p></div>' +
+    '<div class="annotated-example"><p>' +
+    'Aggressive behavior is not always impulsive. In many cases, individuals engage in deliberate harm while maintaining a positive self-image, a process made possible by what Bandura (1999) termed moral disengagement.<span class="callout-num">1</span> ' +
+    'Moral disengagement refers to a set of cognitive mechanisms through which people selectively deactivate their internal moral standards, allowing them to act harmfully without experiencing guilt or self-censure.<span class="callout-num">2</span> ' +
+    'These mechanisms include moral justification, displacement of responsibility, and dehumanization of victims. ' +
+    'Research has consistently linked higher levels of moral disengagement to greater engagement in aggressive and antisocial behavior across a range of contexts,<span class="callout-num">3</span> including workplace aggression (Moore et al., 2012), bullying and peer victimization (Thornberg &amp; Jungert, 2014), and physical violence (Bandura et al., 1996).<span class="callout-num">4</span> ' +
+    'Despite this evidence, most studies have examined moral disengagement in relation to specific behavioral outcomes rather than trait-level aggression as a stable individual difference, leaving open the question of whether individuals who habitually disengage morally also report higher levels of generalized aggressiveness.<span class="callout-num">5</span>' +
+    '</p>' +
+    '<table><thead><tr><th>#</th><th>What It Does</th><th>Why It Works</th></tr></thead><tbody>' +
+    '<tr><td><span class="callout-num">1</span></td><td>Opens with a claim, not a citation</td><td>The paragraph starts with an assertion. The citation appears after the claim is introduced, not before.</td></tr>' +
+    '<tr><td><span class="callout-num">2</span></td><td>Defines the construct precisely</td><td>The term is defined in the writer\u2019s own words immediately after it\u2019s introduced. No direct quote.</td></tr>' +
+    '<tr><td><span class="callout-num">3</span></td><td>Makes a claim, then uses citations as evidence</td><td>The sentence states what the literature shows first. Citations follow as support, not as the subject.</td></tr>' +
+    '<tr><td><span class="callout-num">4</span></td><td>Groups multiple citations for one point</td><td>Three studies are cited together to support a single claim, not summarized one by one.</td></tr>' +
+    '<tr><td><span class="callout-num">5</span></td><td>Identifies the gap</td><td>The paragraph ends by noting what the literature hasn\u2019t done, setting up the current study as the logical next step.</td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Stating Your Hypotheses</h3>' +
+    '<div class="guide-body">' +
+    '<p>Your introduction should end with hypotheses that follow logically from everything you\u2019ve argued. A strong hypothesis at this stage is:</p>' +
+    '<ul><li><strong>Specific</strong> &mdash; names the variables and the relationship, not just "a relationship"</li>' +
+    '<li><strong>Directional</strong> &mdash; states which way the relationship goes</li>' +
+    '<li><strong>Earned</strong> &mdash; follows from the literature you just reviewed, not out of nowhere</li>' +
+    '<li><strong>Revised if needed</strong> &mdash; it\u2019s fine for your prediction to change as your literature search continues</li></ul>' +
+    '<p>Label each hypothesis (H1, H2&hellip;) and write it as a complete sentence. Two common ways to present them:</p>' +
+    '</div>' +
+    '<div class="two-col">' +
+    '<div class="example-card good"><span class="ex-label">Option 1 (recommended) &mdash; prose, label in parentheses</span>The present study examined two hypotheses. First, it was predicted that higher levels of moral disengagement would be positively associated with trait aggression (H1). Second, it was hypothesized that this relationship would be strongest for the hostility subscale of the BPAQ (H2).</div>' +
+    '<div class="example-card good"><span class="ex-label">Option 2 (acceptable) &mdash; lead sentence with colon</span>The present study had two hypotheses: H1: Higher levels of moral disengagement would be positively associated with trait aggression. H2: This relationship would be strongest for the hostility subscale of the BPAQ.</div>' +
+    '</div>' +
+    '<p style="font-size:13px; color:#666; margin-top:8px;">Option 1 matches how hypotheses appear in most published articles and reads more naturally in a short paper. Option 2 works better in longer papers where hypotheses get referenced by number throughout &mdash; it can feel stilted in a short one. Whichever you choose, stay consistent: use the same labels when you refer back to them in Results and Discussion.</p>' +
+
+    '<div class="tip-box">\uD83D\uDCCC Don\u2019t stare at a blank page. Write what you know and let the words flow \u2014 it\u2019s okay to "word vomit" a rough version and clean it up later. Save real editing time for a separate pass. Cut and rearrange freely; moving paragraphs around while drafting is completely normal.</div>';
+}
+
+function renderGuideMethod(container) {
+  container.innerHTML = "" +
+    '<p style="line-height:1.6;">The Method section is the blueprint of your study. Its purpose is simple: give the reader enough information to replicate your study exactly. The gold standard is <strong>replication</strong> &mdash; another researcher should be able to repeat what you did using only your description.</p>' +
+
+    '<div class="callout-box req-table"><strong>Quick reference \u2014 Writing a Method Section (Assignment 7b):</strong>' +
+    '<table><tbody>' +
+    '<tr><td><strong>Format</strong></td><td>Method section only (no title page/abstract); 12pt Times New Roman, double-spaced, 1-inch margins</td></tr>' +
+    '<tr><td><strong>Subsections</strong></td><td>Participants, Measures, Procedure &mdash; each with a bold APA heading</td></tr>' +
+    '<tr><td><strong>Measures</strong></td><td>One paragraph per measure, in the order participants completed them, each with a bold italic subheading</td></tr>' +
+    '<tr><td><strong>References</strong></td><td>Include a References section for any sources cited in Measures</td></tr>' +
+    '</tbody></table></div>' +
+
+    '<h3 class="guide-h">Three Key Parts</h3>' +
+    '<div class="guide-body">' +
+    '<ul>' +
+    '<li><strong>Participants</strong> \u2014 who was in your study</li>' +
+    '<li><strong>Measures</strong> \u2014 what instruments participants completed (sometimes split into a separate <strong>Materials</strong> subsection for equipment, stimuli, or computer programs \u2014 not every study needs one)</li>' +
+    '<li><strong>Procedure</strong> \u2014 what happened, in order</li>' +
+    '</ul>' +
+    '<p style="font-size:13px; color:#666;">Note: human participants are called <strong>participants</strong>; animals are called <strong>subjects</strong>.</p>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Writing the Participants Subsection</h3>' +
+    '<div class="guide-body"><p>Write in paragraph form, not as a list. State the total <em>N</em> first, then work through the rest.</p>' +
+    '<table><thead><tr><th>Element</th><th>What to Write</th><th>Example</th></tr></thead><tbody>' +
+    '<tr><td><strong>Sample size</strong></td><td>State the total <em>N</em> first</td><td><em>A total of 78 individuals participated in the study.</em></td></tr>' +
+    '<tr><td><strong>Recruitment</strong></td><td>How and where recruited; any compensation</td><td><em>Participants were recruited from introductory psychology courses and received course credit.</em></td></tr>' +
+    '<tr><td><strong>Age</strong></td><td><em>M</em>, <em>SD</em>, and range</td><td><em>Participants ranged in age from 18 to 27 years (M = 19.84, SD = 1.63).</em></td></tr>' +
+    '<tr><td><strong>Gender</strong></td><td>Percentages per category; note transgender identification separately</td><td><em>The sample included 65% women, 31% men, and 4% nonbinary participants. No participants identified as transgender.</em></td></tr>' +
+    '<tr><td><strong>Race/Ethnicity</strong></td><td>Percentage per category reported</td><td><em>Most participants identified as White (68%), followed by Black (14%)&hellip;</em></td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="tip-box">\uD83D\uDCCC <strong>Which variables to report:</strong> report every demographic variable you collected \u2014 if you asked about it, readers expect to see it. Always use the language participants used to describe themselves; don\u2019t recode or relabel identity categories without a methodological reason.</div>' +
+
+    '<h3 class="guide-h">Reference Guide: Other Demographic Variables</h3>' +
+    '<div class="guide-body"><p>Different studies collect different demographics. Same pattern applies: frequencies/percentages for categorical variables, <em>M</em>/<em>SD</em> for continuous ones.</p>' +
+    '<table><thead><tr><th>Variable</th><th>How to Report</th></tr></thead><tbody>' +
+    '<tr><td><strong>Sexual orientation</strong></td><td>Frequencies/percentages using participants\u2019 own labels, not your own categories</td></tr>' +
+    '<tr><td><strong>Relationship status</strong></td><td>Frequencies/percentages; collapse categories if cell sizes are very small</td></tr>' +
+    '<tr><td><strong>Education level</strong></td><td>Frequencies/percentages; for college samples, year in school is typically more informative</td></tr>' +
+    '<tr><td><strong>Employment status</strong></td><td>Frequencies/percentages; relevant for work-related constructs or non-student samples</td></tr>' +
+    '<tr><td><strong>Income / SES</strong></td><td>Frequencies/percentages by bracket, or <em>M</em>/<em>SD</em> if measured continuously</td></tr>' +
+    '<tr><td><strong>Nationality / country of origin</strong></td><td>Frequencies/percentages; relevant for cross-cultural work or international samples</td></tr>' +
+    '<tr><td><strong>Diagnosis / clinical status</strong></td><td>Frequencies/percentages; use person-first language unless the community prefers identity-first</td></tr>' +
+    '<tr><td><strong>Continuous variables</strong> (e.g., years of experience)</td><td><em>M</em> and <em>SD</em>, with range if informative &mdash; treat like age</td></tr>' +
+    '</tbody></table></div>' +
+
+    '<h3 class="guide-h">Writing the Measures Subsection</h3>' +
+    '<div class="guide-body"><p>List every measure participants completed, in the order they appeared in the survey. Each gets its own paragraph with a <strong><em>bold italic</em></strong> subheading (e.g., <strong><em>Demographics</em></strong>, <strong><em>Aggression</em></strong>, <strong><em>[Your Variable]</em></strong>). Demographics is usually listed first or last.</p>' +
+    '<p>Each measure paragraph needs:</p>' +
+    '<ul>' +
+    '<li>Source/citation</li>' +
+    '<li>An example item with the response scale</li>' +
+    '<li>How scores were combined (averaged/summed)</li>' +
+    '<li>What higher/lower scores mean</li>' +
+    '<li>Descriptives (<em>M</em>, <em>SD</em>)</li>' +
+    '<li>Reliability (Cronbach\u2019s alpha at minimum)</li>' +
+    '</ul>' +
+    '</div>' +
+    '<div class="tip-box">\uD83D\uDCCC <strong>Incorporating your Assignment 5 descriptions:</strong> read your instructor\u2019s feedback and revise first; add <em>M</em>/<em>SD</em> placeholders where indicated (e.g., "(M = [your value], SD = [your value])"); and rewrite into Method-section prose \u2014 no first-person language, no bullet points, past tense where appropriate. Order should match the order participants completed the measures.</div>' +
+
+    '<h3 class="guide-h">Writing the Procedure Subsection</h3>' +
+    '<div class="guide-body"><p>Describe what participants actually did, in chronological order &mdash; a reader should be able to follow the sequence from the moment someone clicked the survey link to the moment they submitted it. Cover, in order:</p>' +
+    '<ol><li>Study setting</li><li>Consent</li><li>Measure order (note randomization if used)</li><li>Duration</li><li>Compensation</li></ol>' +
+    '<p style="font-size:13px; color:#666;">Also relevant if applicable: was deception used? Were participants or experimenters blind to conditions? Was a confederate involved? How were participants debriefed?</p>' +
+    '</div>' +
+    '<div class="annotated-example"><p><strong>Example Procedure paragraph:</strong><br>The study was conducted online via Qualtrics (https://www.qualtrics.com/). Before beginning, participants read an informed consent statement describing the study\u2019s purpose, the voluntary nature of participation, and the confidentiality of their responses. Participants then completed a series of self-report measures. The order of the measures was randomized via Qualtrics to minimize order effects. The survey took approximately 20 to 25 minutes to complete. Participants received course credit for their participation.</p></div>' +
+    '<div class="warn-box">\u26A0\uFE0F <strong>Past tense throughout:</strong> the study has already happened from the reader\u2019s perspective &mdash; use "participants completed," not "participants will complete."</div>' +
+
+    '<h3 class="guide-h">APA Heading Levels</h3>' +
+    '<div class="guide-body"><p>At this level, you\u2019ll mostly use Levels 1&ndash;3:</p>' +
+    '<table><thead><tr><th>Level</th><th>Format</th><th>Used For</th><th>Example</th></tr></thead><tbody>' +
+    '<tr><td>Level 1</td><td>Centered, bold, title case. Text begins on a new line below.</td><td>Main sections (Introduction, Method, Results, Discussion)</td><td><strong>Method</strong></td></tr>' +
+    '<tr><td>Level 2</td><td>Flush left, bold, title case. Text begins on a new line below.</td><td>Subsections within a section</td><td><strong>Participants</strong>, <strong>Measures</strong>, <strong>Procedure</strong></td></tr>' +
+    '<tr><td>Level 3</td><td>Flush left, bold italic, title case. Text begins on a new line below.</td><td>Individual measure names within Measures</td><td><strong><em>Aggression</em></strong></td></tr>' +
+    '</tbody></table>' +
+    '<p style="margin-top:10px;"><strong>Common heading mistakes:</strong> using all caps; underlining or adding a colon; starting text on the same line as a heading; inconsistent formatting across headings of the same level; using bold (not bold italic) for measure names.</p>' +
+    '</div>' +
+
+    '<div class="annotated-example"><p style="text-align:center; font-weight:bold; margin-bottom:10px;">How a correctly formatted Method section opening looks:</p>' +
+    '<p style="text-align:center; font-weight:bold; margin:0;">Method</p>' +
+    '<p style="font-weight:bold; margin:10px 0 0;">Participants</p>' +
+    '<p style="margin:4px 0 10px;">A total of 78 individuals participated in the study&hellip;</p>' +
+    '<p style="font-weight:bold; margin:10px 0 0;">Measures</p>' +
+    '<p style="font-weight:bold; font-style:italic; margin:8px 0 0;">Demographics</p>' +
+    '<p style="margin:4px 0 10px;">Participants provided demographic information including age, gender identity&hellip;</p>' +
+    '<p style="font-weight:bold; font-style:italic; margin:8px 0 0;">Aggression</p>' +
+    '<p style="margin:4px 0 10px;">To measure trait aggressiveness, participants completed the Buss-Perry&hellip;</p>' +
+    '<p style="font-weight:bold; margin:10px 0 0;">Procedure</p>' +
+    '<p style="margin:4px 0 0;">The study was conducted online via&hellip;</p>' +
+    '</div>' +
+
+    '<div class="tip-box">\uD83D\uDCCC <strong>Tips &amp; tricks:</strong> It\u2019s "Method," not "Methods." This section starts right after the Introduction \u2014 no page break, no extra line spacing. No extra spacing between subsections either. And never put the same information in more than one subsection &mdash; if it\u2019s already in Measures, it doesn\u2019t need to repeat in Procedure.</div>';
+}
+
+function renderGuideResults(container) {
+  container.innerHTML = "" +
+    '<p style="line-height:1.6;">The Results section tells the reader how the data were analyzed and what was found. Start with simple statistics before more complicated ones, follow a systematic and predictable pattern, and include very little interpretation \u2014 that\u2019s saved for the Discussion. This is often the <strong>shortest</strong> section of your paper.</p>' +
+
+    '<div class="callout-box req-table"><strong>Quick reference \u2014 Data Analysis + Results Draft (Assignment 8):</strong>' +
+    '<table><tbody>' +
+    '<tr><td><strong>Length</strong></td><td>Approximately 150&ndash;300 words, double-spaced, APA format</td></tr>' +
+    '<tr><td><strong>Include</strong></td><td>Correlation(s); effect size interpretation; hypothesis outcome (supported/not supported); figure reference</td></tr>' +
+    '<tr><td><strong>Rounding</strong></td><td>Two decimal places for all values except <em>p</em></td></tr>' +
+    '<tr><td><strong>No raw output</strong></td><td>Never paste Jamovi screenshots or tables into your paper &mdash; extract the numbers and report them in your own APA-formatted sentences</td></tr>' +
+    '</tbody></table></div>' +
+
+    '<h3 class="guide-h">Formatting Basics</h3>' +
+    '<div class="guide-body"><ul>' +
+    '<li>Begins right after Method &mdash; no page break, no extra line spacing</li>' +
+    '<li>"Results" is centered and boldface (Level 1 heading)</li>' +
+    '<li>All statistical symbols (<em>M, SD, r, t, F, d, p</em>&hellip;) are italicized</li>' +
+    '<li>Spaces around every equals sign: <em>M</em> = 1.43, not <em>M</em>=1.43</li>' +
+    '<li>Report exact <em>p</em>-values when possible</li>' +
+    '<li>Means are always accompanied by a measure of variability (usually <em>SD</em>)</li>' +
+    '</ul></div>' +
+    '<div class="warn-box">\u26A0\uFE0F <strong>Never write <em>p</em> = .000.</strong> A <em>p</em>-value of exactly zero is mathematically impossible. When Jamovi reports .000, write <em>p</em> &lt; .001 instead.</div>' +
+
+    '<h3 class="guide-h">Reporting Results of Statistical Tests</h3>' +
+    '<div class="guide-body">' +
+    '<table><thead><tr><th>Test</th><th>Format</th><th>Example</th></tr></thead><tbody>' +
+    '<tr><td>Correlation (Pearson\u2019s <em>r</em>)</td><td><em>r</em>(df) = #, <em>p</em> = #</td><td>A moderate, positive, significant correlation between GPA and SAT scores indicated that as SAT scores increase, so does GPA, <em>r</em>(56) = .52, <em>p</em> = .003.</td></tr>' +
+    '<tr><td><em>t</em>-test (one-sample, paired, or independent)</td><td><em>t</em>(df) = #, <em>p</em> = #, <em>d</em> = #</td><td>Men (<em>M</em> = 1.33, <em>SD</em> = .77) and women (<em>M</em> = 1.45, <em>SD</em> = .79) did not significantly differ in their reported self-esteem, <em>t</em>(98) = 1.08, <em>p</em> = .45, <em>d</em> = .15.</td></tr>' +
+    '<tr><td>ANOVA (one-way, repeated measures)</td><td><em>F</em>(df1, df2) = #, <em>p</em> = #, \u03b7\u00b2 = #</td><td>A one-way between-subjects ANOVA indicated significant differences in attitudes toward marijuana between the three political affiliations, <em>F</em>(2, 225) = 10.91, <em>p</em> &lt; .001, \u03b7\u00b2 = .07.</td></tr>' +
+    '<tr><td>ANOVA (factorial: main effect, interaction)</td><td><em>F</em>(df1, df2) = #, <em>p</em> = #</td><td>The main effect of dose was marginally significant, <em>F</em>(2, 23) = 3.23, <em>p</em> = .07. However, the main effect of diagnosis was significant, <em>F</em>(3, 23) = 4.56, <em>p</em> = .04, but was qualified by a significant dosage by diagnosis interaction, <em>F</em>(6, 23) = 15.70, <em>p</em> &lt; .001.</td></tr>' +
+    '</tbody></table>' +
+    '<p style="font-size:13px; color:#666; margin-top:8px;">These are the tests we work with in this course. For other tests, check Canvas, the APA manual, or ask.</p>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Additional APA Notation</h3>' +
+    '<div class="guide-body">' +
+    '<table><thead><tr><th>Situation</th><th>Format</th></tr></thead><tbody>' +
+    '<tr><td>Descriptive statistics</td><td><em>M</em> = 2.41, <em>SD</em> = 0.63</td></tr>' +
+    '<tr><td>Reliability</td><td>\u03b1 = .89 (Greek letter alpha, not italicized)</td></tr>' +
+    '<tr><td>Significant correlation</td><td><em>r</em>(df) = .38, <em>p</em> = .001</td></tr>' +
+    '<tr><td>Non-significant correlation</td><td><em>r</em>(df) = .08, <em>p</em> = .412</td></tr>' +
+    '</tbody></table>' +
+    '<p style="font-size:13px; color:#666; margin-top:8px;">Remember: <em>r</em> and <em>p</em> values drop the leading zero (.38, not 0.38) since they can\u2019t exceed 1.</p>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Effect Size Conventions</h3>' +
+    '<div class="guide-body">' +
+    '<table><thead><tr><th>Weak</th><th>Moderate</th><th>Strong</th></tr></thead><tbody>' +
+    '<tr><td><em>r</em> &lt; .10</td><td>.10 &le; <em>r</em> &lt; .50</td><td><em>r</em> &ge; .50</td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="warn-box">\u26A0\uFE0F <strong>Proved vs. supported:</strong> Never say your results "proved" or "disproved" a hypothesis. Results either <strong>support</strong> or <strong>do not support</strong> a hypothesis. A non-significant result doesn\u2019t mean the relationship doesn\u2019t exist \u2014 only that your study didn\u2019t detect it.</div>' +
+
+    '<h3 class="guide-h">Conditional Language Templates</h3>' +
+    '<div class="guide-body"><p>Fill in the blanks with your own values:</p></div>' +
+    '<div class="two-col">' +
+    '<div class="example-card good"><span class="ex-label">If significant (p &lt; .05)</span>Consistent with H[#], a Pearson\u2019s correlation revealed a significant, [positive/negative], [weak/moderate/strong] relationship between [VARIABLE] and trait aggression, <em>r</em>([df]) = [r], <em>p</em> = [p]. This relationship is illustrated in Figure #.</div>' +
+    '<div class="example-card good"><span class="ex-label">If non-significant (p &gt; .05)</span>Contrary to H[#], a Pearson\u2019s correlation indicated no significant relationship between [VARIABLE] and trait aggression, <em>r</em>([df]) = [r], <em>p</em> = [p]. This relationship is illustrated in Figure #.</div>' +
+    '</div>' +
+    '<p style="font-size:13px; color:#666; margin-top:8px;">For multiple correlations (e.g., two variables or subscales), introduce them together first, then report each with its own hypothesis label: "Pearson\u2019s correlations were computed to examine the relationships between trait aggression and [VARIABLE 1] and [VARIABLE 2]. Consistent with H1, [VARIABLE 1] was significantly [positively/negatively] correlated with trait aggression, <em>r</em>([df]) = [r], <em>p</em> = [p], representing a [weak/moderate/strong] effect (see Figure 1). H2 was also supported: [VARIABLE 2] was significantly correlated with trait aggression, <em>r</em>([df]) = [r], <em>p</em> = [p] (see Figure 2)."</p>' +
+
+    '<h3 class="guide-h">Tables &amp; Figures</h3>' +
+    '<div class="guide-body">' +
+    '<ul>' +
+    '<li><strong>Tables</strong> are good for a large number of values &mdash; descriptives, correlation matrices, regression results.</li>' +
+    '<li><strong>Figures</strong> are often used to highlight your data\u2019s strongest result.</li>' +
+    '<li>Reference every table/figure in the text, but they typically live at the end of the paper (after References). Number consecutively in the order referenced (Table 1, Table 2&hellip;; Figure 1, Figure 2&hellip; &mdash; separate numbering systems).</li>' +
+    '<li>If a value appears in a table or figure, don\u2019t repeat that same number in the text &mdash; describe the pattern and point the reader to it.</li>' +
+    '<li>Don\u2019t include a table or figure just to have one &mdash; it must simplify or clarify, not decorate.</li>' +
+    '</ul>' +
+    '<table><thead><tr><th>Figure Element</th><th>Format</th><th>Example</th></tr></thead><tbody>' +
+    '<tr><td>Figure label</td><td>Bold, flush left. "Figure" + number, no period after.</td><td><strong>Figure 1</strong></td></tr>' +
+    '<tr><td>Figure title</td><td>Italicized, flush left, line below the label. Title case, ends with a period.</td><td><em>Scatterplot of the Relationship Between Moral Disengagement and Trait Aggression.</em></td></tr>' +
+    '<tr><td>Figure note (optional)</td><td>Begins with italicized "Note." then plain text \u2014 abbreviations, sample size, context.</td><td><em>Note.</em> BPAQ = Buss-Perry Aggression Questionnaire. <em>N</em> = 124.</td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Worked Example</h3>' +
+    '<div class="guide-body"><p>Based on a hypothetical moral disengagement study &mdash; not your variable set. Use it as a model for structure, tone, and notation. Don\u2019t copy it.</p></div>' +
+    '<div class="annotated-example"><p>Consistent with H1, a Pearson\u2019s correlation revealed a significant, positive, moderate relationship between moral disengagement and trait aggression, <em>r</em>(142) = .41, <em>p</em> &lt; .001. The relationship is illustrated in Figure 1.</p></div>' +
+    '<div class="tip-box">\uD83D\uDCCC <strong>What to notice:</strong> The example goes straight to the correlation &mdash; reliability and descriptive statistics already live in the Measures subsection of Method and don\u2019t need to repeat here. It states the hypothesis label, reports the statistics, interprets the effect size, and refers to the figure, all in two sentences.</div>' +
+
+    '<div class="warn-box">\u26A0\uFE0F <strong>Don\u2019t paste Jamovi output into your paper.</strong> Screenshots, tables, and raw software output don\u2019t belong in your Results section \u2014 use them to extract the numbers you need, then report those numbers in your own APA-formatted sentences.</div>';
+}
+
+function renderGuideDiscussion(container) {
+  container.innerHTML = "" +
+    '<p style="line-height:1.6;">The Discussion interprets your findings in plain language, connects them back to the hypotheses and literature from your Introduction, honestly evaluates your study\u2019s limitations, and tells the reader why the study matters. It has three primary goals: <strong>summarizing your results</strong>, <strong>evaluating your study</strong>, and <strong>discussing future work</strong> \u2014 ending with a take-home <strong>conclusion</strong>.</p>' +
+
+    '<div class="callout-box req-table"><strong>Quick reference \u2014 Evaluating Validity in Your Correlational Study (Assignment 9):</strong>' +
+    '<table><tbody>' +
+    '<tr><td><strong>Part 1</strong></td><td>Discussion opening draft (150&ndash;250 words) &mdash; interpret findings, connect to past research</td></tr>' +
+    '<tr><td><strong>Part 2</strong></td><td>Evaluate your study across the four validities &mdash; bullet points or short answers</td></tr>' +
+    '<tr><td><strong>Part 3</strong></td><td>Synthesize strengths, limitations, and future directions (200&ndash;250 words)</td></tr>' +
+    '</tbody></table></div>' +
+
+    '<h3 class="guide-h">Summarizing Your Results</h3>' +
+    '<div class="guide-body"><ul>' +
+    '<li>Briefly restate your hypotheses and what you found</li>' +
+    '<li>Describe your results in <strong>real-people words</strong> &mdash; no statistics, no jargon</li>' +
+    '<li>Clearly state which results supported (and which did not support) each hypothesis</li>' +
+    '<li>Address any unexpected or unexplained findings</li>' +
+    '<li>Tie your results back to the Introduction: are they consistent or inconsistent with previous work? Do they support the broader theory your hypotheses were based on?</li>' +
+    '</ul></div>' +
+    '<div class="warn-box">\u26A0\uFE0F <strong>No new statistics.</strong> Numbers and statistical tests belong in the Results section. The Discussion interprets what those numbers mean \u2014 it doesn\u2019t introduce new ones.</div>' +
+    '<div class="tip-box">\uD83D\uDCCC <strong>Interpret, don\u2019t repeat:</strong> A common mistake is restating what the Results section already said. The Discussion should add something new \u2014 interpretation, context, meaning \u2014 not just repeat the statistics in sentence form.</div>' +
+
+    '<div class="two-col">' +
+    '<div class="example-card weak"><span class="ex-label">Restates Results (avoid this)</span>The correlation between gender bias and academic ratings was not significant, r(40) = -.14, p = .39.</div>' +
+    '<div class="example-card good"><span class="ex-label">Interprets (aim for this)</span>Contrary to expectations, individuals\u2019 gender bias did not meaningfully shape how they rated men\u2019s and women\u2019s academic ability \u2014 suggesting that broad attitude measures like this one may not translate into differential judgments in this sample.</div>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Evaluating Your Study: The Four Validities</h3>' +
+    '<div class="guide-body"><p>Explain the extent to which your study fulfilled each validity, one by one:</p>' +
+    '<table><thead><tr><th>Validity</th><th>Guiding Questions</th></tr></thead><tbody>' +
+    '<tr><td><strong>Construct</strong></td><td>What were you trying to measure? How well did your measure capture it? What evidence supports this (e.g., the scale\u2019s validation history, the alpha you found)?</td></tr>' +
+    '<tr><td><strong>Internal</strong></td><td>Can you make a causal claim? Why or why not? What third variables (confounds) might explain the relationship you found?</td></tr>' +
+    '<tr><td><strong>Statistical</strong></td><td>Was your analysis appropriate? Was your sample large enough? What was your effect size, and what does it tell you beyond significance? Any concerns like outliers or restricted range?</td></tr>' +
+    '<tr><td><strong>External</strong></td><td>Are your results generalizable? Who were your participants, and what sampling method did you use? Would you expect the same results elsewhere?</td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="warn-box">\u26A0\uFE0F <strong>Be specific.</strong> Use your actual data (your alpha values, your r, your sample) rather than generic statements that could apply to any study \u2014 those receive partial credit at best.</div>' +
+
+    '<div class="two-col">' +
+    '<div class="example-card weak"><span class="ex-label">Generic limitation (avoid this)</span>The sample size could be larger, and a more diverse sample would be better.</div>' +
+    '<div class="example-card good"><span class="ex-label">Specific limitation (aim for this)</span>The relatively small sample (N = 83) may have limited statistical power to detect a small-to-moderate effect, particularly given the modest reliability of the gender bias measure (\u03b1 = .57).</div>' +
+    '</div>' +
+
+    '<h3 class="guide-h">Future Research</h3>' +
+    '<div class="guide-body"><p>Suggest a specific, theory-driven direction \u2014 not just "more research is needed."</p>' +
+    '<ul>' +
+    '<li>How might a future study correct the flaws of this one?</li>' +
+    '<li>What part of the theory should be tested next, and how? What would you expect to find, and what would that mean?</li>' +
+    '<li>If your study was correlational, could a future study test it experimentally?</li>' +
+    '<li>What about a conceptual replication in a new context \u2014 what would you expect to happen there?</li>' +
+    '<li>If you suspect external validity threats, how might results look in a different population? What would that suggest about the theory?</li>' +
+    '</ul></div>' +
+
+    '<h3 class="guide-h">Conclusion: The Take-Home Message</h3>' +
+    '<div class="guide-body"><p>Wrap up with a clear take-home message:</p>' +
+    '<ul>' +
+    '<li>Why is this work important?</li>' +
+    '<li>What are the real-world implications?</li>' +
+    '<li>What did we learn?</li>' +
+    '</ul>' +
+    '<p style="font-size:13px; color:#666;">Keep the conclusion anchored to what your study actually found (or didn\u2019t find) \u2014 it\u2019s tempting to end on sweeping general statements about the topic, but the strongest conclusions tie the big-picture importance directly back to your specific results.</p>' +
+    '</div>' +
+
+    '<div class="tip-box">\uD83D\uDCCC <strong>Proved vs. supported (same rule as Results):</strong> Never say your results "proved" or "disproved" your theory. A non-significant result doesn\u2019t mean a relationship doesn\u2019t exist \u2014 only that this particular study didn\u2019t detect it. There are typically two explanations when results don\u2019t support a theory: the theory needs modification, or the study itself had a flaw \u2014 your validity evaluation is where you reason through which explanation fits.</div>';
+}
+
+function renderGuideTitleAbstract(container) {
+  container.innerHTML = "" +
+    '<p style="line-height:1.6;">The title and abstract are the first things a reader encounters \u2014 and often the only parts they read before deciding whether to continue. Writing them well requires you to already know your whole paper, which is why the abstract is written <strong>last</strong>, even though it appears first.</p>' +
+
+    '<div class="callout-box req-table"><strong>Quick reference \u2014 Mock Title Page &amp; Abstract (Assignment 10):</strong>' +
+    '<table><tbody>' +
+    '<tr><td><strong>Submit</strong></td><td>Exactly two pages: Page 1 = title page, Page 2 = abstract. No other sections.</td></tr>' +
+    '<tr><td><strong>Format</strong></td><td>12pt Times New Roman, double-spaced, 1-inch margins</td></tr>' +
+    '<tr><td><strong>Abstract length</strong></td><td>150&ndash;250 words, one paragraph, no indentation</td></tr>' +
+    '</tbody></table></div>' +
+
+    '<h3 class="guide-h">The Title Page</h3>' +
+    '<div class="guide-body"><p>APA 7th edition has different formats for professional and student papers \u2014 use the <strong>student paper</strong> format for RR1.</p>' +
+    '<table><thead><tr><th>Element</th><th>Format</th></tr></thead><tbody>' +
+    '<tr><td><strong>Title</strong></td><td>Centered, bold, title case, upper half of the page. 10&ndash;12 words, no abbreviations.</td></tr>' +
+    '<tr><td><strong>Author name</strong></td><td>Centered, not bold, line below the title. First name, middle initial (optional), last name.</td></tr>' +
+    '<tr><td><strong>Institutional affiliation</strong></td><td>Centered, not bold, line below your name (e.g., Department of Psychology, University of North Carolina Wilmington).</td></tr>' +
+    '<tr><td><strong>Course information</strong></td><td>Centered, not bold. Course name and number on one line.</td></tr>' +
+    '<tr><td><strong>Instructor name</strong></td><td>Centered, not bold, next line.</td></tr>' +
+    '<tr><td><strong>Due date</strong></td><td>Centered, not bold, final line. Write out the full date.</td></tr>' +
+    '<tr><td><strong>Page number</strong></td><td>Upper right corner of the header, starting on page 1.</td></tr>' +
+    '</tbody></table></div>' +
+    '<div class="warn-box">\u26A0\uFE0F <strong>No running head for student papers.</strong> APA 7th edition removed the running head requirement for student papers \u2014 if you see "Running head:" instructions anywhere online, they\u2019re for professional papers only. Author Notes are also professional-papers-only; don\u2019t include one.</div>' +
+
+    '<h3 class="guide-h">Writing a Good Title</h3>' +
+    '<div class="guide-body"><p>A strong title is informative, specific, and concise \u2014 it should name your variables and, ideally, your population.</p>' +
+    '<p><strong>Title checklist:</strong></p>' +
+    '<ul>' +
+    '<li>Names variables explicitly (not just "personality and behavior")</li>' +
+    '<li>Uses specific, precise language (not "a study of" or "an investigation into")</li>' +
+    '<li>Is 10&ndash;12 words</li>' +
+    '<li>Uses title case</li>' +
+    '<li>Contains no abbreviations</li>' +
+    '<li>Doesn\u2019t open with "A Study of..." or "The Relationship Between..." as the entire title</li>' +
+    '</ul></div>' +
+    '<div class="two-col">' +
+    '<div class="example-card good"><span class="ex-label">Good</span>Moral Disengagement and Trait Aggression in College Students: A Correlational Study</div>' +
+    '<div class="example-card weak"><span class="ex-label">Weak</span>A Study of Personality and Aggression</div>' +
+    '<div class="example-card good"><span class="ex-label">Good</span>The Association Between Problematic Social Media Use and Mental Health in Undergraduates</div>' +
+    '<div class="example-card weak"><span class="ex-label">Weak</span>The Relationship Between Variables in PSY 355</div>' +
+    '</div>' +
+
+    '<h3 class="guide-h">The Abstract</h3>' +
+    '<div class="guide-body"><p>A single paragraph of 150&ndash;250 words on its own page (page 2), with "Abstract" centered and bold at the top \u2014 no indentation. A reader should know exactly what your study was, what you did, what you found, and what it means without reading anything else.</p></div>' +
+
+    '<h3 class="guide-h">The Four Components</h3>' +
+    '<div class="guide-body">' +
+    '<table><thead><tr><th>Component</th><th>What to Include</th></tr></thead><tbody>' +
+    '<tr><td><strong>Objective</strong></td><td>What was the study\u2019s purpose? What relationship did you examine? What did you predict?</td></tr>' +
+    '<tr><td><strong>Method</strong></td><td>Who were the participants (briefly)? What measures were used? What was the design?</td></tr>' +
+    '<tr><td><strong>Results</strong></td><td>What did you find? Report the direction and significance in plain language \u2014 no statistics.</td></tr>' +
+    '<tr><td><strong>Conclusions</strong></td><td>What do the findings mean? One implication or future research direction.</td></tr>' +
+    '</tbody></table></div>' +
+
+    '<div class="warn-box">\u26A0\uFE0F <strong>Important abstract rules:</strong> one paragraph only; no indentation, citations, or statistics; no first person; 150&ndash;250 words.</div>' +
+
+    '<h3 class="guide-h">Worked Example</h3>' +
+    '<div class="guide-body"><p>A complete abstract for a hypothetical moral disengagement study &mdash; not your topic. Read it as a model for structure, tone, and what to include (and exclude).</p></div>' +
+    '<div class="annotated-example"><p>Moral disengagement, or the tendency to selectively deactivate internal moral standards to justify harmful behavior, has been theoretically linked to aggression, yet its relationship with trait-level aggressiveness has received limited empirical attention. The present study examined the association between moral disengagement and trait aggression in a sample of 144 undergraduate students. In an online survey, participants completed the Mechanisms of Moral Disengagement Scale and the Buss-Perry Aggression Questionnaire. Consistent with predictions, higher levels of moral disengagement were significantly and positively associated with trait aggression. The effect was moderate in strength. These findings suggest that individuals who regularly disengage their moral standards may be more prone to generalized aggressive tendencies. Future research should examine whether specific mechanisms of moral disengagement, such as dehumanization or displacement of responsibility, are more strongly linked to particular forms of aggression, such as hostility or physical aggression.</p></div>' +
+    '<div class="tip-box">\uD83D\uDCCC <strong>No statistics in the abstract:</strong> notice there\u2019s no <em>r</em>, \u03b1, or <em>p</em> value anywhere. The finding is described in plain language ("significantly and positively associated," "moderate in strength") \u2014 the numbers are saved for the Results section.</div>' +
+
+    '<div class="tip-box">\uD83D\uDCCC <strong>Write the abstract last.</strong> Start with the title page, then draft the abstract only after reviewing your Introduction, Method, Results, and Discussion drafts. Trying to write it before the paper is clear in your own mind usually produces vague, generic results \u2014 and if you struggle to summarize your study in 200 words, that can signal a part of the paper still needs clarifying.</div>';
+}
+
+function renderPractice(container) {
+  const paper = PAPER.hawkRR1;
+  const goals = GOALS[currentSection];
+  const blocks = paper[currentSection];
+  const annotationKey = "hawkRR1_" + currentSection;
+
+  const intro = document.createElement("div");
+  intro.className = "intro";
+  intro.innerHTML = "<p>Read through the " + SECTIONS[currentSection].label + " of <strong>" + paper.label + "</strong>. Pick a highlight color below, then click sentences that show that goal being done well. Use the flag tool to mark spots you'd improve, and add a note explaining why. Switch to \u201cDr. Reich's Highlights\u201d anytime to compare.</p>";
+  container.appendChild(intro);
+
+  const unlocked = isInstructorViewUnlocked();
+  if (currentView === "instructor" && !unlocked) { currentView = "mine"; }
+
+  const viewToggle = document.createElement("div");
+  viewToggle.className = "view-toggle";
+  [["mine", "My Highlights"], ["instructor", unlocked ? "Dr. Reich's Highlights" : "\uD83D\uDD12 Dr. Reich's Highlights"]].forEach(pair => {
+    const key = pair[0], label = pair[1];
+    const btn = document.createElement("button");
+    btn.className = "view-btn" + (currentView === key ? " active" : "");
+    btn.textContent = label;
+    if (key === "instructor" && !unlocked) {
+      btn.disabled = true;
+      btn.style.opacity = "0.5";
+      btn.style.cursor = "not-allowed";
+    } else {
+      btn.addEventListener("click", () => { currentView = key; renderApp(); });
+    }
+    viewToggle.appendChild(btn);
+  });
+  container.appendChild(viewToggle);
+
+  if (!unlocked) {
+    const lockNote = document.createElement("div");
+    lockNote.className = "progress-summary";
+    const dateStr = UNLOCK_DATE.toLocaleDateString(undefined, { month: "long", day: "numeric" });
+    const hasAssignmentTab = !!SECTIONS[currentSection].assignmentTitle;
+    lockNote.innerHTML = hasAssignmentTab
+      ? "\uD83D\uDD12 Dr. Reich's Highlights unlock once you export your responses on the Assignment tab."
+      : "\uD83D\uDD12 Dr. Reich's Highlights unlock automatically on " + dateStr + ".";
+    container.appendChild(lockNote);
+  }
+
+  if (currentView === "mine") {
+    const legend = document.createElement("div");
+    legend.className = "legend";
+    const pens = goals.map(g => ({ key: g.key, label: g.label, cssVar: "--" + g.key }));
+    pens.push({ key: "flag", label: "Flag for Improvement", cssVar: "--flag" });
+    pens.push({ key: "eraser", label: "Eraser", cssVar: null });
+    pens.forEach(p => {
+      const chip = document.createElement("button");
+      chip.className = "legend-chip" + (currentPen === p.key ? " active" : "");
+      chip.setAttribute("data-pen", p.key);
+      const swatchStyle = p.cssVar ? "background:var(" + p.cssVar + ");" : "background:#ccc;";
+      chip.innerHTML = '<span class="swatch" style="' + swatchStyle + '"></span>' + p.label;
+      chip.addEventListener("click", () => { currentPen = p.key; renderApp(); });
+      legend.appendChild(chip);
+    });
+    container.appendChild(legend);
+  } else {
+    const disclaimer = document.createElement("div");
+    disclaimer.className = "tip-box";
+    disclaimer.innerHTML = "\uD83D\uDCCC These comments aren\u2019t meant to imply this paper should be flawless \u2014 no student paper needs to be perfect. They\u2019re my notes on what would move this specific paper closer to that standard, so you can see the kind of feedback a strong revision responds to.";
+    container.appendChild(disclaimer);
+
+    const legend = document.createElement("div");
+    legend.className = "legend";
+    let legendHtml = goals.map(g =>
+      '<span class="legend-chip" data-pen="' + g.key + '" style="cursor:default;"><span class="swatch" style="background:var(--' + g.key + ');"></span>' + g.label + '</span>'
+    ).join("");
+    legendHtml += '<span class="legend-chip" style="cursor:default;"><span class="swatch" style="background:var(--flag);"></span>Area to Improve</span>';
+    legendHtml += '<span class="legend-chip" style="cursor:default;"><span class="swatch" style="background:var(--comment);"></span>General Note</span>';
+    legend.innerHTML = legendHtml;
+    container.appendChild(legend);
+  }
+
+  const paperWrap = document.createElement("div");
+  paperWrap.className = "paper-wrap";
+  let html = '<div class="paper-title">' + paper.title + '</div>';
+
+  blocks.forEach((block, bIdx) => {
+    if (block.type === "heading") {
+      const cls = block.level === 2 ? "paper-h2" : "paper-h3";
+      html += '<div class="' + cls + '">' + block.text + '</div>';
+    } else {
+      html += '<p class="paper-para">';
+      block.sentences.forEach((sentence, sIdx) => {
+        const key = bIdx + "-" + sIdx;
+        html += '<span class="sent" data-key="' + key + '">' + sentence + '</span> ';
+      });
+      html += '</p>';
+    }
+  });
+  paperWrap.innerHTML = html;
+  container.appendChild(paperWrap);
+
+  const resetRow = document.createElement("div");
+  resetRow.className = "reset-row";
+  if (currentView === "mine") {
+    const resetBtn = document.createElement("button");
+    resetBtn.textContent = "Clear all my highlights for this section";
+    resetBtn.addEventListener("click", () => {
+      if (confirm("Clear all your highlights and notes for this section?")) {
+        const prefix = annotationKey + "_";
+        Object.keys(myAnnotations).forEach(k => { if (k.indexOf(prefix) === 0) delete myAnnotations[k]; });
+        saveMine();
+        renderApp();
+      }
+    });
+    resetRow.appendChild(resetBtn);
+  }
+  container.appendChild(resetRow);
+
+  applyAnnotations(paperWrap, blocks, annotationKey, goals);
+}
+
+function applyAnnotations(paperWrap, blocks, annotationKey, goals) {
+  const goalLabels = {};
+  goals.forEach(g => { goalLabels[g.key] = g.label; });
+
+  const spans = paperWrap.querySelectorAll(".sent");
+  spans.forEach(span => {
+    const key = span.getAttribute("data-key");
+    if (currentView === "mine") {
+      const storeKey = annotationKey + "_" + key;
+      const data = myAnnotations[storeKey];
+      if (data && data.pen && data.pen !== "eraser") {
+        span.classList.add("pen-" + data.pen);
+        const wrap = document.createElement("span");
+        wrap.className = "note-box n-" + data.pen;
+        const label = data.pen === "flag" ? "What would you change here, and why?" : "Why does this show \u201c" + goalLabels[data.pen] + "\u201d?";
+        wrap.innerHTML = '<label style="display:block; margin-bottom:4px;">' + label + '</label>' +
+          '<textarea class="note-input" data-notekey="' + storeKey + '" placeholder="Type your explanation...">' + (data.note || "") + '</textarea><br>' +
+          '<button class="note-save-btn" data-savekey="' + storeKey + '" data-savepen="' + data.pen + '">Save note</button>' +
+          '<button class="note-save-btn" data-removekey="' + storeKey + '" style="background:#888; margin-left:6px;">Remove highlight</button>';
+        span.insertAdjacentElement("afterend", wrap);
+      }
+      span.addEventListener("click", () => handleMyClick(key, span, annotationKey));
+    } else {
+      const dataArr = INSTRUCTOR_ANNOTATIONS[annotationKey] ? INSTRUCTOR_ANNOTATIONS[annotationKey][key] : null;
+      if (dataArr && dataArr.length) {
+        span.classList.add("pen-" + dataArr[0].pen);
+        span.style.cursor = "default";
+        let insertAfter = span;
+        dataArr.forEach(data => {
+          const note = document.createElement("span");
+          note.className = "note-box n-" + data.pen;
+          const tagLabel = data.pen === "flag" ? "Area to Improve" : data.pen === "comment" ? "General Note" : goalLabels[data.pen];
+          const strong = document.createElement("strong");
+          strong.textContent = tagLabel + ": ";
+          note.appendChild(strong);
+          note.appendChild(document.createTextNode(data.note));
+          insertAfter.insertAdjacentElement("afterend", note);
+          insertAfter = note;
+        });
+      } else {
+        span.style.cursor = "default";
+      }
+    }
+  });
+
+  if (currentView === "mine") {
+    paperWrap.querySelectorAll("[data-savekey]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const storeKey = btn.getAttribute("data-savekey");
+        const pen = btn.getAttribute("data-savepen");
+        const ta = paperWrap.querySelector('.note-input[data-notekey="' + storeKey + '"]');
+        myAnnotations[storeKey] = { pen: pen, note: ta ? ta.value : "" };
+        saveMine();
+        renderApp();
+      });
+    });
+    paperWrap.querySelectorAll("[data-removekey]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const storeKey = btn.getAttribute("data-removekey");
+        delete myAnnotations[storeKey];
+        saveMine();
+        renderApp();
+      });
+    });
+  }
+}
+
+function handleMyClick(key, span, annotationKey) {
+  const storeKey = annotationKey + "_" + key;
+
+  if (currentPen === "eraser") {
+    delete myAnnotations[storeKey];
+    saveMine();
+    renderApp();
+    return;
+  }
+
+  const existing = myAnnotations[storeKey];
+  if (existing && existing.pen === currentPen) {
+    return;
+  }
+
+  myAnnotations[storeKey] = { pen: currentPen, note: "" };
+  saveMine();
+  renderApp();
+}
+
+function renderAssignment(container) {
+  const sectionLabel = SECTIONS[currentSection].label;
+  const goals = GOALS[currentSection];
+  const answers = getAssignmentAnswers();
+
+  let html = "";
+  html += '<div class="intro"><p>This is the ' + SECTIONS[currentSection].assignmentTitle + ' workflow: review the materials, respond to the prompts below, and use the <strong>Annotation Practice</strong> tab to complete Part 2. When you\u2019re done, export your responses at the bottom of this page and submit them on Canvas.</p></div>';
+
+  html += '<div class="assign-field">';
+  html += '<label>Your Name</label>';
+  html += '<input type="text" id="assign-name" value="' + escapeAttr(answers.name) + '" placeholder="First and last name">';
+  html += '</div>';
+
+  html += '<h3 class="guide-h"><span class="step-num">1</span>Understanding the ' + sectionLabel + '</h3>';
+  html += '<div class="assign-field">';
+  html += '<div class="hint">Provide one specific question you still have about writing the ' + sectionLabel + ' section.</div>';
+  html += '<textarea id="assign-q1">' + escapeHtml(answers.q1) + '</textarea>';
+  html += '</div>';
+
+  html += '<h3 class="guide-h"><span class="step-num">2</span>Find It in Action</h3>';
+  html += '<div class="assign-field">';
+  html += '<div class="hint">Go to the <strong>Annotation Practice</strong> tab. Choose at least 3 of the ' + goals.length + ' goal colors, click the sentence(s) in Hawk RR1 that show the author meeting that goal, and write one sentence explaining why for each. Your progress below updates automatically as you highlight.</div>';
+  html += renderProgressSummary();
+  html += '</div>';
+
+  html += '<h3 class="guide-h"><span class="step-num">3</span>One Area for Improvement</h3>';
+  html += '<div class="assign-field">';
+  html += '<div class="hint">In the Annotation Practice tab, use the <strong>Flag for Improvement</strong> tool on at least one sentence and explain what you\u2019d change and why. (You can flag more than one if you like.)</div>';
+  html += '</div>';
+
+  html += '<h3 class="guide-h"><span class="step-num">4</span>Reflection</h3>';
+  html += '<div class="assign-field">';
+  html += '<div class="hint">Briefly explain one thing you learned from the materials that you can apply to your own writing.</div>';
+  html += '<textarea id="assign-q3">' + escapeHtml(answers.q3) + '</textarea>';
+  html += '</div>';
+
+  html += '<h3 class="guide-h">Submit</h3>';
+  html += '<p style="line-height:1.6; font-size:14px;">Export your responses below, then upload the file (or copy/paste the text) into the Canvas assignment.</p>';
+  html += '<div class="export-row">';
+  html += '<button class="export-btn" id="download-btn">Download my responses (.txt)</button>';
+  html += '<button class="export-btn secondary" id="copy-btn">Copy to clipboard</button>';
+  html += '</div>';
+  html += '<div class="export-confirm" id="export-confirm"></div>';
+
+  container.innerHTML = html;
+
+  document.getElementById("assign-name").addEventListener("input", (e) => saveAssignmentField("name", e.target.value));
+  document.getElementById("assign-q1").addEventListener("input", (e) => saveAssignmentField("q1", e.target.value));
+  document.getElementById("assign-q3").addEventListener("input", (e) => saveAssignmentField("q3", e.target.value));
+  document.getElementById("download-btn").addEventListener("click", downloadResponses);
+  document.getElementById("copy-btn").addEventListener("click", copyResponses);
+}
+
+function assignmentAnswersKey() { return "apaAssignmentAnswers_" + currentSection; }
+
+function getAssignmentAnswers() {
+  let a = {};
+  try { a = JSON.parse(localStorage.getItem(assignmentAnswersKey())) || {}; } catch (e) { a = {}; }
+  return { name: a.name || "", q1: a.q1 || "", q3: a.q3 || "" };
+}
+
+function saveAssignmentField(field, value) {
+  const a = getAssignmentAnswers();
+  a[field] = value;
+  localStorage.setItem(assignmentAnswersKey(), JSON.stringify(a));
+}
+
+function getGoalHighlights() {
+  const goals = GOALS[currentSection];
+  const blocks = PAPER.hawkRR1[currentSection];
+  const annotationKey = "hawkRR1_" + currentSection;
+  const goalKeys = goals.map(g => g.key);
+  const found = { byGoal: {}, flags: [] };
+  goalKeys.forEach(k => { found.byGoal[k] = []; });
+
+  Object.keys(myAnnotations).forEach(storeKey => {
+    const prefix = annotationKey + "_";
+    if (storeKey.indexOf(prefix) !== 0) return;
+    const key = storeKey.slice(prefix.length);
+    const parts = key.split("-").map(Number);
+    const b = parts[0], s = parts[1];
+    const block = blocks[b];
+    if (!block || block.type !== "para") return;
+    const sentence = block.sentences[s];
+    const data = myAnnotations[storeKey];
+    if (data.pen === "flag") {
+      found.flags.push({ sentence: sentence, note: data.note });
+    } else if (goalKeys.indexOf(data.pen) !== -1) {
+      found.byGoal[data.pen].push({ sentence: sentence, note: data.note });
+    }
+  });
+  return found;
+}
+
+function renderProgressSummary() {
+  const goals = GOALS[currentSection];
+  const found = getGoalHighlights();
+  const goalsCovered = goals.filter(g => found.byGoal[g.key].length > 0).length;
+  let html = '<div class="progress-summary">';
+  html += '<strong>' + goalsCovered + ' of ' + goals.length + ' goals highlighted</strong> (need at least 3) &middot; <strong>' + found.flags.length + ' area(s) for improvement flagged</strong> (need at least 1)';
+  html += '</div>';
+  return html;
+}
+
+function escapeHtml(s) {
+  return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function escapeAttr(s) {
+  return (s || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+function buildResponseText() {
+  const answers = getAssignmentAnswers();
+  const found = getGoalHighlights();
+  const goals = GOALS[currentSection];
+  const sectionLabel = SECTIONS[currentSection].label;
+
+  let out = "";
+  out += "APA STYLE: THE " + sectionLabel.toUpperCase() + " SECTION\n";
+  out += "Name: " + (answers.name || "[not entered]") + "\n";
+  out += "============================================================\n\n";
+
+  out += "1. UNDERSTANDING THE " + sectionLabel.toUpperCase() + "\n";
+  out += (answers.q1 || "[no response entered]") + "\n\n";
+
+  out += "2. FIND IT IN ACTION\n\n";
+  let anyGoal = false;
+  goals.forEach(g => {
+    const items = found.byGoal[g.key];
+    if (items.length === 0) return;
+    anyGoal = true;
+    out += "Goal: " + g.label + "\n";
+    items.forEach(item => {
+      out += '  Sentence: "' + item.sentence + '"\n';
+      out += "  Why it works: " + (item.note || "[no explanation entered]") + "\n\n";
+    });
+  });
+  if (!anyGoal) {
+    out += "[No goals highlighted yet \u2014 go to the Annotation Practice tab to complete this section]\n\n";
+  }
+
+  out += "3. ONE AREA FOR IMPROVEMENT\n\n";
+  if (found.flags.length === 0) {
+    out += "[No areas flagged yet \u2014 go to the Annotation Practice tab to complete this section]\n\n";
+  } else {
+    found.flags.forEach(item => {
+      out += '  Sentence: "' + item.sentence + '"\n';
+      out += "  Suggested improvement: " + (item.note || "[no explanation entered]") + "\n\n";
+    });
+  }
+
+  out += "4. REFLECTION\n";
+  out += (answers.q3 || "[no response entered]") + "\n";
+
+  return out;
+}
+
+function downloadResponses() {
+  const text = buildResponseText();
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const answers = getAssignmentAnswers();
+  const nameSlug = (answers.name || "student").replace(/[^a-z0-9]/gi, "_");
+  a.href = url;
+  a.download = nameSlug + "_" + SECTIONS[currentSection].label + "_Assignment.txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  markExported();
+  showExportConfirm("Downloaded! Upload this file to the Canvas assignment. Dr. Reich's Highlights are now unlocked.");
+}
+
+function copyResponses() {
+  const text = buildResponseText();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      markExported();
+      showExportConfirm("Copied! Paste this into the Canvas text entry box. Dr. Reich's Highlights are now unlocked.");
+    }).catch(() => {
+      showExportConfirm("Couldn't copy automatically \u2014 try the Download option instead.");
+    });
+  } else {
+    showExportConfirm("Copy isn't supported in this browser \u2014 try the Download option instead.");
+  }
+}
+
+function markExported() {
+  localStorage.setItem("apa" + currentSection + "Exported", "true");
+}
+
+function hasExported() {
+  return localStorage.getItem("apa" + currentSection + "Exported") === "true";
+}
+
+function isInstructorViewUnlocked() {
+  const hasAssignmentTab = !!SECTIONS[currentSection].assignmentTitle;
+  if (hasAssignmentTab) {
+    // Locked until the student exports their responses \u2014 no date-based fallback.
+    return hasExported();
+  }
+  // No export mechanism exists for this section, so highlights are always visible.
+  return true;
+}
+
+function showExportConfirm(msg) {
+  const el = document.getElementById("export-confirm");
+  if (!el) return;
+  el.textContent = "\u2713 " + msg;
+  el.style.display = "block";
+}
+
+renderApp();
+</script>
+
+</body>
+</html>
