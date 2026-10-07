@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discussion Pyramid – PSY 355</title>
+<style>
+  :root {
+    --navy: #1F3A5F;
+    --navy-dark: #152a45;
+    --teal: #2A9D8F;
+    --teal-light: #e3f4f2;
+    --orange: #E76F51;
+    --orange-light: #fdeee9;
+    --ink: #1d2733;
+    --muted: #5b6878;
+    --line: #d7dee6;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.4;
+  }
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 18px 24px 16px;
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; }
+  h1 { margin: 0; font-size: 1.6rem; letter-spacing: .2px; }
+  .subtitle { margin: 4px 0 0; color: #c9d6e6; font-size: .95rem; }
+  .focal {
+    margin-top: 12px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-size: 1.05rem;
+  }
+  .focal label { font-weight: bold; }
+  .focal input {
+    font: inherit; font-size: 1.05rem;
+    padding: 6px 10px; border-radius: 6px; border: 2px solid transparent;
+    min-width: 240px; flex: 0 1 320px;
+  }
+  .focal input:focus { outline: none; border-color: var(--orange); }
+
+  .toolbar {
+    max-width: 1400px; margin: 14px auto 0; padding: 0 24px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  }
+  .btn {
+    font: inherit; font-size: .9rem;
+    border: 1px solid var(--line); background: #fff; color: var(--navy);
+    padding: 7px 12px; border-radius: 6px; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--teal); }
+  .btn.on { background: var(--teal); color: #fff; border-color: var(--teal); }
+  .btn.warn { color: var(--orange); }
+  .btn.warn.confirm { background: var(--orange); color: #fff; border-color: var(--orange); }
+  .toolbar .hint { color: var(--muted); font-size: .85rem; margin-left: auto; }
+
+  main {
+    max-width: 1400px; margin: 0 auto; padding: 16px 24px 40px;
+    display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px;
+    align-items: start;
+  }
+
+  /* ---------- Pyramid ---------- */
+  .shape-label {
+    text-align: center; color: var(--muted); font-size: .85rem; margin: 2px 0;
+    text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .pyramid { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .tier {
+    position: relative;
+    color: #fff;
+    padding-top: 14px; padding-bottom: 14px;
+    min-height: 120px;
+    cursor: pointer;
+    transition: opacity .25s, filter .25s;
+  }
+  .tier.selected { filter: drop-shadow(0 0 0 transparent); }
+  .tier .sel-bar {
+    display: none; position: absolute; left: 0; right: 0; bottom: 0; height: 5px;
+    background: var(--orange);
+  }
+  .tier.selected .sel-bar { display: block; }
+  body.focus .tier:not(.selected) { opacity: .28; }
+  .tier-head {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    text-align: center;
+  }
+  .num {
+    flex: none; width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,.2); border: 2px solid rgba(255,255,255,.7);
+    display: grid; place-items: center; font-weight: bold;
+  }
+  .tier-title { font-size: 1.15rem; font-weight: bold; }
+  .tier-short { text-align: center; font-size: .88rem; color: rgba(255,255,255,.88); margin: 3px 0 8px; }
+  .cards { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 4px 0 8px; }
+  .idea {
+    background: var(--card); color: var(--ink);
+    border-left: 4px solid var(--orange);
+    border-radius: 6px; padding: 6px 28px 6px 10px; position: relative;
+    font-size: .95rem; max-width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,.18);
+    cursor: text;
+  }
+  .idea span { outline: none; display: block; word-break: break-word; }
+  .idea span:focus { background: #fff8e6; }
+  .idea .del {
+    position: absolute; top: 3px; right: 4px;
+    border: none; background: none; color: var(--muted); cursor: pointer;
+    font-size: 1rem; line-height: 1; padding: 2px 4px; border-radius: 4px;
+  }
+  .idea .del:hover { color: var(--orange); background: var(--orange-light); }
+  .add-row { display: flex; gap: 6px; justify-content: center; }
+  .add-row input {
+    font: inherit; font-size: .92rem; flex: 1 1 auto; min-width: 0; max-width: 420px;
+    padding: 6px 10px; border-radius: 6px; border: 2px solid transparent;
+    background: rgba(255,255,255,.92);
+  }
+  .add-row input:focus { outline: none; border-color: var(--orange); background: #fff; }
+  .add-row button {
+    font: inherit; font-size: .9rem; border: none; border-radius: 6px; cursor: pointer;
+    background: var(--orange); color: #fff; padding: 6px 12px; font-weight: bold;
+  }
+
+  /* ---------- Side panel ---------- */
+  aside {
+    position: sticky; top: 16px;
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px; box-shadow: 0 2px 8px rgba(31,58,95,.06);
+  }
+  .panel-step { color: var(--teal); font-weight: bold; font-size: .8rem; letter-spacing: 1.2px; text-transform: uppercase; }
+  aside h2 { margin: 4px 0 6px; font-size: 1.3rem; color: var(--navy); }
+  aside .desc { margin: 0 0 14px; color: var(--muted); }
+  .reveal-btn {
+    width: 100%; text-align: left; font: inherit; font-weight: bold; font-size: .95rem;
+    border: 1px solid var(--line); background: #fff; color: var(--navy);
+    padding: 10px 12px; border-radius: 8px; cursor: pointer; margin-top: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .reveal-btn:hover { border-color: var(--teal); }
+  .reveal-btn .chev { transition: transform .2s; }
+  .reveal-btn[aria-expanded="true"] .chev { transform: rotate(90deg); }
+  .reveal-body { display: none; padding: 10px 12px 4px; }
+  .reveal-body.open { display: block; }
+  .tip { background: var(--teal-light); border-left: 4px solid var(--teal); border-radius: 6px; }
+  .tip ul { margin: 0; padding-left: 18px; }
+  .tip li { margin-bottom: 7px; }
+  .example { background: var(--orange-light); border-left: 4px solid var(--orange); border-radius: 6px; }
+  .example .note { font-size: .8rem; color: var(--muted); margin: 0 0 6px; font-style: italic; }
+  .example p.ex { margin: 0 0 8px; }
+  .nav-row { display: flex; justify-content: space-between; margin-top: 16px; gap: 8px; }
+  .nav-row .btn { flex: 1; }
+
+  @media (max-width: 1000px) {
+    main { grid-template-columns: 1fr; }
+    aside { position: static; }
+  }
+  @media (max-width: 640px) {
+    header, .toolbar, main { padding-left: 16px; padding-right: 16px; }
+    .toolbar .hint { display: none; }
+    .tier-title { font-size: 1rem; }
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    body { background: #fff; }
+    .toolbar, aside, .add-row, .idea .del, .sel-bar { display: none !important; }
+    header { background: #fff; color: var(--navy); padding: 0 0 8px; }
+    .subtitle { color: var(--muted); }
+    .focal input { border: none; padding: 0; font-weight: bold; color: var(--ink); }
+    main { display: block; padding: 0; }
+    .tier { opacity: 1 !important; break-inside: avoid; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>Building the Discussion Section</h1>
+    <p class="subtitle">PSY 355 · Research Report 1: Known Correlates of Aggression</p>
+    <div class="focal">
+      <label for="focal">Focal relationship:</label>
+      <input id="focal" type="text" placeholder="e.g., emotional awareness" autocomplete="off">
+      <span>&amp; aggression</span>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <button class="btn" id="focusBtn" aria-pressed="false">Focus mode</button>
+  <button class="btn" id="flipBtn">Flip shape</button>
+  <button class="btn" id="downloadBtn">Download ideas (.txt)</button>
+  <button class="btn" id="printBtn">Print / Save as PDF</button>
+  <button class="btn warn" id="clearBtn">Clear all ideas</button>
+  <span class="hint">Tip: ↑ / ↓ moves between sections · double-click a card to edit it</span>
+</div>
+
+<main>
+  <section aria-label="Discussion pyramid">
+    <div class="shape-label" id="labelTop"></div>
+    <div class="pyramid" id="pyramid"></div>
+    <div class="shape-label" id="labelBottom"></div>
+  </section>
+
+  <aside id="panel" aria-live="polite"></aside>
+</main>
+
+<script>
+const TIERS = [
+  {
+    id: "goal",
+    title: "Restate the Goal",
+    short: "Remind readers what question the study asked and why it matters.",
+    questions: [
+      "What question was this study designed to answer?",
+      "Which specific relationship did you focus on (your variable and aggression)?",
+      "Why is this relationship worth studying?",
+      "Can you say it in 1–2 sentences without copying your Introduction word for word?"
+    ],
+    example: [
+      "The present study examined whether moral disengagement, the tendency to mentally justify harmful behavior, is related to aggression among college students."
+    ]
+  },
+  {
+    id: "results",
+    title: "Summarize the Results",
+    short: "Describe what you found in real-people words, and say whether it supported your hypothesis.",
+    questions: [
+      "Were your two variables related? In which direction?",
+      "How would you explain the finding to a friend who has never taken stats? (“People who ___ tended to ___.”)",
+      "Was the relationship weak, moderate, or strong?",
+      "Did the results support your hypothesis fully, partly, or not at all?",
+      "Was anything surprising or unexplained?",
+      "Are you using correlational language (“related to,” “associated with”) rather than causal language (“causes,” “leads to”)?"
+    ],
+    example: [
+      "As predicted, students who more readily made excuses for harmful behavior also tended to describe themselves as more aggressive. This relationship was moderate in size, which supports our hypothesis."
+    ]
+  },
+  {
+    id: "literature",
+    title: "Connect to the Literature",
+    short: "Tie your findings back to the research you reviewed in the Introduction.",
+    questions: [
+      "Do your results agree with the articles you reviewed in your Introduction?",
+      "Which specific studies line up with your findings? (Cite them again here.)",
+      "If your results differ, what differences between their studies and ours (sample, measures, setting) might explain it?",
+      "Is there a theory that helps explain the relationship you found?"
+    ],
+    example: [
+      "This pattern is consistent with Bandura’s (1999) account of moral disengagement, which proposes that people can switch off their usual moral standards in order to cause harm without feeling guilty. It also mirrors the positive relationship reported in prior work (Author, Year)."
+    ]
+  },
+  {
+    id: "evaluate",
+    title: "Evaluate the Study",
+    short: "Weigh the study’s strengths and limitations honestly.",
+    questions: [
+      "What did this study do well? (validated measures, good reliability, sample size)",
+      "Construct validity: Do our self-report scales really capture these constructs? Could social desirability play a role?",
+      "Statistical validity: Was the sample large enough? How reliable were the scales? How big was the effect?",
+      "External validity: Who was in our sample? Would the results generalize beyond UNCW students?",
+      "Internal validity: Why can’t a correlational design tell us about cause? What third variables could explain the link?",
+      "If you could run the study again, what would you change?"
+    ],
+    example: [
+      "One strength of this study is that both variables were measured with validated scales that showed good internal reliability in our sample.",
+      "However, because the study was correlational, we cannot conclude that moral disengagement causes aggression. A third variable, such as low empathy, could account for both. In addition, all participants were undergraduates at a single university, which limits how far these findings generalize."
+    ]
+  },
+  {
+    id: "future",
+    title: "Future Directions",
+    short: "Point to the questions that are still open and how to answer them.",
+    questions: [
+      "What questions does this study leave unanswered?",
+      "What study would address one of the limitations you just named?",
+      "Could a longitudinal or experimental design tell us more?",
+      "Who else should be studied? What other variables might matter?"
+    ],
+    example: [
+      "Future research could use a longitudinal design to test whether moral disengagement predicts later increases in aggression. Researchers could also include a behavioral measure of aggression rather than relying only on self-report."
+    ]
+  },
+  {
+    id: "conclusion",
+    title: "Conclusion & Take-Home Message",
+    short: "Zoom out: why it matters, and the one thing readers should remember.",
+    questions: [
+      "If a reader remembers only one sentence from your paper, what should it be?",
+      "Why should anyone outside this class care? What are the real-world implications?",
+      "Does your final paragraph bring the reader back to the big picture?"
+    ],
+    example: [
+      "Overall, these findings suggest that the way people justify harmful behavior is closely tied to how aggressive they are. Programs aimed at reducing aggression might benefit from directly challenging these justifications."
+    ]
+  }
+];
+
+const COLORS = ["#1F3A5F", "#1f4a69", "#205b72", "#226d7b", "#258084", "#2A9D8F"];
+const KEY = "psy355-discussion-pyramid-v1";
+
+let state = { focal: "", flipped: false, ideas: {} };
+TIERS.forEach(t => state.ideas[t.id] = []);
+let selected = 0;
+const revealed = {}; // per-tier reveal state (not saved)
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      state.focal = s.focal || "";
+      state.flipped = !!s.flipped;
+      TIERS.forEach(t => state.ideas[t.id] = Array.isArray(s.ideas?.[t.id]) ? s.ideas[t.id] : []);
+    }
+  } catch (e) {}
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+/* ---------- Pyramid geometry ----------
+   Default: narrow at top, widening downward (bottom half of the hourglass:
+   specific findings -> broad implications). "Flip" reverses it. */
+function widths(i) {
+  const minW = 40, maxW = 100, n = TIERS.length;
+  let top = minW + (maxW - minW) * i / n;
+  let bot = minW + (maxW - minW) * (i + 1) / n;
+  if (state.flipped) {
+    top = maxW - (maxW - minW) * i / n;
+    bot = maxW - (maxW - minW) * (i + 1) / n;
+  }
+  return { top, bot };
+}
+
+const pyramid = document.getElementById("pyramid");
+
+function renderPyramid() {
+  pyramid.innerHTML = "";
+  document.getElementById("labelTop").textContent = state.flipped ? "Broad" : "Specific: your study";
+  document.getElementById("labelBottom").textContent = state.flipped ? "Specific" : "Broad: the big picture";
+
+  TIERS.forEach((t, i) => {
+    const { top, bot } = widths(i);
+    const wide = Math.max(top, bot);
+    const insetPct = (Math.abs(bot - top) / 2) / wide * 100; // % of the tier's own width
+    const padPct = Math.abs(bot - top) / 2 + 2.5;            // % of the pyramid width
+
+    const tier = document.createElement("div");
+    tier.className = "tier" + (i === selected ? " selected" : "");
+    tier.style.width = wide + "%";
+    tier.style.background = COLORS[i];
+    tier.style.paddingLeft = padPct + "%";
+    tier.style.paddingRight = padPct + "%";
+    tier.style.clipPath = top < bot
+      ? `polygon(${insetPct}% 0, ${100 - insetPct}% 0, 100% 100%, 0 100%)`
+      : `polygon(0 0, 100% 0, ${100 - insetPct}% 100%, ${insetPct}% 100%)`;
+    tier.dataset.index = i;
+
+    tier.innerHTML = `
+      <div class="tier-head"><span class="num">${i + 1}</span><span class="tier-title">${t.title}</span></div>
+      <div class="tier-short">${t.short}</div>
+      <div class="cards"></div>
+      <form class="add-row" autocomplete="off">
+        <input type="text" placeholder="Add a class idea…" aria-label="Add idea to ${t.title}">
+        <button type="submit">Add</button>
+      </form>
+      <div class="sel-bar"></div>`;
+
+    const cards = tier.querySelector(".cards");
+    state.ideas[t.id].forEach((txt, j) => cards.appendChild(makeCard(t.id, j, txt)));
+
+    tier.querySelector("form").addEventListener("submit", e => {
+      e.preventDefault();
+      const input = e.target.querySelector("input");
+      const v = input.value.trim();
+      if (!v) return;
+      state.ideas[t.id].push(v);
+      save();
+      selected = i;
+      renderPyramid();
+      renderPanel();
+      pyramid.children[i].querySelector(".add-row input").focus();
+    });
+
+    tier.addEventListener("click", e => {
+      if (selected !== i) { selected = i; updateSelection(); renderPanel(); }
+    });
+
+    pyramid.appendChild(tier);
+  });
+}
+
+function makeCard(tid, j, txt) {
+  const card = document.createElement("div");
+  card.className = "idea";
+  const span = document.createElement("span");
+  span.textContent = txt;
+  span.title = "Double-click to edit";
+  span.addEventListener("dblclick", () => {
+    span.contentEditable = "true";
+    span.focus();
+    document.getSelection().selectAllChildren(span);
+  });
+  span.addEventListener("keydown", e => {
+    if (e.key === "Enter") { e.preventDefault(); span.blur(); }
+    if (e.key === "Escape") { span.textContent = state.ideas[tid][j]; span.blur(); }
+  });
+  span.addEventListener("blur", () => {
+    span.contentEditable = "false";
+    const v = span.textContent.trim();
+    if (!v) { state.ideas[tid].splice(j, 1); save(); renderPyramid(); return; }
+    state.ideas[tid][j] = v; save();
+  });
+  const del = document.createElement("button");
+  del.className = "del"; del.innerHTML = "&times;";
+  del.setAttribute("aria-label", "Remove idea");
+  del.addEventListener("click", e => {
+    e.stopPropagation();
+    state.ideas[tid].splice(j, 1); save(); renderPyramid();
+  });
+  card.append(span, del);
+  return card;
+}
+
+function updateSelection() {
+  [...pyramid.children].forEach((el, i) => el.classList.toggle("selected", i === selected));
+}
+
+/* ---------- Side panel ---------- */
+const panel = document.getElementById("panel");
+function renderPanel() {
+  const t = TIERS[selected];
+  const r = revealed[t.id] || (revealed[t.id] = { q: false, ex: false });
+  panel.innerHTML = `
+    <div class="panel-step">Step ${selected + 1} of ${TIERS.length}</div>
+    <h2>${t.title}</h2>
+    <p class="desc">${t.short}</p>
+
+    <button class="reveal-btn" data-k="q" aria-expanded="${r.q}">Guiding questions <span class="chev">▸</span></button>
+    <div class="reveal-body tip ${r.q ? "open" : ""}"><ul>${t.questions.map(q => `<li>${q}</li>`).join("")}</ul></div>
+
+    <button class="reveal-btn" data-k="ex" aria-expanded="${r.ex}">Worked example <span class="chev">▸</span></button>
+    <div class="reveal-body example ${r.ex ? "open" : ""}">
+      <p class="note">Hypothetical example: moral disengagement &amp; aggression (not one of our RR1 variables).</p>
+      ${t.example.map(p => `<p class="ex">${p}</p>`).join("")}
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" id="prevBtn" ${selected === 0 ? "disabled" : ""}>← Previous</button>
+      <button class="btn" id="nextBtn" ${selected === TIERS.length - 1 ? "disabled" : ""}>Next →</button>
+    </div>`;
+  panel.querySelectorAll(".reveal-btn").forEach(b => b.addEventListener("click", () => {
+    r[b.dataset.k] = !r[b.dataset.k]; renderPanel();
+  }));
+  panel.querySelector("#prevBtn").addEventListener("click", () => go(-1));
+  panel.querySelector("#nextBtn").addEventListener("click", () => go(1));
+}
+function go(d) {
+  const n = selected + d;
+  if (n < 0 || n >= TIERS.length) return;
+  selected = n; updateSelection(); renderPanel();
+  pyramid.children[selected].scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+/* ---------- Toolbar ---------- */
+const focalInput = document.getElementById("focal");
+focalInput.addEventListener("input", () => { state.focal = focalInput.value; save(); });
+
+const focusBtn = document.getElementById("focusBtn");
+focusBtn.addEventListener("click", () => {
+  const on = document.body.classList.toggle("focus");
+  focusBtn.classList.toggle("on", on);
+  focusBtn.setAttribute("aria-pressed", on);
+});
+
+document.getElementById("flipBtn").addEventListener("click", () => {
+  state.flipped = !state.flipped; save(); renderPyramid();
+});
+
+document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  const lines = [
+    "PSY 355 · Research Report 1: Building the Discussion Section",
+    `Focal relationship: ${state.focal || "_____"} & aggression`,
+    ""
+  ];
+  TIERS.forEach((t, i) => {
+    lines.push(`${i + 1}. ${t.title.toUpperCase()}`);
+    lines.push(`   ${t.short}`);
+    const ideas = state.ideas[t.id];
+    if (ideas.length) ideas.forEach(x => lines.push(`   • ${x}`));
+    else lines.push("   (no ideas added)");
+    lines.push("");
+  });
+  const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "RR1-discussion-ideas.txt";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+const clearBtn = document.getElementById("clearBtn");
+let clearTimer = null;
+clearBtn.addEventListener("click", () => {
+  if (!clearBtn.classList.contains("confirm")) {
+    clearBtn.classList.add("confirm");
+    clearBtn.textContent = "Click again to clear";
+    clearTimer = setTimeout(resetClear, 3000);
+    return;
+  }
+  TIERS.forEach(t => state.ideas[t.id] = []);
+  state.focal = ""; focalInput.value = "";
+  save(); renderPyramid(); resetClear();
+});
+function resetClear() {
+  clearTimeout(clearTimer);
+  clearBtn.classList.remove("confirm");
+  clearBtn.textContent = "Clear all ideas";
+}
+
+document.addEventListener("keydown", e => {
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || e.target.isContentEditable) return;
+  if (e.key === "ArrowDown") { e.preventDefault(); go(1); }
+  if (e.key === "ArrowUp") { e.preventDefault(); go(-1); }
+});
+
+/* ---------- Init ---------- */
+load();
+focalInput.value = state.focal;
+renderPyramid();
+renderPanel();
+</script>
+</body>
+</html>
